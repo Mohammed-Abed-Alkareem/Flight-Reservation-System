@@ -2,5 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="semi_transparent_gray">#80CCCCCC</color>
+    <color name="semi_transparent_gray">#65353333</color>
+    <color name="semi_transparent_black">#2F000000</color>
+    <color name="shadow_color">#55000000</color>
+    <color name="button_color">#80CCCCCC</color>
+    <color name="sky_blue">#87CEEB</color>
+
 </resources>
