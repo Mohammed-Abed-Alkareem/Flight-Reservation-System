@@ -12,15 +12,36 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FlightReservationSystem"
         tools:targetApi="31">
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".Sign.LoginActivity"
+            android:exported="true">
+        </activity>
+
+        <activity
+            android:name=".Sign.RoleSelection"
+            android:exported="true">
+        </activity>
+
+        <activity
+            android:name=".Sign.AdminSignUp"
+            android:exported="true">
+        </activity>
+
+        <activity
+            android:name=".Sign.PassengerSignUp"
+            android:exported="true">
+        </activity>
+
     </application>
 
 </manifest>

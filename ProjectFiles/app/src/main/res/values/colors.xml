@@ -7,5 +7,6 @@
     <color name="shadow_color">#55000000</color>
     <color name="button_color">#80CCCCCC</color>
     <color name="sky_blue">#87CEEB</color>
+    <color name="red">#FF0000</color>
 
 </resources>

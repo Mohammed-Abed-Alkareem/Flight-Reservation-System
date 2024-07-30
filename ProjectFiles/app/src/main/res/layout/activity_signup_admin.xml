@@ -61,7 +61,7 @@
                 android:textColorHint="#000000" />
 
             <EditText
-                android:id="@+id/editTextTextPhoneNumber"
+                android:id="@+id/phone_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="72dp"
                 android:layout_marginTop="16dp"
@@ -77,7 +77,7 @@
                 android:textColorHint="#000000" />
 
             <EditText
-                android:id="@+id/editTextTextFirstName"
+                android:id="@+id/first_name_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="72dp"
                 android:layout_marginTop="16dp"
@@ -93,7 +93,7 @@
                 android:textColorHint="#000000" />
 
             <EditText
-                android:id="@+id/editTextTextLatName"
+                android:id="@+id/last_name_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="72dp"
                 android:layout_marginTop="16dp"
@@ -126,7 +126,7 @@
                 android:textColorHint="#000000" />
 
             <EditText
-                android:id="@+id/editTextTextConfirmPassword"
+                android:id="@+id/confirm_password_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="72dp"
                 android:layout_marginTop="16dp"
@@ -142,7 +142,7 @@
                 android:textColorHint="#000000" />
 
             <Button
-                android:id="@+id/login_button"
+                android:id="@+id/register_button"
 
                 android:layout_width="350dp"
                 android:layout_height="60dp"
@@ -162,7 +162,7 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/signUp_button"
+        android:id="@+id/signup_button"
 
         android:layout_width="200dp"
         android:layout_height="50dp"
@@ -176,7 +176,7 @@
         android:fontFamily="sans-serif-medium"
         android:shadowColor="#000000"
         android:shadowRadius="50"
-        android:text="Sign Up"
+        android:text="Login"
         android:textColor="@color/sky_blue"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -194,7 +194,7 @@
         android:textColor="@android:color/white"
         android:textSize="14sp"
         android:textStyle="normal"
-        app:layout_constraintBottom_toTopOf="@+id/signUp_button"
+        app:layout_constraintBottom_toTopOf="@+id/signup_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
