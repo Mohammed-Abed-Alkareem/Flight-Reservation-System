@@ -68,7 +68,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             ContentValues passengerValues = new ContentValues();
             passengerValues.put("user_id", userId);
             passengerValues.put("passport_number", passenger.getPassport_number());
-            passengerValues.put("passport_expiration_date", passenger.getPassport_expiration_date());
+            passengerValues.put("passport_issue_date", passenger.getPassport_issue_date());
+            passengerValues.put("passport_issue_place", passenger.getPassport_issue_place());
             passengerValues.put("food_preference", passenger.getFood_preference());
             passengerValues.put("date_of_birth", passenger.getDate_of_birth());
             passengerValues.put("nationality", passenger.getNationality());
@@ -89,11 +90,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.close(); // Close database
         }
     }
-    public void insertAdmin(Admin admin) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.beginTransaction(); // Start transaction
+    public boolean insertAdmin(Admin admin) {
+        SQLiteDatabase db = null;
+        boolean success = false;
 
         try {
+            db = this.getWritableDatabase();
+            db.beginTransaction(); // Start transaction
+
             // Insert the user
             ContentValues userValues = new ContentValues();
             userValues.put("email", admin.getEmail());
@@ -109,43 +113,77 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 throw new Exception("Failed to insert user.");
             }
 
-            // If both inserts are successful, set transaction as successful
+            // If insert is successful, set transaction as successful
             db.setTransactionSuccessful();
+            success = true;
         } catch (Exception e) {
             // Handle errors and rollback transaction
             Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         } finally {
-            db.endTransaction(); // End transaction
-            db.close(); // Close database
+            if (db != null) {
+                db.endTransaction(); // End transaction
+                db.close(); // Close database
+            }
         }
+        return success;
     }
+
     public User getUserByEmail(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM Users WHERE email = ?", new String[]{email});
 
-        //check role
-        if (cursor == null) {
-            return null;
+        if (cursor != null) {
+            try {
+                if (cursor.moveToFirst()) {
+                    int roleIdx = cursor.getColumnIndex("role");
+
+                    if (roleIdx != -1) {
+                        String role = cursor.getString(roleIdx);
+
+                        if ("admin".equals(role)) {
+                            return new Admin(
+                                    getColumnValue(cursor, "email"),
+                                    getColumnValue(cursor, "phone"),
+                                    getColumnValue(cursor, "first_name"),
+                                    getColumnValue(cursor, "last_name"),
+                                    getColumnValue(cursor, "password_hash"),
+                                    getColumnValue(cursor, "role")
+                            );
+                        } else {
+                            return new Passenger(
+                                    getColumnValue(cursor, "email"),
+                                    getColumnValue(cursor, "phone"),
+                                    getColumnValue(cursor, "first_name"),
+                                    getColumnValue(cursor, "last_name"),
+                                    getColumnValue(cursor, "password_hash"),
+                                    getColumnValue(cursor, "role"),
+                                    getColumnValue(cursor, "passport_number"),
+                                    getColumnValue(cursor, "passport_issue_date"),
+                                    getColumnValue(cursor, "passport_issue_place"),
+                                    getColumnValue(cursor, "food_preference"),
+                                    getColumnValue(cursor, "date_of_birth"),
+                                    getColumnValue(cursor, "nationality")
+                            );
+                        }
+                    }
+                }
+            } finally {
+                cursor.close();
+            }
         }
 
-        cursor.moveToFirst();
-        int idx = cursor.getColumnIndex("role");
-
-        if (idx == -1) {
-            return null;
-        }
-
-        String role = cursor.getString(idx);
-
-        if (role.equals("admin")) {
-            return  new Admin(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5));
-
-        } else {
-            return  new Passenger(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8), cursor.getString(9), cursor.getString(10));
-
-        }
-
-
+        db.close();
+        return null;
     }
+
+    private String getColumnValue(Cursor cursor, String columnName) {
+        int columnIndex = cursor.getColumnIndex(columnName);
+        if (columnIndex != -1) {
+            return cursor.getString(columnIndex);
+        } else {
+            return null;
+        }
+    }
+
 }
 

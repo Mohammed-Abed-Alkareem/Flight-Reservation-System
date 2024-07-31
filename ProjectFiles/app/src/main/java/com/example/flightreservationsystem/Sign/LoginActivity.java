@@ -40,7 +40,12 @@ public class LoginActivity extends AppCompatActivity {
         signupButton = findViewById(R.id.signup_button);
 
         // Set up button click listeners
-        loginButton.setOnClickListener(v -> handleLogin());
+        loginButton.setOnClickListener(v -> {
+            handleLogin();
+            emailEditText.setError(null);
+            passwordEditText.setError(null);
+
+        });
         signupButton.setOnClickListener(v -> {
             // Handle sign up button click
             Intent intent = new Intent(LoginActivity.this, RoleSelection.class);
@@ -83,7 +88,9 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             // Display an error message
             Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show();
-            // Change the color of the email and password fields to red
+            emailEditText.setError("Invalid email or password");
+            passwordEditText.setError("Invalid email or password");
+
         }
     }
 

@@ -22,15 +22,23 @@ public class SQLQueries {
             "CREATE TABLE PassengerDetails (" +
                     "user_id INTEGER PRIMARY KEY, " +
                     "passport_number TEXT, " +
-                    "passport_expiration_date DATE, " +
+                    "passport_issue_date DATE, " +
+                    "passport_issue_place TEXT, " +
                     "food_preference TEXT, " +
                     "date_of_birth DATE, " +
                     "nationality TEXT, " +
                     "FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE" +
                     ");";
+    /* Passport number
+ Passport issue date
+ Passport issue place
+ Passport expiration date
+ Food preference (seafood, vegetarian, etc.)
+ Date of Birth
+ Nationality*/
 
     public static final String INSERT_PASSENGER_DETAILS =
-            "INSERT INTO PassengerDetails (user_id, passport_number, passport_expiration_date, food_preference, date_of_birth, nationality) " +
+            "INSERT INTO PassengerDetails (user_id, passport_number,passport_issue_date, passport_issue_place , food_preference, date_of_birth, nationality) " +
                     "VALUES (?, ?, ?, ?, ?, ?);";
 
     public static final String CREATE_FLIGHT_TABLE =

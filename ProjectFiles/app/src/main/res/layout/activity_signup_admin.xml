@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -8,12 +8,14 @@
     android:background="@drawable/background_2"
     android:backgroundTint="@color/sky_blue"
     android:backgroundTintMode="multiply"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="48dp"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
@@ -22,25 +24,18 @@
         android:text="Admin Sign Up"
         android:textColor="@android:color/white"
         android:textSize="36sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
-
+        android:textStyle="bold" />
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="407dp"
-        android:layout_height="500dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:orientation="vertical">
 
@@ -58,7 +53,8 @@
                 android:shadowDy="20"
                 android:shadowRadius="30"
                 android:textColorHighlight="#000000"
-                android:textColorHint="#000000" />
+                android:textColorHint="#000000"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/phone_edit_text"
@@ -74,7 +70,8 @@
                 android:shadowDy="20"
                 android:shadowRadius="30"
                 android:textColorHighlight="#000000"
-                android:textColorHint="#000000" />
+                android:textColorHint="#000000"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/first_name_edit_text"
@@ -90,7 +87,8 @@
                 android:shadowDy="20"
                 android:shadowRadius="30"
                 android:textColorHighlight="#000000"
-                android:textColorHint="#000000" />
+                android:textColorHint="#000000"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/last_name_edit_text"
@@ -106,12 +104,12 @@
                 android:shadowDy="20"
                 android:shadowRadius="30"
                 android:textColorHighlight="#000000"
-                android:textColorHint="#000000" />
+                android:textColorHint="#000000"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/password_edit_text"
                 android:layout_width="match_parent"
-
                 android:layout_height="72dp"
                 android:layout_marginTop="16dp"
                 android:backgroundTint="@color/black"
@@ -123,7 +121,8 @@
                 android:shadowDy="20"
                 android:shadowRadius="30"
                 android:textColorHighlight="#000000"
-                android:textColorHint="#000000" />
+                android:textColorHint="#000000"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/confirm_password_edit_text"
@@ -139,49 +138,27 @@
                 android:shadowDy="20"
                 android:shadowRadius="30"
                 android:textColorHighlight="#000000"
-                android:textColorHint="#000000" />
-
-            <Button
-                android:id="@+id/register_button"
-
-                android:layout_width="350dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="24dp"
-                android:gravity="center"
-                android:backgroundTint="#00BCD4"
-                android:backgroundTintMode="src_in"
-                android:elevation="25dp"
-                android:fontFamily="sans-serif-medium"
-                android:shadowColor="#000000"
-                android:shadowRadius="50"
-                android:text="Login"
-                android:textColorLink="@color/semi_transparent_gray"
-                android:textSize="24sp" />
+                android:textColorHint="#000000"
+                android:textSize="20sp" />
 
         </LinearLayout>
     </ScrollView>
 
     <Button
-        android:id="@+id/signup_button"
-
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="116dp"
-        android:layout_marginEnd="116dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/semi_transparent_gray"
-
+        android:id="@+id/register_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#00BCD4"
         android:backgroundTintMode="src_in"
         android:elevation="25dp"
         android:fontFamily="sans-serif-medium"
+        android:gravity="center"
         android:shadowColor="#000000"
         android:shadowRadius="50"
         android:text="Login"
-        android:textColor="@color/sky_blue"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textColorLink="@color/semi_transparent_gray"
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/signUpPrompt"
@@ -193,10 +170,23 @@
         android:text="Don't have an account?"
         android:textColor="@android:color/white"
         android:textSize="14sp"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toTopOf="@+id/signup_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textStyle="normal" />
 
+    <Button
+        android:id="@+id/signup_button"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="116dp"
+        android:layout_marginEnd="116dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/semi_transparent_gray"
+        android:backgroundTintMode="src_in"
+        android:elevation="25dp"
+        android:fontFamily="sans-serif-medium"
+        android:shadowColor="#000000"
+        android:shadowRadius="50"
+        android:text="Login"
+        android:textColor="@color/sky_blue"
+        android:textSize="20sp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

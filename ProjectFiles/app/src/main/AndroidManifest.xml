@@ -39,6 +39,7 @@
 
         <activity
             android:name=".Sign.PassengerSignUp"
+            android:windowSoftInputMode="adjustResize"
             android:exported="true">
         </activity>
 

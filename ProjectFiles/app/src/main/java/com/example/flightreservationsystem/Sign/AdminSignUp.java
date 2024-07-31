@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.flightreservationsystem.Classes.Admin;
+import com.example.flightreservationsystem.Classes.Validation;
 import com.example.flightreservationsystem.DatabaseHelper;
 import com.example.flightreservationsystem.Hash;
 import com.example.flightreservationsystem.R;
@@ -49,119 +50,81 @@ public class AdminSignUp extends AppCompatActivity {
         signupButton.setOnClickListener(v -> startActivity(loginIntent));
 
         registerButton.setOnClickListener(v -> {
-
             boolean isValid = true;
 
             String email = emailEditText.getText().toString();
             String phone = phoneEditText.getText().toString();
             String firstName = firstNameEditText.getText().toString();
             String lastName = lastNameEditText.getText().toString();
-            String password = Hash.hashPassword(passwordEditText.getText().toString());
-            String confirmPassword = Hash.hashPassword(confirmPasswordEditText.getText().toString());
+            String password = passwordEditText.getText().toString();
+            String confirmPassword = confirmPasswordEditText.getText().toString();
 
-            if (!validateEmail(email)) {
-                isValid = false;
-            }
-            if (!validatePhone(phone)) {
-                isValid = false;
-            }
-            if (!validateFirstName(firstName)) {
-                isValid = false;
-            }
-            if (!validateLastName(lastName)) {
-                isValid = false;
-            }
-            if (!validatePassword(password)) {
-                isValid = false;
-            }
-            if (!validateConfirmPassword(confirmPassword, password)) {
-                isValid = false;
-            }
+            // Clear previous errors
+            emailEditText.setError(null);
+            phoneEditText.setError(null);
+            firstNameEditText.setError(null);
+            lastNameEditText.setError(null);
+            passwordEditText.setError(null);
+            confirmPasswordEditText.setError(null);
 
-            if (isValid) {
-                // Register the user
-                Admin admin = new Admin(email, phone, firstName, lastName, password, "admin");
-                // Save the user to the database
-                databaseHelper.insertAdmin(admin);
+            try {
+                // Validation
+                if (!Validation.isValidEmail(email)) {
+                    isValid = false;
+                    emailEditText.setError("Invalid email format.");
+                }
+                if (!Validation.isValidPhone(phone)) {
+                    isValid = false;
+                    phoneEditText.setError("Invalid phone number.");
+                }
+                if (!Validation.isValidName(firstName)) {
+                    isValid = false;
+                    firstNameEditText.setError("Invalid first name.");
+                }
+                if (!Validation.isValidName(lastName)) {
+                    isValid = false;
+                    lastNameEditText.setError("Invalid last name.");
+                }
+                if (!Validation.isValidPassword(password)) {
+                    isValid = false;
+                    passwordEditText.setError("Invalid password.");
+                }
+                if (!Validation.validateConfirmPassword(confirmPassword, password)) {
+                    isValid = false;
+                    confirmPasswordEditText.setError("Passwords do not match.");
+                }
 
-                Toast.makeText(this, "Admin registered successfully", Toast.LENGTH_SHORT).show();
+                // If all validations pass, proceed with registration
+                if (isValid) {
+                    // Hash passwords
+                    String hashedPassword = Hash.hashPassword(password);
+                    String hashedConfirmPassword = Hash.hashPassword(confirmPassword);
 
+                    // Register the user
+                    Admin admin = new Admin(email, phone, firstName, lastName, hashedPassword, "admin");
+                    boolean success = databaseHelper.insertAdmin(admin);
+
+                    if (success) {
+                        Toast.makeText(this, "Admin registered successfully", Toast.LENGTH_SHORT).show();
+                        System.out.println("Admin registered successfully"
+                                + "\nEmail: " + email
+                                + "\nPhone: " + phone
+                                + "\nFirst Name: " + firstName
+                                + "\nLast Name: " + lastName
+                                + "\nPassword: " + hashedPassword);
+                    } else {
+                        throw new Exception("Failed to register admin.");
+                    }
+                }
+            } catch (Exception e) {
+                // Display error message
+                Toast.makeText(this, "Registration Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-
-
         });
 
 
+
     }
-
-    private boolean validateEmail(String email) {
-        // Validate email
-        if (email.isEmpty()) {
-            emailEditText.setError("Email is required");
-            return false;
-        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailEditText.setError("Please enter a valid email address");
-            return false;
-        }
-        return true;
-    }
-
-    private boolean validatePhone(String phone) {
-        // Validate phone number
-        if (phone.isEmpty()) {
-            phoneEditText.setError("Phone number is required");
-            return false;
-
-        } else if (!android.util.Patterns.PHONE.matcher(phone).matches()) {
-            phoneEditText.setError("Please enter a valid phone number");
-            return false;
-        }
-        return true;
-    }
-
-    private boolean validateFirstName(String firstName) {
-        // Validate first name
-        if (firstName.isEmpty()) {
-            firstNameEditText.setError("First name is required");
-            return false;
-        }
-        return true;
-    }
-
-
-    private boolean validateLastName(String lastName) {
-        // Validate last name
-        if (lastName.isEmpty()) {
-            lastNameEditText.setError("Last name is required");
-            return false;
-        }
-        return true;
-    }
-
-    private boolean validatePassword(String password) {
-        // Validate password
-        if (password.isEmpty()) {
-            passwordEditText.setError("Password is required");
-            return false;
-        } else if (password.length() < 6) {
-            passwordEditText.setError("Password must be at least 6 characters long");
-            return false;
-        }
-        return true;
-    }
-
-    private boolean validateConfirmPassword(String confirmPassword, String password) {
-        // Validate confirm password
-        if (confirmPassword.isEmpty()) {
-            confirmPasswordEditText.setError("Confirm password is required");
-            return false;
-        } else if (!confirmPassword.equals(password)) {
-            confirmPasswordEditText.setError("Passwords do not match");
-            return false;
-        }
-        return true;
-    }
-
 
 
 }
