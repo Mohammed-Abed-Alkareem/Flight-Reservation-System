@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.flightreservationsystem.Classes.User;
 import com.example.flightreservationsystem.DatabaseHelper;
 import com.example.flightreservationsystem.Hash;
+import com.example.flightreservationsystem.HomeActivity;
 import com.example.flightreservationsystem.MainActivity;
 import com.example.flightreservationsystem.R;
 
@@ -83,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (checkLogin(email, password)) {
             // Start the main activity
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
         } else {
             // Display an error message

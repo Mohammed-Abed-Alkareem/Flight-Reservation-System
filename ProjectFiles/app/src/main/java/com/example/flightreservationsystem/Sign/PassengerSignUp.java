@@ -134,7 +134,9 @@ public class PassengerSignUp extends AppCompatActivity {
                 }
                 if(!Validation.isValidDate(passportIssueDate)){
                     isValid = false;
+                    // write how it should be
                     passportIssueDateEditText.setError("Invalid date.");
+
                 }
                 if(!Validation.isValidName(passportIssuePlace)){
                     isValid = false;

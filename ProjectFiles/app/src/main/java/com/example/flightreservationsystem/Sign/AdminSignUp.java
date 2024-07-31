@@ -71,23 +71,23 @@ public class AdminSignUp extends AppCompatActivity {
                 // Validation
                 if (!Validation.isValidEmail(email)) {
                     isValid = false;
-                    emailEditText.setError("Invalid email format.");
+                    emailEditText.setError("Invalid email format. Expected format: example@domain.com");
                 }
                 if (!Validation.isValidPhone(phone)) {
                     isValid = false;
-                    phoneEditText.setError("Invalid phone number.");
+                    phoneEditText.setError("Invalid phone format. Expected format: 10 digits.");
                 }
                 if (!Validation.isValidName(firstName)) {
                     isValid = false;
-                    firstNameEditText.setError("Invalid first name.");
+                    firstNameEditText.setError("Invalid name format. Expected format: alphabetic characters and certain special characters like ',.-");
                 }
                 if (!Validation.isValidName(lastName)) {
                     isValid = false;
-                    lastNameEditText.setError("Invalid last name.");
+                    lastNameEditText.setError("Invalid name format. Expected format: alphabetic characters and certain special characters like ',.-");
                 }
                 if (!Validation.isValidPassword(password)) {
                     isValid = false;
-                    passwordEditText.setError("Invalid password.");
+                    passwordEditText.setError("Invalid password format. Expected format: at least 8 characters, with at least one digit, one lower case, one upper case letter, and one special character.");
                 }
                 if (!Validation.validateConfirmPassword(confirmPassword, password)) {
                     isValid = false;
@@ -112,6 +112,7 @@ public class AdminSignUp extends AppCompatActivity {
                                 + "\nFirst Name: " + firstName
                                 + "\nLast Name: " + lastName
                                 + "\nPassword: " + hashedPassword);
+                        startActivity(loginIntent);
                     } else {
                         throw new Exception("Failed to register admin.");
                     }
