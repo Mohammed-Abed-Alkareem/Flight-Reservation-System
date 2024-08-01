@@ -80,6 +80,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 throw new Exception("Failed to insert passenger details.");
             }
 
+            System.out.println("Passenger details inserted successfully"
+                    + "\nEmail: " + passenger.getEmail()
+                    + "\nPhone: " + passenger.getPhone()
+                    + "\nFirst Name: " + passenger.getFirst_name()
+                    + "\nLast Name: " + passenger.getLast_name()
+                    + "\nPassword: " + passenger.getPassword_hash()
+                    + "\nPassport Number: " + passenger.getPassport_number()
+                    + "\nPassport Issue Date: " + passenger.getPassport_issue_date()
+                    + "\nPassport Issue Place: " + passenger.getPassport_issue_place()
+                    + "\nFood Preference: " + passenger.getFood_preference()
+                    + "\nDate of Birth: " + passenger.getDate_of_birth()
+                    + "\nNationality: " + passenger.getNationality());
+
             // If both inserts are successful, set transaction as successful
             db.setTransactionSuccessful();
         } catch (Exception e) {
@@ -150,20 +163,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                                     getColumnValue(cursor, "role")
                             );
                         } else {
-                            return new Passenger(
-                                    getColumnValue(cursor, "email"),
-                                    getColumnValue(cursor, "phone"),
-                                    getColumnValue(cursor, "first_name"),
-                                    getColumnValue(cursor, "last_name"),
-                                    getColumnValue(cursor, "password_hash"),
-                                    getColumnValue(cursor, "role"),
-                                    getColumnValue(cursor, "passport_number"),
-                                    getColumnValue(cursor, "passport_issue_date"),
-                                    getColumnValue(cursor, "passport_issue_place"),
-                                    getColumnValue(cursor, "food_preference"),
-                                    getColumnValue(cursor, "date_of_birth"),
-                                    getColumnValue(cursor, "nationality")
-                            );
+                            // Fetch PassengerDetails for this user
+                            Cursor cursor2 = db.rawQuery("SELECT * FROM PassengerDetails WHERE user_id = ?", new String[]{cursor.getString(cursor.getColumnIndex("id"))});
+
+                            if (cursor2 != null) {
+                                try {
+                                    if (cursor2.moveToFirst()) {
+                                        return new Passenger(
+                                                getColumnValue(cursor, "email"),
+                                                getColumnValue(cursor, "phone"),
+                                                getColumnValue(cursor, "first_name"),
+                                                getColumnValue(cursor, "last_name"),
+                                                getColumnValue(cursor, "password_hash"),
+                                                getColumnValue(cursor, "role"),
+                                                getColumnValue(cursor2, "passport_number"),
+                                                getColumnValue(cursor2, "passport_issue_date"),
+                                                getColumnValue(cursor2, "passport_issue_place"),
+                                                getColumnValue(cursor2, "food_preference"),
+                                                getColumnValue(cursor2, "date_of_birth"),
+                                                getColumnValue(cursor2, "nationality")
+                                        );
+                                    }
+                                } finally {
+                                    cursor2.close();
+                                }
+                            }
                         }
                     }
                 }
@@ -184,6 +208,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return null;
         }
     }
-
 }
-

@@ -45,7 +45,7 @@
 
         android:shadowRadius="50"
 
-        android:text="User"
+        android:text="Passenger"
         android:textColor="@color/sky_blue"
         android:textColorLink="@color/semi_transparent_gray"
         android:textSize="48sp"

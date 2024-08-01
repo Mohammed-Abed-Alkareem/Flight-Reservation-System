@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -8,11 +8,12 @@
     android:background="@drawable/background_2"
     android:backgroundTint="@color/sky_blue"
     android:backgroundTintMode="multiply"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:fontFamily="sans-serif-medium"
@@ -22,39 +23,28 @@
         android:text="Welcome to our Flight Management System"
         android:textColor="@android:color/white"
         android:textSize="36sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/email_edit_text"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="72dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="88dp"
         android:layout_marginEnd="24dp"
         android:hint="Email Address"
         android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView" />
+        android:orientation="vertical" />
 
     <EditText
         android:id="@+id/password_edit_text"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="72dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:hint="Password"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/email_edit_text" />
+        android:inputType="textPassword" />
 
     <CheckBox
         android:id="@+id/remember_me_checkbox"
@@ -63,10 +53,8 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:text="Remember Me"
-        android:textSize="16dp"
         android:textColor="@android:color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/password_edit_text" />
+        android:textSize="16dp" />
 
     <Button
         android:id="@+id/register_button"
@@ -80,27 +68,22 @@
         android:fontFamily="sans-serif-medium"
         android:shadowColor="#000000"
         android:shadowRadius="50"
+        android:layout_gravity="center"
         android:text="Login"
         android:textColorLink="@color/semi_transparent_gray"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/remember_me_checkbox" />
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/signUpPrompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginTop="180dp"
         android:text="Don't have an account?"
         android:textColor="@android:color/white"
         android:textSize="14sp"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toTopOf="@+id/signup_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_gravity="center"
+        android:textStyle="normal" />
 
     <Button
         android:id="@+id/signup_button"
@@ -112,14 +95,10 @@
         android:backgroundTintMode="src_in"
         android:elevation="25dp"
         android:fontFamily="sans-serif-medium"
-
+android:layout_gravity="center"
         android:shadowColor="#000000"
         android:shadowRadius="50"
         android:text="Sign Up"
         android:textColor="@color/sky_blue"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:textSize="20sp" />
+</LinearLayout>

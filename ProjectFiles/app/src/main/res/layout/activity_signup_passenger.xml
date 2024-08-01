@@ -232,7 +232,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Don't have an account?"
+        android:text="Already have an account?"
         android:textColor="@android:color/white"
         android:textSize="14sp"
         android:textStyle="normal" />
@@ -248,7 +248,7 @@
         android:fontFamily="sans-serif-medium"
         android:shadowColor="#000000"
         android:shadowRadius="50"
-        android:text="Sign Up"
+        android:text="login"
         android:textColor="@color/sky_blue"
         android:textSize="20sp" />
 

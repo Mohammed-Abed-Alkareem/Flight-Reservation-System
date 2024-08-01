@@ -43,6 +43,8 @@ public class PassengerSignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_passenger);
 
+        databaseHelper = new DatabaseHelper(this, null, 1);
+
         emailEditText = findViewById(R.id.email_edit_text);
         phoneEditText = findViewById(R.id.phone_edit_text);
         firstNameEditText = findViewById(R.id.first_name_edit_text);
@@ -105,23 +107,23 @@ public class PassengerSignUp extends AppCompatActivity {
                 // Validation
                 if (!Validation.isValidEmail(email)) {
                     isValid = false;
-                    emailEditText.setError("Invalid email format.");
+                    emailEditText.setError("Invalid email format. Expected format: example@domain.com");
                 }
                 if (!Validation.isValidPhone(phone)) {
                     isValid = false;
-                    phoneEditText.setError("Invalid phone number.");
+                    phoneEditText.setError("Invalid phone format. Expected format: 10 digits.");
                 }
                 if (!Validation.isValidName(firstName)) {
                     isValid = false;
-                    firstNameEditText.setError("Invalid first name.");
+                    firstNameEditText.setError("Invalid name format. Expected format: alphabetic characters and certain special characters like ',.-");
                 }
                 if (!Validation.isValidName(lastName)) {
                     isValid = false;
-                    lastNameEditText.setError("Invalid last name.");
+                    lastNameEditText.setError("Invalid name format. Expected format: alphabetic characters and certain special characters like ',.-");
                 }
                 if (!Validation.isValidPassword(password)) {
                     isValid = false;
-                    passwordEditText.setError("Invalid password.");
+                    passwordEditText.setError("Invalid password format. Expected format: at least 8 characters, with at least one digit, one lower case, one upper case letter, and one special character.");
                 }
                 if (!Validation.validateConfirmPassword(confirmPassword, password)) {
                     isValid = false;
@@ -130,25 +132,25 @@ public class PassengerSignUp extends AppCompatActivity {
 
                 if(!Validation.isValidPassportNumber(passportNumber)){
                     isValid = false;
-                    passportNumberEditText.setError("Invalid passport number.");
+                    passportNumberEditText.setError("Invalid passport number format. Expected format: two uppercase letters followed by seven digits.");
                 }
                 if(!Validation.isValidDate(passportIssueDate)){
                     isValid = false;
                     // write how it should be
-                    passportIssueDateEditText.setError("Invalid date.");
+                    passportIssueDateEditText.setError("Invalid passport issue date format. Expected format: YYYY-MM-DD.");
 
                 }
                 if(!Validation.isValidName(passportIssuePlace)){
                     isValid = false;
-                    passportIssuePlaceEditText.setError("Invalid place.");
+                    passportIssuePlaceEditText.setError("Invalid name format. Expected format: alphabetic characters and certain special characters like ',.-");
                 }
                 if(!Validation.isValidDate(passportExpiryDate)){
                     isValid = false;
-                    passportExpiryDateEditText.setError("Invalid date.");
+                    passportExpiryDateEditText.setError("Invalid passport expiry date format. Expected format: YYYY-MM-DD.");
                 }
                 if(!Validation.isValidDate(dateOfBirth)){
                     isValid = false;
-                    dateOfBirthEditText.setError("Invalid date.");
+                    dateOfBirthEditText.setError("Invalid date of birth format. Expected format: YYYY-MM-DD.");
                 }
 
                 if (isValid) {

@@ -156,20 +156,21 @@
         android:gravity="center"
         android:shadowColor="#000000"
         android:shadowRadius="50"
-        android:text="Login"
+        android:text="Register"
         android:textColorLink="@color/semi_transparent_gray"
         android:textSize="24sp" />
 
     <TextView
         android:id="@+id/signUpPrompt"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="145dp"
-        android:layout_marginEnd="144dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:text="Don't have an account?"
+        android:text="Already have an account?"
         android:textColor="@android:color/white"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:textStyle="normal" />
 
     <Button
