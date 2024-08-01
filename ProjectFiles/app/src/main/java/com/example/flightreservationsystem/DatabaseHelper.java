@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.flightreservationsystem.Classes.Admin;
@@ -144,6 +145,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public User getUserByEmail(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM Users WHERE email = ?", new String[]{email});
+        Log.d("DatabaseHelper", "Querying Users with email: " + email);
 
         if (cursor != null) {
             try {
@@ -152,9 +154,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
                     if (roleIdx != -1) {
                         String role = cursor.getString(roleIdx);
+                        Log.d("DatabaseHelper", "User role: " + role);
 
                         if ("admin".equals(role)) {
                             return new Admin(
+                                    Integer.parseInt(getColumnValue(cursor, "user_id")),
                                     getColumnValue(cursor, "email"),
                                     getColumnValue(cursor, "phone"),
                                     getColumnValue(cursor, "first_name"),
@@ -164,12 +168,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                             );
                         } else {
                             // Fetch PassengerDetails for this user
-                            Cursor cursor2 = db.rawQuery("SELECT * FROM PassengerDetails WHERE user_id = ?", new String[]{cursor.getString(cursor.getColumnIndex("id"))});
+                            String userId = getColumnValue(cursor, "user_id");
+                            Cursor cursor2 = db.rawQuery("SELECT * FROM PassengerDetails WHERE user_id = ?", new String[]{userId});
+                            Log.d("DatabaseHelper", "Querying PassengerDetails with user_id: " + userId);
 
                             if (cursor2 != null) {
                                 try {
                                     if (cursor2.moveToFirst()) {
                                         return new Passenger(
+                                                Integer.parseInt(getColumnValue(cursor, "user_id")),
                                                 getColumnValue(cursor, "email"),
                                                 getColumnValue(cursor, "phone"),
                                                 getColumnValue(cursor, "first_name"),
@@ -183,17 +190,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                                                 getColumnValue(cursor2, "date_of_birth"),
                                                 getColumnValue(cursor2, "nationality")
                                         );
+                                    } else {
+                                        Log.e("DatabaseHelper", "No rows returned for PassengerDetails with user_id: " + userId);
                                     }
                                 } finally {
                                     cursor2.close();
                                 }
+                            } else {
+                                Log.e("DatabaseHelper", "Failed to query PassengerDetails with user_id: " + userId);
                             }
                         }
+                    } else {
+                        Log.e("DatabaseHelper", "'role' column not found in Users table.");
                     }
+                } else {
+                    Log.e("DatabaseHelper", "No rows returned for Users with email: " + email);
                 }
             } finally {
                 cursor.close();
             }
+        } else {
+            Log.e("DatabaseHelper", "Failed to query Users with email: " + email);
         }
 
         db.close();
@@ -205,6 +222,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (columnIndex != -1) {
             return cursor.getString(columnIndex);
         } else {
+            Log.e("DatabaseHelper", "Column " + columnName + " not found.");
             return null;
         }
     }

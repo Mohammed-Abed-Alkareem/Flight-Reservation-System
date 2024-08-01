@@ -101,17 +101,20 @@ public class AdminSignUp extends AppCompatActivity {
                     String hashedConfirmPassword = Hash.hashPassword(confirmPassword);
 
                     // Register the user
-                    Admin admin = new Admin(email, phone, firstName, lastName, hashedPassword, "admin");
+                    Admin admin = new Admin(
+                            0, // dummy id
+                            email,
+                            phone,
+                            firstName,
+                            lastName,
+                            hashedPassword,
+                            "admin"
+                    );
                     boolean success = databaseHelper.insertAdmin(admin);
 
                     if (success) {
                         Toast.makeText(this, "Admin registered successfully", Toast.LENGTH_SHORT).show();
-                        System.out.println("Admin registered successfully"
-                                + "\nEmail: " + email
-                                + "\nPhone: " + phone
-                                + "\nFirst Name: " + firstName
-                                + "\nLast Name: " + lastName
-                                + "\nPassword: " + hashedPassword);
+
                         startActivity(loginIntent);
                     } else {
                         throw new Exception("Failed to register admin.");

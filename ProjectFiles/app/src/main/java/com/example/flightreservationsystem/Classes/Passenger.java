@@ -19,8 +19,8 @@ public class Passenger extends User {
     private String date_of_birth;
     private String nationality;
 
-    public Passenger(String email, String phone, String first_name, String last_name, String password_hash, String role, String passport_number, String passport_issue_date, String passport_issue_place , String food_preference, String date_of_birth, String nationality) {
-        super(email, phone, first_name, last_name, password_hash, role);
+    public Passenger(int id, String email, String phone, String first_name, String last_name, String password_hash, String role, String passport_number, String passport_issue_date, String passport_issue_place , String food_preference, String date_of_birth, String nationality) {
+        super(id, email, phone, first_name, last_name, password_hash, role);
         this.passport_number = passport_number;
         this.passport_issue_date = passport_issue_date;
         this.passport_issue_place = passport_issue_place;

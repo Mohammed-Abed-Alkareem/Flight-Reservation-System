@@ -1,6 +1,7 @@
 package com.example.flightreservationsystem.Classes;
 
 public class User {
+    private int id;
     private String email;
     private String phone;
     private String first_name;
@@ -8,8 +9,8 @@ public class User {
     private String password_hash;
     private String role;
 
-    public User(String email, String phone, String first_name, String last_name, String password_hash, String role) {
-
+    public User(int id, String email, String phone, String first_name, String last_name, String password_hash, String role) {
+        this.id = id;
         this.email = email;
         this.phone = phone;
         this.first_name = first_name;
@@ -18,6 +19,13 @@ public class User {
         this.role = role;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getEmail() {
         return email;

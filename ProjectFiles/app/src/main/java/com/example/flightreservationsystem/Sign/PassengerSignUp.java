@@ -6,12 +6,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.flightreservationsystem.Classes.Passenger;
 import com.example.flightreservationsystem.Classes.Validation;
 import com.example.flightreservationsystem.DatabaseHelper;
+import com.example.flightreservationsystem.Hash;
 import com.example.flightreservationsystem.R;
 import com.example.flightreservationsystem.Sign.LoginActivity;
 
@@ -155,16 +157,34 @@ public class PassengerSignUp extends AppCompatActivity {
 
                 if (isValid) {
                     // Create a new Passenger object
-                    Passenger passenger = new Passenger(email, phone, firstName, lastName, password, "passenger", passportNumber, passportIssueDate, passportIssuePlace, foodPreferencesSpinner.getSelectedItem().toString(), dateOfBirth, nationalityEditText.getText().toString());
+                    Passenger passenger = new Passenger(
+                            0, // dummy id
+                            email,
+                            phone,
+                            firstName,
+                            lastName,
+                            Hash.hashPassword(password),
+                            "passenger",
+                            passportNumber,
+                            passportIssueDate,
+                            passportIssuePlace,
+                            foodPreferencesSpinner.getSelectedItem().toString(),
+                            dateOfBirth,
+                            nationalityEditText.getText().toString()
+                    );
+
                     // Add the Passenger object to the database
                     databaseHelper.insertPassengerDetails(passenger);
                     // Redirect to the login page
                     startActivity(loginIntent);
+                }else {
+                    throw new Exception("Failed to register passenger.");
                 }
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
+            // Display error message
+            Toast.makeText(this, "Registration Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
 
 
 

@@ -47,9 +47,8 @@ public class LoginActivity extends AppCompatActivity {
             emailEditText.setError(null);
             passwordEditText.setError(null);
             handleLogin();
-
-
         });
+
         signupButton.setOnClickListener(v -> {
             // Handle sign up button click
             Intent intent = new Intent(LoginActivity.this, RoleSelection.class);
@@ -77,8 +76,7 @@ public class LoginActivity extends AppCompatActivity {
             editor.putString("password", password);
             editor.putBoolean("rememberMe", true);
             editor.apply();
-        }
-        else {
+        } else {
             // Clear saved email and password if "Remember Me" is not checked
             SharedPreferences preferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
@@ -86,8 +84,15 @@ public class LoginActivity extends AppCompatActivity {
             editor.apply();
         }
 
-        if (checkLogin(email, password)) {
-            // Start the main activity
+        User user = checkLogin(email, password);
+        if (user != null) {
+            // Save the user details to SharedPreferences
+            SharedPreferences preferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt("userId", user.getId());
+            editor.putString("userRole", user instanceof Passenger ? "Passenger" : "Admin");
+            editor.apply();
+
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
         } else {
@@ -95,52 +100,29 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show();
             emailEditText.setError("Invalid email or password");
             passwordEditText.setError("Invalid email or password");
-
         }
     }
 
-    private Boolean checkLogin(String email, String password) {
+    private User checkLogin(String email, String password) {
         User user = databaseHelper.getUserByEmail(email);
 
         if (user == null) {
-            return false;
+            return null;
         }
 
-
-        //check if instatnt of passenger
+        String hashedPassword = Hash.hashPassword(password);
         if (user instanceof Passenger) {
             Passenger passenger = (Passenger) user;
-            System.out.println(passenger.getPassport_number());
-            System.out.println("passenger");
-            System.out.println("Passenger details inserted successfully"
-                    + "\nEmail: " + passenger.getEmail()
-                    + "\nPhone: " + passenger.getPhone()
-                    + "\nFirst Name: " + passenger.getFirst_name()
-                    + "\nLast Name: " + passenger.getLast_name()
-                    + "\nPassword: " + passenger.getPassword_hash()
-                    + "\nPassport Number: " + passenger.getPassport_number()
-                    + "\nPassport Issue Date: " + passenger.getPassport_issue_date()
-                    + "\nPassport Issue Place: " + passenger.getPassport_issue_place()
-                    + "\nFood Preference: " + passenger.getFood_preference()
-                    + "\nDate of Birth: " + passenger.getDate_of_birth()
-                    + "\nNationality: " + passenger.getNationality());
-            return passenger.getPassword_hash().equals(Hash.hashPassword(password));
-        }
-        if (user instanceof Admin) {
+            if (passenger.getPassword_hash().equals(hashedPassword)) {
+                return passenger;
+            }
+        } else if (user instanceof Admin) {
             Admin admin = (Admin) user;
-
-            System.out.println(admin.getEmail());
-            System.out.println("admin");
-
-            return admin.getPassword_hash().equals(Hash.hashPassword(password));
+            if (admin.getPassword_hash().equals(hashedPassword)) {
+                return admin;
+            }
         }
-        return false;
+
+        return null;
     }
-
-
-
-
-
-
-
 }
