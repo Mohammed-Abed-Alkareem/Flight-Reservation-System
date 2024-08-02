@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_schedule"
+            android:icon="@drawable/ic_menu_schedule"
+        android:title="Schedule Flight" />
+        <item
+            android:id="@+id/nav_edit_delete"
+            android:icon="@drawable/ic_menu_edit"
+        android:title="Edit/Delete Flight" />
+        <item
+            android:id="@+id/nav_view_open"
+            android:icon="@drawable/ic_menu_open"
+        android:title="View Open Flights" />
+        <item
+            android:id="@+id/nav_view_unavailable"
+            android:icon="@drawable/ic_menu_unavailable"
+        android:title="View Unavailable Flights" />
+        <item
+            android:id="@+id/nav_view_archive"
+            android:icon="@drawable/ic_menu_archive"
+        android:title="View Archive" />
+        <item
+            android:id="@+id/nav_view_reservations"
+            android:icon="@drawable/ic_menu_reservations"
+        android:title="View Reservations" />
+        <item
+            android:id="@+id/nav_filter"
+            android:icon="@drawable/ic_menu_filter"
+        android:title="Filter Flights" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_menu_logout"
+        android:title="Logout" />
+
+    </group>
+</menu>

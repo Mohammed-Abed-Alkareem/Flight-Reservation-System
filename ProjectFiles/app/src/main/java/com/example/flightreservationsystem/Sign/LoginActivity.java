@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.flightreservationsystem.AdminHomeActivity.AdminHomeActivity;
 import com.example.flightreservationsystem.Classes.Admin;
 import com.example.flightreservationsystem.Classes.Passenger;
 import com.example.flightreservationsystem.Classes.User;
@@ -102,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
 //            else if (user instanceof Passenger) {
 //                intent = new Intent(LoginActivity.this, PassengerHomeActivity.class);
 //            }
-            intent = new Intent(LoginActivity.this, RoleSelection.class);
+            intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
             startActivity(intent);
         } else {
             // Display an error message
