@@ -138,7 +138,6 @@ public class PassengerSignUp extends AppCompatActivity {
                 }
                 if(!Validation.isValidDate(passportIssueDate)){
                     isValid = false;
-                    // write how it should be
                     passportIssueDateEditText.setError("Invalid passport issue date format. Expected format: YYYY-MM-DD.");
 
                 }

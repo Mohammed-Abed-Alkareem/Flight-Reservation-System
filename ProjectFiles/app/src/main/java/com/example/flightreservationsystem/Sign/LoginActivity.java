@@ -15,8 +15,7 @@ import com.example.flightreservationsystem.Classes.Passenger;
 import com.example.flightreservationsystem.Classes.User;
 import com.example.flightreservationsystem.DatabaseHelper;
 import com.example.flightreservationsystem.Hash;
-import com.example.flightreservationsystem.HomeActivity;
-import com.example.flightreservationsystem.MainActivity;
+//import com.example.flightreservationsystem.AdminActivites.AdminHomeActivity;
 import com.example.flightreservationsystem.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -90,10 +89,20 @@ public class LoginActivity extends AppCompatActivity {
             SharedPreferences preferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
             editor.putInt("userId", user.getId());
+            //add name
+            editor.putString("userFirstName", user.getFirst_name());
             editor.putString("userRole", user instanceof Passenger ? "Passenger" : "Admin");
             editor.apply();
 
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            Intent intent = null;
+//            if (user instanceof Admin) {
+//                intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
+
+//            }
+//            else if (user instanceof Passenger) {
+//                intent = new Intent(LoginActivity.this, PassengerHomeActivity.class);
+//            }
+            intent = new Intent(LoginActivity.this, RoleSelection.class);
             startActivity(intent);
         } else {
             // Display an error message

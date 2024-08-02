@@ -44,10 +44,7 @@
         </activity>
 
 
-        <activity
-            android:name=".HomeActivity"
-            android:exported="true">
-        </activity>
+
 
     </application>
 

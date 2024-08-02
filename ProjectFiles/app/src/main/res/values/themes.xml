@@ -6,4 +6,13 @@
     </style>
 
     <style name="Theme.FlightReservationSystem" parent="Base.Theme.FlightReservationSystem" />
+
+    <style name="Theme.FlightReservationSystem.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.FlightReservationSystem.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.FlightReservationSystem.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
