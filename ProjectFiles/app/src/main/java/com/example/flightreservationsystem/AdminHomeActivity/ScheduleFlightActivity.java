@@ -1,23 +1,25 @@
 package com.example.flightreservationsystem.AdminHomeActivity;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.flightreservationsystem.R;
 import com.example.flightreservationsystem.Sign.LoginActivity;
 
-public class AdminHomeActivity extends AppCompatActivity {
+public class ScheduleFlightActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     ImageView menu;
@@ -27,7 +29,7 @@ public class AdminHomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.admin_home_activity);
+        setContentView(R.layout.activity_schedule_flight);
 
         drawerLayout = findViewById(R.id.admin_drawer_layout);
         menu = findViewById(R.id.menu_icon);
@@ -51,57 +53,57 @@ public class AdminHomeActivity extends AppCompatActivity {
         schedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                redirectActivity(AdminHomeActivity.this, ScheduleFlightActivity.class);
+                redirectActivity(ScheduleFlightActivity.this, ScheduleFlightActivity.class);
             }
         });
 //
 //        edit.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                startActivity(new Intent(AdminHomeActivity.this, EditFlightActivity.class));
+//                startActivity(new Intent(ScheduleFlightActivity.this, EditFlightActivity.class));
 //            }
 //        });
 //
 //        open.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                startActivity(new Intent(AdminHomeActivity.this, ViewOpenFlightsActivity.class));
+//                startActivity(new Intent(ScheduleFlightActivity.this, ViewOpenFlightsActivity.class));
 //            }
 //        });
 //
 //        unavailable.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                startActivity(new Intent(AdminHomeActivity.this, ViewUnavailableFlightsActivity.class));
+//                startActivity(new Intent(ScheduleFlightActivity.this, ViewUnavailableFlightsActivity.class));
 //            }
 //        });
 //
 //        archive.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                startActivity(new Intent(AdminHomeActivity.this, ViewFlightsArchiveActivity.class));
+//                startActivity(new Intent(ScheduleFlightActivity.this, ViewFlightsArchiveActivity.class));
 //            }
 //        });
 //
 //        reservation.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                startActivity(new Intent(AdminHomeActivity.this, ViewReservationsActivity.class));
+//                startActivity(new Intent(ScheduleFlightActivity.this, ViewReservationsActivity.class));
 //            }
 //        });
 //
 //        filter.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                startActivity(new Intent(AdminHomeActivity.this, FilterFlightsActivity.class));
+//                startActivity(new Intent(ScheduleFlightActivity.this, FilterFlightsActivity.class));
 //            }
 //        });
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(AdminHomeActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(AdminHomeActivity.this, LoginActivity.class));
+                Toast.makeText(ScheduleFlightActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(ScheduleFlightActivity.this, LoginActivity.class));
             }
         });
 
@@ -130,5 +132,4 @@ public class AdminHomeActivity extends AppCompatActivity {
         super.onPause();
         closeDrawer(drawerLayout);
     }
-
 }
