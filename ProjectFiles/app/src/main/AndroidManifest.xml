@@ -14,6 +14,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FlightReservationSystem">
         <activity
+            android:name=".AdminHomeActivity.FilterFlightsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminHomeActivity.ViewReservationsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminHomeActivity.ViewFlightsArchiveActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminHomeActivity.ViewUnavailableActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminHomeActivity.ViewOpenFlightsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminHomeActivity.EditFlightActivity"
+            android:exported="false" />
+        <activity
             android:name=".AdminHomeActivity.ScheduleFlightActivity"
             android:exported="false" />
         <activity
@@ -30,7 +48,6 @@
         <activity android:name=".Sign.AdminSignUp" />
         <activity android:name=".Sign.PassengerSignUp" />
         <activity android:name=".Sign.RoleSelection" />
-
     </application>
 
 </manifest>

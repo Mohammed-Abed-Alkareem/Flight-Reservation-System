@@ -1,11 +1,9 @@
 package com.example.flightreservationsystem.AdminHomeActivity;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -17,24 +15,19 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.flightreservationsystem.R;
 import com.example.flightreservationsystem.Sign.LoginActivity;
 
-public class AdminHomeActivity extends AppCompatActivity {
-
+public class EditFlightActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ImageView menu;
 
     LinearLayout home, schedule , edit , open , unavailable, archive ,reservation ,filter , logout;
 
-    Button menuButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.admin_home_activity);
+        setContentView(R.layout.activity_edit_flight);
 
         drawerLayout = findViewById(R.id.admin_drawer_layout);
         menu = findViewById(R.id.menu_icon);
-
-        menuButton = findViewById(R.id.menu);
 
         home = findViewById(R.id.admin_home);
         schedule = findViewById(R.id.schedule_flight);
@@ -46,7 +39,6 @@ public class AdminHomeActivity extends AppCompatActivity {
         filter = findViewById(R.id.filter_flights);
         logout = findViewById(R.id.logout);
 
-
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,75 +46,67 @@ public class AdminHomeActivity extends AppCompatActivity {
             }
         });
 
-        menuButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDrawer(drawerLayout);
-            }
-        });
-
-
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recreate();
+                redirectActivity(EditFlightActivity.this, AdminHomeActivity.class);
             }
         });
 
         schedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                redirectActivity(AdminHomeActivity.this, ScheduleFlightActivity.class);
+               redirectActivity(EditFlightActivity.this, ScheduleFlightActivity.class);
             }
         });
 
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                redirectActivity(AdminHomeActivity.this, EditFlightActivity.class);
+                recreate();
             }
         });
 
         open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                redirectActivity(AdminHomeActivity.this, ViewOpenFlightsActivity.class);
+                startActivity(new Intent(EditFlightActivity.this, ViewOpenFlightsActivity.class));
             }
         });
 
         unavailable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                redirectActivity(AdminHomeActivity.this, ViewUnavailableActivity.class);
+                startActivity(new Intent(EditFlightActivity.this, ViewUnavailableActivity.class));
             }
         });
 
         archive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                redirectActivity(AdminHomeActivity.this, ViewFlightsArchiveActivity.class);
+                startActivity(new Intent(EditFlightActivity.this, ViewFlightsArchiveActivity.class));
             }
         });
 
         reservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                redirectActivity(AdminHomeActivity.this, ViewReservationsActivity.class);
+                startActivity(new Intent(EditFlightActivity.this, ViewReservationsActivity.class));
             }
         });
 
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                redirectActivity(AdminHomeActivity.this, FilterFlightsActivity.class);
+                startActivity(new Intent(EditFlightActivity.this, FilterFlightsActivity.class));
             }
         });
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(AdminHomeActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();
-                redirectActivity(AdminHomeActivity.this, LoginActivity.class);
+                Toast.makeText(EditFlightActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(EditFlightActivity.this, LoginActivity.class));
             }
         });
 
@@ -151,5 +135,4 @@ public class AdminHomeActivity extends AppCompatActivity {
         super.onPause();
         closeDrawer(drawerLayout);
     }
-
 }

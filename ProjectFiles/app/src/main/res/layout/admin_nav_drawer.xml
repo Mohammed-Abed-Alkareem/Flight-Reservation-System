@@ -46,17 +46,43 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/admin_home"
+        android:orientation="horizontal"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:text="Home"
+            android:gravity="center"
+            android:textAlignment="textStart"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:drawableLeft="@drawable/home"
+            android:drawablePadding="8dp"
+            android:layout_marginStart="8dp"/>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/schedule_flight"
         android:orientation="horizontal"
         android:layout_marginStart="12dp"
         android:layout_marginTop="12dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:text="Schedule Flight"
             android:gravity="center"
-            android:layout_marginTop="10dp"
+            android:textAlignment="textStart"
+            android:layout_marginTop="5dp"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:drawableLeft="@drawable/ic_menu_schedule"
@@ -76,12 +102,13 @@
         android:layout_marginTop="12dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:text="Edit or delete an existing flight"
             android:gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:textColor="@color/black"
+            android:textAlignment="textStart"
             android:textSize="16sp"
             android:drawableLeft="@drawable/ic_menu_edit"
             android:drawablePadding="8dp"
@@ -99,11 +126,12 @@
         android:layout_marginTop="12dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:text="View Existing Flights Open for Reservation"
             android:gravity="center"
-            android:layout_marginTop="10dp"
+            android:textAlignment="textStart"
+            android:layout_marginTop="5dp"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:drawableLeft="@drawable/ic_menu_open"
@@ -120,11 +148,12 @@
         android:layout_marginTop="12dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:text="View Flights Not Available for Reservation"
             android:gravity="center"
-            android:layout_marginTop="10dp"
+            android:textAlignment="textStart"
+            android:layout_marginTop="5dp"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:drawableLeft="@drawable/ic_menu_unavailable"
@@ -141,11 +170,12 @@
         android:layout_marginTop="12dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:text="View Flights Archive"
             android:gravity="center"
-            android:layout_marginTop="10dp"
+            android:textAlignment="textStart"
+            android:layout_marginTop="5dp"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:drawableLeft="@drawable/ic_menu_archive"
@@ -162,11 +192,12 @@
         android:layout_marginTop="12dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:text="View All Reservations of a Certain Flight"
             android:gravity="center"
-            android:layout_marginTop="10dp"
+            android:textAlignment="textStart"
+            android:layout_marginTop="5dp"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:drawableLeft="@drawable/ic_menu_reservations"
@@ -183,11 +214,12 @@
         android:layout_marginTop="12dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:text="Filter Flights by Date and Place"
             android:gravity="center"
-            android:layout_marginTop="10dp"
+            android:textAlignment="textStart"
+            android:layout_marginTop="5dp"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:drawableLeft="@drawable/ic_menu_filter"

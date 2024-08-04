@@ -8,12 +8,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.flightreservationsystem.R;
@@ -24,7 +20,7 @@ public class ScheduleFlightActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ImageView menu;
 
-    LinearLayout schedule , edit , open , unavailable, archive ,reservation ,filter , logout;
+    LinearLayout home, schedule , edit , open , unavailable, archive ,reservation ,filter , logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +30,7 @@ public class ScheduleFlightActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.admin_drawer_layout);
         menu = findViewById(R.id.menu_icon);
 
+        home = findViewById(R.id.admin_home);
         schedule = findViewById(R.id.schedule_flight);
         edit = findViewById(R.id.edit_flight);
         open = findViewById(R.id.view_open_flights);
@@ -50,54 +47,61 @@ public class ScheduleFlightActivity extends AppCompatActivity {
             }
         });
 
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redirectActivity(ScheduleFlightActivity.this, AdminHomeActivity.class);
+            }
+        });
+
         schedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                redirectActivity(ScheduleFlightActivity.this, ScheduleFlightActivity.class);
+               recreate();
             }
         });
-//
-//        edit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(ScheduleFlightActivity.this, EditFlightActivity.class));
-//            }
-//        });
-//
-//        open.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(ScheduleFlightActivity.this, ViewOpenFlightsActivity.class));
-//            }
-//        });
-//
-//        unavailable.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(ScheduleFlightActivity.this, ViewUnavailableFlightsActivity.class));
-//            }
-//        });
-//
-//        archive.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(ScheduleFlightActivity.this, ViewFlightsArchiveActivity.class));
-//            }
-//        });
-//
-//        reservation.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(ScheduleFlightActivity.this, ViewReservationsActivity.class));
-//            }
-//        });
-//
-//        filter.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(ScheduleFlightActivity.this, FilterFlightsActivity.class));
-//            }
-//        });
+
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ScheduleFlightActivity.this, EditFlightActivity.class));
+            }
+        });
+
+        open.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ScheduleFlightActivity.this, ViewOpenFlightsActivity.class));
+            }
+        });
+
+        unavailable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ScheduleFlightActivity.this, ViewUnavailableActivity.class));
+            }
+        });
+
+        archive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ScheduleFlightActivity.this, ViewFlightsArchiveActivity.class));
+            }
+        });
+
+        reservation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ScheduleFlightActivity.this, ViewReservationsActivity.class));
+            }
+        });
+
+        filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ScheduleFlightActivity.this, FilterFlightsActivity.class));
+            }
+        });
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
