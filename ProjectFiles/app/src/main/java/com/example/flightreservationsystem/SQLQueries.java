@@ -47,12 +47,15 @@ public class SQLQueries {
                     "flight_number TEXT UNIQUE NOT NULL, " +
                     "departure_city TEXT NOT NULL, " +
                     "arrival_city TEXT NOT NULL, " +
-                    "departure_datetime DATETIME NOT NULL, " +
-                    "arrival_datetime DATETIME NOT NULL, " +
+                    "departure_date DATE NOT NULL, " +
+                    "departure_ime Time NOT NULL, " +
+                    "arrival_date DATE NOT NULL, " +
+                    "arrival_time Time NOT NULL, " +
                     "duration TEXT NOT NULL, " +
                     "aircraft_model TEXT, " +
                     "max_seats INTEGER NOT NULL, " +
                     "current_reservations INTEGER DEFAULT 0, " +
+                    "people_missed INTEGER DEFAULT 0, " +
                     "booking_open_date DATE NOT NULL, " +
                     "economy_price REAL, " +
                     "business_price REAL, " +
@@ -61,9 +64,17 @@ public class SQLQueries {
                     ");";
 
     public static final String INSERT_FLIGHT =
-            "INSERT INTO Flights (flight_number, departure_city, arrival_city, departure_datetime, " +
-                    "arrival_datetime, duration, aircraft_model, max_seats, booking_open_date, economy_price, " +
-                    "business_price, extra_baggage_price, is_recurrent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            "INSERT INTO Flights (" +
+                    "flight_number, departure_city," +
+                    " arrival_city, departure_date," +
+                    " departure_time, arrival_date," +
+                    " arrival_time, duration," +
+                    " aircraft_model, max_seats," +
+                    " booking_open_date, economy_price," +
+                    " business_price, extra_baggage_price," +
+                    " is_recurrent" +
+                    ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
 
     public static final String CREATE_RESERVATION_TABLE =
             "CREATE TABLE Reservations (" +

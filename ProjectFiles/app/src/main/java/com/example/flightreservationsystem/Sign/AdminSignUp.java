@@ -72,26 +72,32 @@ public class AdminSignUp extends AppCompatActivity {
                 if (!Validation.isValidEmail(email)) {
                     isValid = false;
                     emailEditText.setError("Invalid email format. Expected format: example@domain.com");
+                    emailEditText.requestFocus();
                 }
                 if (!Validation.isValidPhone(phone)) {
                     isValid = false;
                     phoneEditText.setError("Invalid phone format. Expected format: 10 digits.");
+                    phoneEditText.requestFocus();
                 }
                 if (!Validation.isValidName(firstName)) {
                     isValid = false;
                     firstNameEditText.setError("Invalid name format. Expected format: alphabetic characters and certain special characters like ',.-");
+                    firstNameEditText.requestFocus();
                 }
                 if (!Validation.isValidName(lastName)) {
                     isValid = false;
                     lastNameEditText.setError("Invalid name format. Expected format: alphabetic characters and certain special characters like ',.-");
+                    lastNameEditText.requestFocus();
                 }
                 if (!Validation.isValidPassword(password)) {
                     isValid = false;
                     passwordEditText.setError("Invalid password format. Expected format: at least 8 characters, with at least one digit, one lower case, one upper case letter, and one special character.");
+                    passwordEditText.requestFocus();
                 }
                 if (!Validation.validateConfirmPassword(confirmPassword, password)) {
                     isValid = false;
                     confirmPasswordEditText.setError("Passwords do not match.");
+                    confirmPasswordEditText.requestFocus();
                 }
 
                 // If all validations pass, proceed with registration

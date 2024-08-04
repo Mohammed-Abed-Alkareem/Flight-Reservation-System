@@ -10,23 +10,329 @@
 
 
     <LinearLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@drawable/background_1"
+        android:backgroundTint="@color/sky_blue"
+        android:backgroundTintMode="multiply"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
 
         <include
             layout="@layout/admin_toolbar"
             />
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="48dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:shadowColor="#000000"
+            android:shadowRadius="50"
+            android:text="Schedule a new flight"
+            android:textColor="@android:color/white"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/flight_number_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/black"
+                    android:backgroundTintMode="src_over"
+                    android:hint="Flight Number"
+                    android:inputType="text"
+                    android:shadowColor="#000000"
+                    android:shadowDx="20"
+                    android:shadowDy="20"
+                    android:shadowRadius="30"
+                    android:textColorHighlight="#000000"
+                    android:textColorHint="#000000"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/departure_city_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/black"
+                    android:backgroundTintMode="src_over"
+                    android:hint="Departure Place (City)"
+                    android:inputType="text"
+                    android:shadowColor="#000000"
+                    android:shadowDx="20"
+                    android:shadowDy="20"
+                    android:shadowRadius="30"
+                    android:textColorHighlight="#000000"
+                    android:textColorHint="#000000"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/arrival_city_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/black"
+                    android:backgroundTintMode="src_over"
+                    android:hint="Destination (City)"
+                    android:inputType="text"
+                    android:shadowColor="#000000"
+                    android:shadowDx="20"
+                    android:shadowDy="20"
+                    android:shadowRadius="30"
+                    android:textColorHighlight="#000000"
+                    android:textColorHint="#000000"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/departure_date_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/black"
+                    android:backgroundTintMode="src_over"
+                    android:hint="Departure Date"
+                    android:inputType="date"
+                    android:shadowColor="#000000"
+                    android:shadowDx="20"
+                    android:shadowDy="20"
+                    android:shadowRadius="30"
+                    android:textColorHighlight="#000000"
+                    android:textColorHint="#000000"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/departure_time_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/black"
+                    android:backgroundTintMode="src_over"
+                    android:hint="Departure Time"
+                    android:inputType="time"
+                    android:shadowColor="#000000"
+                    android:shadowDx="20"
+                    android:shadowDy="20"
+                    android:shadowRadius="30"
+                    android:textColorHighlight="#000000"
+                    android:textColorHint="#000000"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/arrival_date_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/black"
+                    android:backgroundTintMode="src_over"
+                    android:hint="Arrival Date"
+                    android:inputType="date"
+                    android:shadowColor="#000000"
+                    android:shadowDx="20"
+                    android:shadowDy="20"
+                    android:shadowRadius="30"
+                    android:textColorHighlight="#000000"
+                    android:textColorHint="#000000"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/arrival_time_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/black"
+                    android:backgroundTintMode="src_over"
+                    android:hint="Arrival Time"
+                    android:inputType="time"
+                    android:shadowColor="#000000"
+                    android:shadowDx="20"
+                    android:shadowDy="20"
+                    android:shadowRadius="30"
+                    android:textColorHighlight="#000000"
+                    android:textColorHint="#000000"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/duration_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/black"
+                    android:backgroundTintMode="src_over"
+                    android:hint="Duration"
+                    android:inputType="time"
+                    android:shadowColor="#000000"
+                    android:shadowDx="20"
+                    android:shadowDy="20"
+                    android:shadowRadius="30"
+                    android:textColorHighlight="#000000"
+                    android:textColorHint="#000000"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/aircraft_model_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/black"
+                    android:backgroundTintMode="src_over"
+                    android:hint="Aircraft Model (e.g., AIRBUS A320 JET)"
+                    android:inputType="text"
+                    android:shadowColor="#000000"
+                    android:shadowDx="20"
+                    android:shadowDy="20"
+                    android:shadowRadius="30"
+                    android:textColorHighlight="#000000"
+                    android:textColorHint="#000000"
+                    android:textSize="20sp" />
+
+
+
+                <EditText
+                    android:id="@+id/maximum_seats_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/black"
+                    android:backgroundTintMode="src_over"
+                    android:hint="Maximum Number of Seats"
+                    android:inputType="number"
+                    android:shadowColor="#000000"
+                    android:shadowDx="20"
+                    android:shadowDy="20"
+                    android:shadowRadius="30"
+                    android:textColorHighlight="#000000"
+                    android:textColorHint="#000000"
+                    android:textSize="20sp" />
+
+
+
+                <EditText
+                    android:id="@+id/booking_open_date_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/black"
+                    android:backgroundTintMode="src_over"
+                    android:hint="Booking Open Date"
+                    android:inputType="date"
+                    android:shadowColor="#000000"
+                    android:shadowDx="20"
+                    android:shadowDy="20"
+                    android:shadowRadius="30"
+                    android:textColorHighlight="#000000"
+                    android:textColorHint="#000000"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/price_economy_class_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/black"
+                    android:backgroundTintMode="src_over"
+                    android:hint="Price for Economy Class"
+                    android:inputType="numberDecimal"
+                    android:shadowColor="#000000"
+                    android:shadowDx="20"
+                    android:shadowDy="20"
+                    android:shadowRadius="30"
+                    android:textColorHighlight="#000000"
+                    android:textColorHint="#000000"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/price_business_class_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/black"
+                    android:backgroundTintMode="src_over"
+                    android:hint="Price for Business Class"
+                    android:inputType="numberDecimal"
+                    android:shadowColor="#000000"
+                    android:shadowDx="20"
+                    android:shadowDy="20"
+                    android:shadowRadius="30"
+                    android:textColorHighlight="#000000"
+                    android:textColorHint="#000000"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/price_extra_baggage_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/black"
+                    android:backgroundTintMode="src_over"
+                    android:hint="Price per Extra Baggage"
+                    android:inputType="numberDecimal"
+                    android:shadowColor="#000000"
+                    android:shadowDx="20"
+                    android:shadowDy="20"
+                    android:shadowRadius="30"
+                    android:textColorHighlight="#000000"
+                    android:textColorHint="#000000"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/is_recurrent_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/black"
+                    android:backgroundTintMode="src_over"
+                    android:hint="Is Recurrent (No, Daily, Weekly)"
+                    android:inputType="text"
+                    android:shadowColor="#000000"
+                    android:shadowDx="20"
+                    android:shadowDy="20"
+                    android:shadowRadius="30"
+                    android:textColorHighlight="#000000"
+                    android:textColorHint="#000000"
+                    android:textSize="20sp" />
+
+
+            </LinearLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/schedule_button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="#00BCD4"
+            android:backgroundTintMode="src_in"
+            android:elevation="25dp"
+            android:layout_marginBottom="48dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:shadowColor="#000000"
+            android:shadowRadius="50"
             android:text="Schedule Flight"
-            android:textSize="30sp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="160dp"/>
+            android:textColorLink="@color/semi_transparent_gray"
+            android:textSize="24sp" />
 
     </LinearLayout>
+
 
     <RelativeLayout
         android:layout_width="300dp"

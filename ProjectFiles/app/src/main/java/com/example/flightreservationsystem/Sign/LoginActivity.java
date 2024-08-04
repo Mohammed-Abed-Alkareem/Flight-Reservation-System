@@ -109,7 +109,9 @@ public class LoginActivity extends AppCompatActivity {
             // Display an error message
             Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show();
             emailEditText.setError("Invalid email or password");
+            emailEditText.requestFocus();
             passwordEditText.setError("Invalid email or password");
+            passwordEditText.requestFocus();
         }
     }
 
