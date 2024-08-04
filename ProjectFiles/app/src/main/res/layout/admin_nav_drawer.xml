@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+    >
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="176dp"
+        android:orientation="vertical"
+        android:gravity="bottom"
+        android:padding="16dp"
+        android:background="@color/sky_blue">
+        
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher_round"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Admin"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:layout_marginTop="8dp"
+            android:id="@+id/admin_name"
+            android:textStyle="bold"
+            />
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="example@gmail.com"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_marginBottom="4dp"
+            android:id="@+id/admin_email"/>
+        
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/schedule_flight"
+        android:orientation="horizontal"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Schedule Flight"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:drawableLeft="@drawable/ic_menu_schedule"
+            android:drawablePadding="8dp"
+            android:layout_marginStart="8dp"/>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_flight"
+        android:orientation="horizontal"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit or delete an existing flight"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:drawableLeft="@drawable/ic_menu_edit"
+            android:drawablePadding="8dp"
+            android:layout_marginStart="8dp"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/view_open_flights"
+        android:orientation="horizontal"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View Existing Flights Open for Reservation"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:drawableLeft="@drawable/ic_menu_open"
+            android:drawablePadding="8dp"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/view_unavailable_flights"
+        android:orientation="horizontal"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View Flights Not Available for Reservation"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:drawableLeft="@drawable/ic_menu_unavailable"
+            android:drawablePadding="8dp"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/view_flights_archive"
+        android:orientation="horizontal"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View Flights Archive"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:drawableLeft="@drawable/ic_menu_archive"
+            android:drawablePadding="8dp"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/view_reservations"
+        android:orientation="horizontal"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View All Reservations of a Certain Flight"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:drawableLeft="@drawable/ic_menu_reservations"
+            android:drawablePadding="8dp"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/filter_flights"
+        android:orientation="horizontal"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Filter Flights by Date and Place"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:drawableLeft="@drawable/ic_menu_filter"
+            android:drawablePadding="8dp"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
+
+<View
+    android:layout_width="match_parent"
+    android:layout_height="4dp"
+    android:layout_marginTop="12dp"
+    android:background="@color/sky_blue"/>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/logout"
+        android:orientation="horizontal"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:drawableLeft="@drawable/ic_menu_logout"
+            android:drawablePadding="8dp"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
+</LinearLayout>

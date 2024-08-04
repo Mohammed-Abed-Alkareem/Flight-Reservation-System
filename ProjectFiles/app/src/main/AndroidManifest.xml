@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    package="com.example.flightreservationsystem">
+    <!-- Add permissions here -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -10,13 +12,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FlightReservationSystem"
-        tools:targetApi="31">
+        android:theme="@style/Theme.FlightReservationSystem">
         <activity
-            android:name=".AdminHomeActivity.AdminHomeActivity"
-            android:exported="false"
-            android:label="@string/title_activity_admin_home"
-            android:theme="@style/Theme.FlightReservationSystem.NoActionBar" />
+            android:name=".AdminHomeActivity.ScheduleFlightActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -26,19 +25,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Sign.LoginActivity"
-            android:exported="true"></activity>
-        <activity
-            android:name=".Sign.RoleSelection"
-            android:exported="true"></activity>
-        <activity
-            android:name=".Sign.AdminSignUp"
-            android:exported="true"></activity>
-        <activity
-            android:name=".Sign.PassengerSignUp"
-            android:exported="true"
-            android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name=".AdminHomeActivity.AdminHomeActivity" />
+        <activity android:name=".Sign.LoginActivity" />
+        <activity android:name=".Sign.AdminSignUp" />
+        <activity android:name=".Sign.PassengerSignUp" />
+        <activity android:name=".Sign.RoleSelection" />
+
     </application>
 
 </manifest>
