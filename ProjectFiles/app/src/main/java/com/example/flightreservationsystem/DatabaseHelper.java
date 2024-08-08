@@ -13,10 +13,21 @@ import com.example.flightreservationsystem.Classes.Flights;
 import com.example.flightreservationsystem.Classes.Passenger;
 import com.example.flightreservationsystem.Classes.User;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "FlightReservationSystem.db";
     private static final int DATABASE_VERSION = 1;
+    DateTimeFormatter formatter_date = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    DateTimeFormatter formatter_time = DateTimeFormatter.ofPattern("HH:mm:ss");
 
     private Context context;
 
@@ -287,4 +298,80 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
     }
+
+    public List<Flights> getArchiveFlights(){
+        List<Flights> flightList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        //todays date
+        String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        System.out.println("Date: " + date);
+        Cursor cursor = db.rawQuery("SELECT * FROM Flights WHERE departure_date < ?", new String[]{date});
+
+        if (cursor == null) {
+            return flightList;
+        }
+
+        if (cursor.moveToFirst()) {
+            do {
+                Flights flight = new Flights();
+
+                System.out.println("Flight Number: " + getColumnValue(cursor, "flight_number"));
+
+                flight.setFlightNumber(getColumnValue(cursor, "flight_number"));
+                flight.setDepartureCity(getColumnValue(cursor, "departure_city"));
+                flight.setArrivalCity(getColumnValue(cursor, "arrival_city"));
+
+                flight.setDepartureDate(getLocalDateColumnValue(cursor, "departure_date"));
+                flight.setArrivalDate(getLocalDateColumnValue(cursor, "arrival_date"));
+
+                flight.setDepartureTime(getLocalTimeColumnValue(cursor, "departure_time"));
+                flight.setArrivalTime(getLocalTimeColumnValue(cursor, "arrival_time"));
+
+                flight.setDuration(getColumnValue(cursor, "duration"));
+                flight.setAircraftModel(getColumnValue(cursor, "aircraft_model"));
+
+                flight.setMaxSeats(Integer.parseInt(getColumnValue(cursor, "max_seats")));
+                flight.setCurrentReservations(Integer.parseInt(getColumnValue(cursor, "current_reservations")));
+                flight.setPeopleMissed(Integer.parseInt(getColumnValue(cursor, "people_missed")));
+                flight.setBookingOpenDate(getLocalDateColumnValue(cursor, "booking_open_date"));
+
+                flight.setEconomyPrice(Double.parseDouble(getColumnValue(cursor, "economy_price")));
+                flight.setBusinessPrice(Double.parseDouble(getColumnValue(cursor, "business_price")));
+                flight.setExtraBaggagePrice(Double.parseDouble(getColumnValue(cursor, "extra_baggage_price")));
+                flight.setIsRecurrent(getColumnValue(cursor, "is_recurrent"));
+
+
+                flightList.add(flight);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return flightList;
+
+
+
+
+
+
+    }
+    private LocalDate getLocalDateColumnValue(Cursor cursor, String columnName) {
+
+        String dateString = getColumnValue(cursor, columnName);
+        if (dateString != null) {
+            return LocalDate.parse(dateString, formatter_date);
+        } else {
+            return null;
+        }
+    }
+
+    private LocalTime getLocalTimeColumnValue(Cursor cursor, String columnName) {
+        String timeString = getColumnValue(cursor, columnName);
+        if (timeString != null) {
+
+            return LocalTime.parse(timeString, formatter_time);
+        } else {
+            return null;
+        }
+    }
+
     }

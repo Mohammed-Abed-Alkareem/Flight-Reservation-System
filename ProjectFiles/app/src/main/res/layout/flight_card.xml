@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="@drawable/flight_card_background"
+    android:layout_margin="8dp"
+    android:elevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/flight_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Flight Number"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/primaryTextColor" />
+
+        <TextView
+            android:id="@+id/duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Duration"
+            android:textSize="14sp"
+            android:textColor="@color/secondaryTextColor" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/aircraft_model"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aircraft Model"
+        android:textSize="14sp"
+        android:textColor="@color/secondaryTextColor"
+        android:layout_marginTop="4dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/departure_city"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Departure City"
+            android:textSize="14sp"
+            android:textColor="@color/primaryTextColor"
+            android:layout_marginRight="8dp" />
+
+        <TextView
+            android:id="@+id/departure_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Departure Time"
+            android:textSize="14sp"
+            android:textColor="@color/secondaryTextColor" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="4dp">
+
+        <TextView
+            android:id="@+id/arrival_city"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Arrival City"
+            android:textSize="14sp"
+            android:textColor="@color/primaryTextColor"
+            android:layout_marginRight="8dp" />
+
+        <TextView
+            android:id="@+id/arrival_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Arrival Time"
+            android:textSize="14sp"
+            android:textColor="@color/secondaryTextColor" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="4dp">
+
+        <TextView
+            android:id="@+id/economy_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Economy Price"
+            android:textSize="14sp"
+            android:textColor="@color/primaryTextColor" />
+
+        <TextView
+            android:id="@+id/business_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Business Price"
+            android:textSize="14sp"
+            android:textColor="@color/primaryTextColor" />
+    </LinearLayout>
+
+</LinearLayout>

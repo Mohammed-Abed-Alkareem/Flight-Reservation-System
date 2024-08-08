@@ -9,4 +9,11 @@
     <color name="sky_blue">#87CEEB</color>
     <color name="red">#FF0000</color>
 
+        <color name="primaryTextColor">#003366</color> <!-- Dark blue for primary text -->
+        <color name="secondaryTextColor">#005b99</color> <!-- Medium blue for secondary text -->
+        <color name="cardBackgroundColor">#e0f7fa</color> <!-- Light sky blue for card background -->
+        <color name="accentColor">#00aaff</color> <!-- Accent color for any highlights -->
+
+
+
 </resources>
