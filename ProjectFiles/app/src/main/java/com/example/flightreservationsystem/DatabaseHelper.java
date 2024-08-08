@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.flightreservationsystem.Classes.Admin;
+import com.example.flightreservationsystem.Classes.Flights;
 import com.example.flightreservationsystem.Classes.Passenger;
 import com.example.flightreservationsystem.Classes.User;
 
@@ -226,4 +227,64 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return null;
         }
     }
-}
+
+    public void insertFlight(Flights flight) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction(); // Start transaction
+
+        try {
+            ContentValues flightValues = new ContentValues();
+            flightValues.put("flight_number", flight.getFlightNumber());
+            flightValues.put("departure_city", flight.getDepartureCity());
+            flightValues.put("arrival_city", flight.getArrivalCity());
+            flightValues.put("departure_date", flight.getDepartureDate().toString());
+            flightValues.put("arrival_date", flight.getArrivalDate().toString());
+            flightValues.put("departure_time", flight.getDepartureTime().toString());
+
+            flightValues.put("arrival_time", flight.getArrivalTime().toString());
+            flightValues.put("duration", flight.getDuration());
+            flightValues.put("aircraft_model", flight.getAircraftModel());
+            flightValues.put("max_seats", flight.getMaxSeats());
+            flightValues.put("current_reservations", flight.getCurrentReservations());
+            flightValues.put("people_missed", flight.getPeopleMissed());
+            flightValues.put("booking_open_date", flight.getBookingOpenDate().toString());
+            flightValues.put("economy_price", flight.getEconomyPrice());
+            flightValues.put("business_price", flight.getBusinessPrice());
+            flightValues.put("extra_baggage_price", flight.getExtraBaggagePrice());
+            flightValues.put("is_recurrent", flight.getIsRecurrent());
+
+            long flightId = db.insert("Flights", null, flightValues);
+
+            if (flightId == -1) {
+                throw new Exception("Failed to insert flight.");
+            }
+
+            System.out.println("Flight inserted successfully"
+                    + "\nFlight Number: " + flight.getFlightNumber()
+                    + "\nDeparture City: " + flight.getDepartureCity()
+                    + "\nArrival City: " + flight.getArrivalCity()
+                    + "\nDeparture Date: " + flight.getDepartureDate()
+                    + "\nDeparture Time: " + flight.getDepartureTime()
+                    + "\nArrival Date: " + flight.getArrivalDate()
+                    + "\nArrival Time: " + flight.getArrivalTime()
+                    + "\nDuration: " + flight.getDuration()
+                    + "\nAircraft Model: " + flight.getAircraftModel()
+                    + "\nMax Seats: " + flight.getMaxSeats()
+                    + "\nCurrent Reservations: " + flight.getCurrentReservations()
+                    + "\nPeople Missed: " + flight.getPeopleMissed()
+                    + "\nBooking Open Date: " + flight.getBookingOpenDate()
+                    + "\nEconomy Price: " + flight.getEconomyPrice()
+                    + "\nBusiness Price: " + flight.getBusinessPrice()
+                    + "\nExtra Baggage Price: " + flight.getExtraBaggagePrice()
+                    + "\nIs Recurrent: " + flight.getIsRecurrent());
+
+    } catch (Exception e) {
+            // Handle errors and rollback transaction
+            Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        } finally {
+            db.endTransaction(); // End transaction
+            db.close(); // Close database
+        }
+
+    }
+    }

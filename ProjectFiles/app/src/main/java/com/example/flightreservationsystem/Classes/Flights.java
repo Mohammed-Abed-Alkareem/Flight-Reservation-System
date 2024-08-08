@@ -1,48 +1,79 @@
 package com.example.flightreservationsystem.Classes;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 public class Flights {
+    private int flight_id;
     private String flightNumber;
-    private String departurePlace;
-    private String destination;
-    private Date departureDate;
-    private Date departureTime;
-    private Date arrivalDate;
-    private Date arrivalTime;
+    private String departureCity;
+    private String arrivalCity;
+    private LocalDate departureDate;
+    private LocalTime departureTime;
+    private LocalDate arrivalDate;
+    private LocalTime arrivalTime;
     private String duration;
     private String aircraftModel;
-    private int currentReservations;
     private int maxSeats;
-    private int missedFlights;
-    private Date bookingOpenDate;
+    private int currentReservations;
+    private int peopleMissed;
+    private LocalDate bookingOpenDate;
     private double economyPrice;
     private double businessPrice;
     private double extraBaggagePrice;
-    private String recurrent; // Possible values: "NONE", "DAILY", "WEEKLY"
+    private String isRecurrent;
 
-    public Flights(String flightNumber, String departurePlace, String destination, Date departureDate,
-                  Date departureTime, Date arrivalDate, Date arrivalTime, String duration, String aircraftModel,
-                  int maxSeats, Date bookingOpenDate, double economyPrice, double businessPrice,
-                  double extraBaggagePrice, String recurrent) {
+    public Flights() {
+    }
 
+    public Flights(int flight_id ,String flightNumber, String departureCity, String arrivalCity, LocalDate departureDate, LocalTime departureTime, LocalDate arrivalDate, LocalTime arrivalTime, String duration, String aircraftModel, int maxSeats, int currentReservations, int peopleMissed, LocalDate bookingOpenDate, double economyPrice, double businessPrice, double extraBaggagePrice, String isRecurrent) {
+        this.flight_id = flight_id;
         this.flightNumber = flightNumber;
-        this.departurePlace = departurePlace;
-        this.destination = destination;
+        this.departureCity = departureCity;
+        this.arrivalCity = arrivalCity;
         this.departureDate = departureDate;
         this.departureTime = departureTime;
         this.arrivalDate = arrivalDate;
         this.arrivalTime = arrivalTime;
         this.duration = duration;
         this.aircraftModel = aircraftModel;
-        this.currentReservations = 0;
         this.maxSeats = maxSeats;
-        this.missedFlights = 0;
+        this.currentReservations = currentReservations;
+        this.peopleMissed = peopleMissed;
         this.bookingOpenDate = bookingOpenDate;
         this.economyPrice = economyPrice;
         this.businessPrice = businessPrice;
         this.extraBaggagePrice = extraBaggagePrice;
-        this.recurrent = recurrent;
+        this.isRecurrent = isRecurrent;
+    }
+
+    public Flights(String flightNumber, String departureCity, String arrivalCity, LocalDate departureDate, LocalTime departureTime, LocalDate arrivalDate, LocalTime arrivalTime, String duration, String aircraftModel, int maxSeats, int currentReservations, int peopleMissed, LocalDate bookingOpenDate, double economyPrice, double businessPrice, double extraBaggagePrice, String isRecurrent) {
+        this.flightNumber = flightNumber;
+        this.departureCity = departureCity;
+        this.arrivalCity = arrivalCity;
+        this.departureDate = departureDate;
+        this.departureTime = departureTime;
+        this.arrivalDate = arrivalDate;
+        this.arrivalTime = arrivalTime;
+        this.duration = duration;
+        this.aircraftModel = aircraftModel;
+        this.maxSeats = maxSeats;
+        this.currentReservations = currentReservations;
+        this.peopleMissed = peopleMissed;
+        this.bookingOpenDate = bookingOpenDate;
+        this.economyPrice = economyPrice;
+        this.businessPrice = businessPrice;
+        this.extraBaggagePrice = extraBaggagePrice;
+        this.isRecurrent = isRecurrent;
+    }
+
+    public int getFlight_id() {
+        return flight_id;
+    }
+
+    public void setFlight_id(int flight_id) {
+        this.flight_id = flight_id;
     }
 
     public String getFlightNumber() {
@@ -53,51 +84,51 @@ public class Flights {
         this.flightNumber = flightNumber;
     }
 
-    public String getDeparturePlace() {
-        return departurePlace;
+    public String getDepartureCity() {
+        return departureCity;
     }
 
-    public void setDeparturePlace(String departurePlace) {
-        this.departurePlace = departurePlace;
+    public void setDepartureCity(String departureCity) {
+        this.departureCity = departureCity;
     }
 
-    public String getDestination() {
-        return destination;
+    public String getArrivalCity() {
+        return arrivalCity;
     }
 
-    public void setDestination(String destination) {
-        this.destination = destination;
+    public void setArrivalCity(String arrivalCity) {
+        this.arrivalCity = arrivalCity;
     }
 
-    public Date getDepartureDate() {
+    public LocalDate getDepartureDate() {
         return departureDate;
     }
 
-    public void setDepartureDate(Date departureDate) {
+    public void setDepartureDate(LocalDate departureDate) {
         this.departureDate = departureDate;
     }
 
-    public Date getDepartureTime() {
+    public LocalTime getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(Date departureTime) {
+    public void setDepartureTime(LocalTime departureTime) {
         this.departureTime = departureTime;
     }
 
-    public Date getArrivalDate() {
+    public LocalDate getArrivalDate() {
         return arrivalDate;
     }
 
-    public void setArrivalDate(Date arrivalDate) {
+    public void setArrivalDate(LocalDate arrivalDate) {
         this.arrivalDate = arrivalDate;
     }
 
-    public Date getArrivalTime() {
+    public LocalTime getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(Date arrivalTime) {
+    public void setArrivalTime(LocalTime arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 
@@ -117,14 +148,6 @@ public class Flights {
         this.aircraftModel = aircraftModel;
     }
 
-    public int getCurrentReservations() {
-        return currentReservations;
-    }
-
-    public void setCurrentReservations(int currentReservations) {
-        this.currentReservations = currentReservations;
-    }
-
     public int getMaxSeats() {
         return maxSeats;
     }
@@ -133,19 +156,27 @@ public class Flights {
         this.maxSeats = maxSeats;
     }
 
-    public int getMissedFlights() {
-        return missedFlights;
+    public int getCurrentReservations() {
+        return currentReservations;
     }
 
-    public void setMissedFlights(int missedFlights) {
-        this.missedFlights = missedFlights;
+    public void setCurrentReservations(int currentReservations) {
+        this.currentReservations = currentReservations;
     }
 
-    public Date getBookingOpenDate() {
+    public int getPeopleMissed() {
+        return peopleMissed;
+    }
+
+    public void setPeopleMissed(int peopleMissed) {
+        this.peopleMissed = peopleMissed;
+    }
+
+    public LocalDate getBookingOpenDate() {
         return bookingOpenDate;
     }
 
-    public void setBookingOpenDate(Date bookingOpenDate) {
+    public void setBookingOpenDate(LocalDate bookingOpenDate) {
         this.bookingOpenDate = bookingOpenDate;
     }
 
@@ -173,11 +204,11 @@ public class Flights {
         this.extraBaggagePrice = extraBaggagePrice;
     }
 
-    public String getRecurrent() {
-        return recurrent;
+    public String getIsRecurrent() {
+        return isRecurrent;
     }
 
-    public void setRecurrent(String recurrent) {
-        this.recurrent = recurrent;
+    public void setIsRecurrent(String isRecurrent) {
+        this.isRecurrent = isRecurrent;
     }
 }

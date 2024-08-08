@@ -6,8 +6,12 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.flightreservationsystem.Classes.Flights;
+import com.example.flightreservationsystem.RestApi.ConnectionAsyncTask;
 import com.example.flightreservationsystem.Sign.LoginActivity;
 import com.example.flightreservationsystem.Sign.RoleSelection;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +27,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        ///////////////////Read from API/////////////////////
+
+        ConnectionAsyncTask connectionAsyncTask = new ConnectionAsyncTask(MainActivity.this);
+        connectionAsyncTask.execute("https://mocki.io/v1/c26a75f7-c431-4042-8cb9-d4b495c0376c");
+
+        ///////////////////////////////////////////
+
+        dataBaseHelper = new DatabaseHelper(MainActivity.this, null, 1);
+
         // Initialize Button and Intent variables
         loginButton = findViewById(R.id.register_button);
         signupButton = findViewById(R.id.admin_button);
@@ -34,6 +48,14 @@ public class MainActivity extends AppCompatActivity {
 
         // Set OnClickListener for signup button (if needed)
         signupButton.setOnClickListener(v -> startActivity(signupIntent));
+    }
+
+    public void insertFlightsDB(List<Flights> flights) {
+
+        for (Flights flight : flights) {
+            dataBaseHelper.insertFlight(flight);
+        }
+
     }
 
 //    @Override

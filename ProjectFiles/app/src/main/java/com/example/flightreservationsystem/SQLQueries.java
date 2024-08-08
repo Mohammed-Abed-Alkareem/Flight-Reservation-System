@@ -41,38 +41,47 @@ public class SQLQueries {
             "INSERT INTO PassengerDetails (user_id, passport_number,passport_issue_date, passport_issue_place , food_preference, date_of_birth, nationality) " +
                     "VALUES (?, ?, ?, ?, ?, ?);";
 
-    public static final String CREATE_FLIGHT_TABLE =
-            "CREATE TABLE Flights (" +
-                    "flight_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    "flight_number TEXT UNIQUE NOT NULL, " +
-                    "departure_city TEXT NOT NULL, " +
-                    "arrival_city TEXT NOT NULL, " +
-                    "departure_date DATE NOT NULL, " +
-                    "departure_ime Time NOT NULL, " +
-                    "arrival_date DATE NOT NULL, " +
-                    "arrival_time Time NOT NULL, " +
-                    "duration TEXT NOT NULL, " +
-                    "aircraft_model TEXT, " +
-                    "max_seats INTEGER NOT NULL, " +
-                    "current_reservations INTEGER DEFAULT 0, " +
-                    "people_missed INTEGER DEFAULT 0, " +
-                    "booking_open_date DATE NOT NULL, " +
-                    "economy_price REAL, " +
-                    "business_price REAL, " +
-                    "extra_baggage_price REAL, " +
-                    "is_recurrent TEXT NOT NULL" +
-                    ");";
+    public static final String CREATE_FLIGHT_TABLE = "CREATE TABLE Flights (" +
+            "flight_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+            "flight_number TEXT NOT NULL UNIQUE," +
+            "departure_city TEXT NOT NULL," +
+            "arrival_city TEXT NOT NULL," +
+            "departure_date Date NOT NULL," +
+            "arrival_date Date NOT NULL," +
+            "departure_time TEXT NOT NULL," +
+            "arrival_time TEXT NOT NULL," +
+            "duration TEXT NOT NULL," +
+            "aircraft_model TEXT NOT NULL," +
+            "max_seats INTEGER NOT NULL," +
+            "current_reservations INTEGER NOT NULL," +
+            "people_missed INTEGER NOT NULL," +
+            "booking_open_date TEXT NOT NULL," +
+            "economy_price REAL NOT NULL," +
+            "business_price REAL NOT NULL," +
+            "extra_baggage_price REAL NOT NULL," +
+            "is_recurrent TEXT NOT NULL" +
+            ");";
+
 
     public static final String INSERT_FLIGHT =
             "INSERT INTO Flights (" +
-                    "flight_number, departure_city," +
-                    " arrival_city, departure_date," +
-                    " departure_time, arrival_date," +
-                    " arrival_time, duration," +
-                    " aircraft_model, max_seats," +
-                    " booking_open_date, economy_price," +
-                    " business_price, extra_baggage_price," +
-                    " is_recurrent" +
+                    "flight_number" +
+                    "departure_city," +
+                    "arrival_city," +
+                    "departure_date," +
+                    "arrival_date," +
+                    "departure_time," +
+                    "arrival_time," +
+                    "duration," +
+                    "aircraft_model," +
+                    "max_seats," +
+                    "current_reservations," +
+                    "people_missed," +
+                    "booking_open_date," +
+                    "economy_price," +
+                    "business_price," +
+                    "extra_baggage_price," +
+                    "is_recurrent" +
                     ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 
