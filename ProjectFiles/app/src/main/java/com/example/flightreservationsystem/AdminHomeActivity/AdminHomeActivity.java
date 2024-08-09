@@ -16,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.flightreservationsystem.AdminHomeActivity.Archived.ViewArchiveActivity;
+import com.example.flightreservationsystem.AdminHomeActivity.Open.ViewOpenActivity;
 import com.example.flightreservationsystem.R;
 import com.example.flightreservationsystem.Sign.LoginActivity;
 
@@ -91,7 +93,7 @@ public class AdminHomeActivity extends AppCompatActivity {
         open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                redirectActivity(AdminHomeActivity.this, ViewOpenFlightsActivity.class);
+                redirectActivity(AdminHomeActivity.this, ViewOpenActivity.class);
             }
         });
 
@@ -105,7 +107,7 @@ public class AdminHomeActivity extends AppCompatActivity {
         archive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                redirectActivity(AdminHomeActivity.this, ViewFlightsArchiveActivity.class);
+                redirectActivity(AdminHomeActivity.this, ViewArchiveActivity.class);
             }
         });
 

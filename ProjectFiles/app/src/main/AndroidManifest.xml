@@ -20,13 +20,13 @@
             android:name=".AdminHomeActivity.ViewReservationsActivity"
             android:exported="false" />
         <activity
-            android:name=".AdminHomeActivity.ViewFlightsArchiveActivity"
+            android:name=".AdminHomeActivity.Archived.ViewArchiveActivity"
             android:exported="false" />
         <activity
             android:name=".AdminHomeActivity.ViewUnavailableActivity"
             android:exported="false" />
         <activity
-            android:name=".AdminHomeActivity.ViewOpenFlightsActivity"
+            android:name=".AdminHomeActivity.Open.ViewOpenActivity"
             android:exported="false" />
         <activity
             android:name=".AdminHomeActivity.EditFlightActivity"

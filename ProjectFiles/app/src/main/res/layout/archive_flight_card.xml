@@ -3,16 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="12dp"
+    android:padding="16dp"
     android:background="@drawable/flight_card_background"
     android:layout_margin="8dp"
-    android:elevation="4dp">
+    android:elevation="6dp"
+    android:clipToPadding="false"
+    android:clipChildren="false"
+    android:transitionName="flightCard">
 
+    <!-- Flight Number and Duration -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:paddingBottom="8dp">
 
         <TextView
             android:id="@+id/flight_number"
@@ -21,8 +26,11 @@
             android:layout_weight="1"
             android:text="Flight Number"
             android:textStyle="bold"
-            android:textSize="16sp"
-            android:textColor="@color/primaryTextColor" />
+            android:textSize="18sp"
+            android:textColor="@color/primaryTextColor"
+            android:paddingEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="1" />
 
         <TextView
             android:id="@+id/duration"
@@ -30,9 +38,23 @@
             android:layout_height="wrap_content"
             android:text="Duration"
             android:textSize="14sp"
-            android:textColor="@color/secondaryTextColor" />
+            android:textColor="@color/secondaryTextColor"
+            android:textStyle="italic" />
     </LinearLayout>
 
+    <!-- Date -->
+    <TextView
+        android:id="@+id/flight_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:textSize="14sp"
+        android:textColor="@color/secondaryTextColor"
+        android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:maxLines="1" />
+
+    <!-- Aircraft Model -->
     <TextView
         android:id="@+id/aircraft_model"
         android:layout_width="wrap_content"
@@ -40,8 +62,11 @@
         android:text="Aircraft Model"
         android:textSize="14sp"
         android:textColor="@color/secondaryTextColor"
-        android:layout_marginTop="4dp" />
+        android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:maxLines="1" />
 
+    <!-- Departure City and Time -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -57,7 +82,9 @@
             android:text="Departure City"
             android:textSize="14sp"
             android:textColor="@color/primaryTextColor"
-            android:layout_marginRight="8dp" />
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="1" />
 
         <TextView
             android:id="@+id/departure_time"
@@ -65,9 +92,11 @@
             android:layout_height="wrap_content"
             android:text="Departure Time"
             android:textSize="14sp"
-            android:textColor="@color/secondaryTextColor" />
+            android:textColor="@color/secondaryTextColor"
+            android:textStyle="italic" />
     </LinearLayout>
 
+    <!-- Arrival City and Time -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -83,7 +112,9 @@
             android:text="Arrival City"
             android:textSize="14sp"
             android:textColor="@color/primaryTextColor"
-            android:layout_marginRight="8dp" />
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="1" />
 
         <TextView
             android:id="@+id/arrival_time"
@@ -91,9 +122,11 @@
             android:layout_height="wrap_content"
             android:text="Arrival Time"
             android:textSize="14sp"
-            android:textColor="@color/secondaryTextColor" />
+            android:textColor="@color/secondaryTextColor"
+            android:textStyle="italic" />
     </LinearLayout>
 
+    <!-- Economy and Business Price -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -108,7 +141,10 @@
             android:layout_weight="1"
             android:text="Economy Price"
             android:textSize="14sp"
-            android:textColor="@color/primaryTextColor" />
+            android:textColor="@color/primaryTextColor"
+            android:textStyle="bold"
+            android:ellipsize="end"
+            android:maxLines="1" />
 
         <TextView
             android:id="@+id/business_price"
@@ -116,7 +152,20 @@
             android:layout_height="wrap_content"
             android:text="Business Price"
             android:textSize="14sp"
-            android:textColor="@color/primaryTextColor" />
+            android:textColor="@color/primaryTextColor"
+            android:textStyle="bold" />
     </LinearLayout>
+
+    <!-- Number of People Missed -->
+    <TextView
+        android:id="@+id/people_missed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="People Missed"
+        android:textSize="14sp"
+        android:textColor="@color/secondaryTextColor"
+        android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:maxLines="1" />
 
 </LinearLayout>

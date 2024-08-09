@@ -27,7 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "FlightReservationSystem.db";
     private static final int DATABASE_VERSION = 1;
     DateTimeFormatter formatter_date = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    DateTimeFormatter formatter_time = DateTimeFormatter.ofPattern("HH:mm:ss");
+    DateTimeFormatter formatter_time = DateTimeFormatter.ofPattern("HH:mm");
 
     private Context context;
 
@@ -264,34 +264,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             flightValues.put("extra_baggage_price", flight.getExtraBaggagePrice());
             flightValues.put("is_recurrent", flight.getIsRecurrent());
 
+            System.out.println("value" + flightValues);
+
             long flightId = db.insert("Flights", null, flightValues);
+
+            System.out.println("-----------------------------------------------");
+
+            System.out.println("-----------------------------------------------");
 
             if (flightId == -1) {
                 throw new Exception("Failed to insert flight.");
             }
+            db.setTransactionSuccessful(); // Mark transaction as successful
 
-            System.out.println("Flight inserted successfully"
-                    + "\nFlight Number: " + flight.getFlightNumber()
-                    + "\nDeparture City: " + flight.getDepartureCity()
-                    + "\nArrival City: " + flight.getArrivalCity()
-                    + "\nDeparture Date: " + flight.getDepartureDate()
-                    + "\nDeparture Time: " + flight.getDepartureTime()
-                    + "\nArrival Date: " + flight.getArrivalDate()
-                    + "\nArrival Time: " + flight.getArrivalTime()
-                    + "\nDuration: " + flight.getDuration()
-                    + "\nAircraft Model: " + flight.getAircraftModel()
-                    + "\nMax Seats: " + flight.getMaxSeats()
-                    + "\nCurrent Reservations: " + flight.getCurrentReservations()
-                    + "\nPeople Missed: " + flight.getPeopleMissed()
-                    + "\nBooking Open Date: " + flight.getBookingOpenDate()
-                    + "\nEconomy Price: " + flight.getEconomyPrice()
-                    + "\nBusiness Price: " + flight.getBusinessPrice()
-                    + "\nExtra Baggage Price: " + flight.getExtraBaggagePrice()
-                    + "\nIs Recurrent: " + flight.getIsRecurrent());
+//            System.out.println("Flight inserted successfully"
+//                    + "\nFlight Number: " + flight.getFlightNumber()
+//                    + "\nDeparture City: " + flight.getDepartureCity()
+//                    + "\nArrival City: " + flight.getArrivalCity()
+//                    + "\nDeparture Date: " + flight.getDepartureDate()
+//                    + "\nDeparture Time: " + flight.getDepartureTime()
+//                    + "\nArrival Date: " + flight.getArrivalDate()
+//                    + "\nArrival Time: " + flight.getArrivalTime()
+//                    + "\nDuration: " + flight.getDuration()
+//                    + "\nAircraft Model: " + flight.getAircraftModel()
+//                    + "\nMax Seats: " + flight.getMaxSeats()
+//                    + "\nCurrent Reservations: " + flight.getCurrentReservations()
+//                    + "\nPeople Missed: " + flight.getPeopleMissed()
+//                    + "\nBooking Open Date: " + flight.getBookingOpenDate()
+//                    + "\nEconomy Price: " + flight.getEconomyPrice()
+//                    + "\nBusiness Price: " + flight.getBusinessPrice()
+//                    + "\nExtra Baggage Price: " + flight.getExtraBaggagePrice()
+//                    + "\nIs Recurrent: " + flight.getIsRecurrent());
 
     } catch (Exception e) {
             // Handle errors and rollback transaction
-            Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            System.out.println("Flight already exists" + e.getMessage());
         } finally {
             db.endTransaction(); // End transaction
             db.close(); // Close database
@@ -348,12 +356,73 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return flightList;
 
+    }
+
+    public List<Flights> getOpenFlights(){
+        List<Flights> flightList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Get the current date in the required format
+        String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        System.out.println("Date: " + date);
+
+        // Define the query with the additional condition for max_seats and current_reservations
+        String query = "SELECT * FROM Flights WHERE booking_open_date <= ? " +
+                "AND departure_date >= ? " +
+                "AND max_seats > current_reservations";
+
+        // Execute the query with the current date as the parameter
+        Cursor cursor = db.rawQuery(query, new String[]{date, date});
+
+        if (cursor == null) {
+            return flightList;
+        }
+
+        if (cursor.moveToFirst()) {
+            do {
+                Flights flight = new Flights();
+
+                System.out.println("Flight Number: " + getColumnValue(cursor, "flight_number"));
+
+                flight.setFlightNumber(getColumnValue(cursor, "flight_number"));
+                flight.setDepartureCity(getColumnValue(cursor, "departure_city"));
+                flight.setArrivalCity(getColumnValue(cursor, "arrival_city"));
+
+                flight.setDepartureDate(getLocalDateColumnValue(cursor, "departure_date"));
+                flight.setArrivalDate(getLocalDateColumnValue(cursor, "arrival_date"));
+
+                flight.setDepartureTime(getLocalTimeColumnValue(cursor, "departure_time"));
+                flight.setArrivalTime(getLocalTimeColumnValue(cursor, "arrival_time"));
+
+                flight.setDuration(getColumnValue(cursor, "duration"));
+                flight.setAircraftModel(getColumnValue(cursor, "aircraft_model"));
+
+                flight.setMaxSeats(Integer.parseInt(getColumnValue(cursor, "max_seats")));
+                flight.setCurrentReservations(Integer.parseInt(getColumnValue(cursor, "current_reservations")));
+                flight.setPeopleMissed(Integer.parseInt(getColumnValue(cursor, "people_missed")));
+                flight.setBookingOpenDate(getLocalDateColumnValue(cursor, "booking_open_date"));
+
+                flight.setEconomyPrice(Double.parseDouble(getColumnValue(cursor, "economy_price")));
+                flight.setBusinessPrice(Double.parseDouble(getColumnValue(cursor, "business_price")));
+                flight.setExtraBaggagePrice(Double.parseDouble(getColumnValue(cursor, "extra_baggage_price")));
+                flight.setIsRecurrent(getColumnValue(cursor, "is_recurrent"));
+
+
+                flightList.add(flight);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return flightList;
+
 
 
 
 
 
     }
+
+
     private LocalDate getLocalDateColumnValue(Cursor cursor, String columnName) {
 
         String dateString = getColumnValue(cursor, columnName);

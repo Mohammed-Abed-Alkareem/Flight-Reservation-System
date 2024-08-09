@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.flightreservationsystem.AdminHomeActivity.Archived.ViewArchiveActivity;
+import com.example.flightreservationsystem.AdminHomeActivity.Open.ViewOpenActivity;
 import com.example.flightreservationsystem.R;
 import com.example.flightreservationsystem.Sign.LoginActivity;
 
@@ -84,7 +86,7 @@ public class ScheduleFlightActivity extends AppCompatActivity {
         open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ScheduleFlightActivity.this, ViewOpenFlightsActivity.class));
+                startActivity(new Intent(ScheduleFlightActivity.this, ViewOpenActivity.class));
             }
         });
 
@@ -98,7 +100,7 @@ public class ScheduleFlightActivity extends AppCompatActivity {
         archive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ScheduleFlightActivity.this, ViewFlightsArchiveActivity.class));
+                startActivity(new Intent(ScheduleFlightActivity.this, ViewArchiveActivity.class));
             }
         });
 

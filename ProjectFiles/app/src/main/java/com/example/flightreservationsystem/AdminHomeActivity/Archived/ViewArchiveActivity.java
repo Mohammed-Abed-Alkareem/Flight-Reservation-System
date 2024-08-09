@@ -1,4 +1,4 @@
-package com.example.flightreservationsystem.AdminHomeActivity;
+package com.example.flightreservationsystem.AdminHomeActivity.Archived;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,22 +11,41 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.flightreservationsystem.AdminHomeActivity.Archived.ViewArchiveActivity;
+import com.example.flightreservationsystem.AdminHomeActivity.AdminHomeActivity;
+import com.example.flightreservationsystem.AdminHomeActivity.EditFlightActivity;
+import com.example.flightreservationsystem.AdminHomeActivity.FilterFlightsActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.Open.ViewOpenActivity;
+import com.example.flightreservationsystem.AdminHomeActivity.ViewReservationsActivity;
+import com.example.flightreservationsystem.AdminHomeActivity.ViewUnavailableActivity;
+import com.example.flightreservationsystem.Classes.Flights;
+import com.example.flightreservationsystem.DatabaseHelper;
 import com.example.flightreservationsystem.R;
 import com.example.flightreservationsystem.Sign.LoginActivity;
 
-public class EditFlightActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ViewArchiveActivity extends AppCompatActivity {
+
     DrawerLayout drawerLayout;
     ImageView menu;
 
     LinearLayout home, schedule , edit , open , unavailable, archive ,reservation ,filter , logout;
 
+//    Button scheduleFlightButton;
+
+    /////////cards/////
+    private RecyclerView recyclerView;
+    private ArchivedAdapter archivedAdapter;
+    private List<Flights> flightList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_flight);
+        setContentView(R.layout.activity_view_flights_archive);
 
         drawerLayout = findViewById(R.id.admin_drawer_layout);
         menu = findViewById(R.id.menu_icon);
@@ -51,67 +70,86 @@ public class EditFlightActivity extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                redirectActivity(EditFlightActivity.this, AdminHomeActivity.class);
+                redirectActivity(ViewArchiveActivity.this, AdminHomeActivity.class);
             }
         });
 
         schedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               redirectActivity(EditFlightActivity.this, ScheduleFlightActivity.class);
+                startActivity(new Intent(ViewArchiveActivity.this, ViewArchiveActivity.class));
             }
         });
 
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recreate();
+                startActivity(new Intent(ViewArchiveActivity.this, EditFlightActivity.class));
             }
         });
 
         open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(EditFlightActivity.this, ViewOpenActivity.class));
+                startActivity(new Intent(ViewArchiveActivity.this, ViewOpenActivity.class));
             }
         });
 
         unavailable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(EditFlightActivity.this, ViewUnavailableActivity.class));
+                startActivity(new Intent(ViewArchiveActivity.this, ViewUnavailableActivity.class));
             }
         });
 
         archive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(EditFlightActivity.this, ViewArchiveActivity.class));
+                recreate();
             }
         });
 
         reservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(EditFlightActivity.this, ViewReservationsActivity.class));
+                startActivity(new Intent(ViewArchiveActivity.this, ViewReservationsActivity.class));
             }
         });
 
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(EditFlightActivity.this, FilterFlightsActivity.class));
+                startActivity(new Intent(ViewArchiveActivity.this, FilterFlightsActivity.class));
             }
         });
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(EditFlightActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(EditFlightActivity.this, LoginActivity.class));
+                Toast.makeText(ViewArchiveActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(ViewArchiveActivity.this, LoginActivity.class));
             }
         });
 
+
+        ////////////////////////////////////
+
+        // Initialize RecyclerView and adapter
+        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));  // Enables vertical scrolling
+
+        flightList = new ArrayList<>();
+
+        DatabaseHelper databaseHelper = new DatabaseHelper(this, null, 1);
+        flightList = databaseHelper.getArchiveFlights();
+
+        if (flightList.isEmpty()) {
+            Toast.makeText(this, "No flights in archive", Toast.LENGTH_SHORT).show();
+        }
+
+        // Set the adapter with flightList
+        archivedAdapter = new ArchivedAdapter(this, flightList);
+        recyclerView.setAdapter(archivedAdapter);  // Set the adapter for RecyclerView
 
     }
 

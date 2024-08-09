@@ -1,25 +1,25 @@
-package com.example.flightreservationsystem.AdminHomeActivity;
+package com.example.flightreservationsystem.AdminHomeActivity.Open;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.flightreservationsystem.AdminHomeActivity.AdminHomeActivity;
+import com.example.flightreservationsystem.AdminHomeActivity.Archived.ViewArchiveActivity;
+import com.example.flightreservationsystem.AdminHomeActivity.EditFlightActivity;
+import com.example.flightreservationsystem.AdminHomeActivity.FilterFlightsActivity;
+import com.example.flightreservationsystem.AdminHomeActivity.ViewReservationsActivity;
+import com.example.flightreservationsystem.AdminHomeActivity.ViewUnavailableActivity;
 import com.example.flightreservationsystem.Classes.Flights;
 import com.example.flightreservationsystem.DatabaseHelper;
 import com.example.flightreservationsystem.R;
@@ -28,7 +28,7 @@ import com.example.flightreservationsystem.Sign.LoginActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewFlightsArchiveActivity extends AppCompatActivity {
+public class ViewOpenActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     ImageView menu;
@@ -39,13 +39,13 @@ public class ViewFlightsArchiveActivity extends AppCompatActivity {
 
     /////////cards/////
     private RecyclerView recyclerView;
-    private FlightAdapter flightAdapter;
+    private OpenAdapter openAdapter;
     private List<Flights> flightList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_flights_archive);
+        setContentView(R.layout.activity_view_open_flights);
 
         drawerLayout = findViewById(R.id.admin_drawer_layout);
         menu = findViewById(R.id.menu_icon);
@@ -70,64 +70,64 @@ public class ViewFlightsArchiveActivity extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                redirectActivity(ViewFlightsArchiveActivity.this, AdminHomeActivity.class);
+                redirectActivity(ViewOpenActivity.this, AdminHomeActivity.class);
             }
         });
 
         schedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ViewFlightsArchiveActivity.this, ViewFlightsArchiveActivity.class));
+                startActivity(new Intent(ViewOpenActivity.this, ViewArchiveActivity.class));
             }
         });
 
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ViewFlightsArchiveActivity.this, EditFlightActivity.class));
+                startActivity(new Intent(ViewOpenActivity.this, EditFlightActivity.class));
             }
         });
 
         open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ViewFlightsArchiveActivity.this, ViewOpenFlightsActivity.class));
+                recreate();
             }
         });
 
         unavailable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ViewFlightsArchiveActivity.this, ViewUnavailableActivity.class));
+                startActivity(new Intent(ViewOpenActivity.this, ViewUnavailableActivity.class));
             }
         });
 
         archive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recreate();
+                startActivity(new Intent(ViewOpenActivity.this, ViewArchiveActivity.class));
             }
         });
 
         reservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ViewFlightsArchiveActivity.this, ViewReservationsActivity.class));
+                startActivity(new Intent(ViewOpenActivity.this, ViewReservationsActivity.class));
             }
         });
 
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ViewFlightsArchiveActivity.this, FilterFlightsActivity.class));
+                startActivity(new Intent(ViewOpenActivity.this, FilterFlightsActivity.class));
             }
         });
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ViewFlightsArchiveActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(ViewFlightsArchiveActivity.this, LoginActivity.class));
+                Toast.makeText(ViewOpenActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(ViewOpenActivity.this, LoginActivity.class));
             }
         });
 
@@ -141,15 +141,15 @@ public class ViewFlightsArchiveActivity extends AppCompatActivity {
         flightList = new ArrayList<>();
 
         DatabaseHelper databaseHelper = new DatabaseHelper(this, null, 1);
-        flightList = databaseHelper.getArchiveFlights();
+        flightList = databaseHelper.getOpenFlights();
 
         if (flightList.isEmpty()) {
             Toast.makeText(this, "No flights in archive", Toast.LENGTH_SHORT).show();
         }
 
         // Set the adapter with flightList
-        flightAdapter = new FlightAdapter(this, flightList);
-        recyclerView.setAdapter(flightAdapter);  // Set the adapter for RecyclerView
+        openAdapter = new OpenAdapter(this, flightList);
+        recyclerView.setAdapter(openAdapter);  // Set the adapter for RecyclerView
 
     }
 
