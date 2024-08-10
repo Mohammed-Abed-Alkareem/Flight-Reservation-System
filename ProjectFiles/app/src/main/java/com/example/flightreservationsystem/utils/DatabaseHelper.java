@@ -44,6 +44,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.execSQL(SQLQueries.CREATE_FLIGHT_TABLE);
             db.execSQL(SQLQueries.CREATE_RESERVATION_TABLE);
             db.execSQL(SQLQueries.CREATE_PASSENGER_DETAILS_TABLE);
+
+
+
         } catch (Exception e) {
             Toast.makeText(context, "Error creating tables: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
@@ -109,6 +112,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             // If both inserts are successful, set transaction as successful
             db.setTransactionSuccessful();
+            Toast.makeText(context, "Passenger details inserted successfully", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             // Handle errors and rollback transaction
             Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();

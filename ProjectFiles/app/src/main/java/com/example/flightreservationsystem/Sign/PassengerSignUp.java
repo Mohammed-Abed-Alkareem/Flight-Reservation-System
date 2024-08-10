@@ -231,18 +231,21 @@ public class PassengerSignUp extends AppCompatActivity {
                             expiryDay = dayOfMonth;
                         }
 
-                        // Display the selected date
-                        String selectedDate = dayOfMonth + "/" + (month + 1) + "/" + year;
-                        System.out.println("Kind: " + kind);
-                        System.out.println("Selected Date: " + selectedDate);
+
                     }
                 }, year, month, day);
         datePickerDialog.show();
     }
 
-    // Method to get the selected Date of Birth
+    // Method to get the selected Date
     public String getDate(int year, int month, int day) {
-        return day + "/" + month + "/" + year;
+        // yyyy/mm/dd
+        // make sure the month and day are in two digits
+        String monthString = month < 10 ? "0" + month : String.valueOf(month);
+        String dayString = day < 10 ? "0" + day : String.valueOf(day);
+
+        return year + "-" + monthString + "-" + dayString;
+
     }
 
 }

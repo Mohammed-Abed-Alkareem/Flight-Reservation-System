@@ -35,7 +35,7 @@ public class Validation {
     }
 
     public static boolean isValidDate(String date) {
-        return date.matches("^\\d{4}-\\d{2}-\\d{2}$");
+        return date.matches("^\\d{4}/\\d{2}/\\d{2}$");
     }
 
     public static boolean isValidTime(String time) {
@@ -46,9 +46,23 @@ public class Validation {
         return price.matches("^\\d+(\\.\\d{1,2})?$");
     }
 
+    public static boolean isValidDuration(String duration) {
+        return duration.matches("^\\d{2}h\\d{2}m$");
+    }
+
+    public static boolean isValidAirCraftModel(String airCraftModel) {
+        // not empty
+        return !airCraftModel.isEmpty();
+    }
+
+    public static boolean isValidRecurrence(String recurrence) {
+        return recurrence.matches("^(Daily|Weekly|No)$");
+    }
+
     public static boolean isValidPassengerCount(String passengerCount) {
         return passengerCount.matches("^\\d{1,2}$");
     }
+
 
     public static boolean isValidPassengerType(String passengerType) {
         return passengerType.matches("^(Adult|Child|Infant)$");

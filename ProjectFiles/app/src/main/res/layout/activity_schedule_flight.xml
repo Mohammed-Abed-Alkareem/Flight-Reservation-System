@@ -178,7 +178,7 @@
                     android:backgroundTint="@color/black"
                     android:backgroundTintMode="src_over"
                     android:hint="Duration"
-                    android:inputType="time"
+                    android:inputType="text"
                     android:shadowColor="#000000"
                     android:shadowDx="20"
                     android:shadowDy="20"
