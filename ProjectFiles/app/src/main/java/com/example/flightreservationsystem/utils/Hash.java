@@ -1,4 +1,4 @@
-package com.example.flightreservationsystem;
+package com.example.flightreservationsystem.utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

@@ -9,6 +9,9 @@ public class User {
     private String password_hash;
     private String role;
 
+    public User() {
+    }
+
     public User(int id, String email, String phone, String first_name, String last_name, String password_hash, String role) {
         this.id = id;
         this.email = email;

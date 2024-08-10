@@ -21,7 +21,7 @@ import com.example.flightreservationsystem.AdminHomeActivity.FilterFlightsActivi
 import com.example.flightreservationsystem.AdminHomeActivity.ViewReservationsActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.ViewUnavailableActivity;
 import com.example.flightreservationsystem.Classes.Flights;
-import com.example.flightreservationsystem.DatabaseHelper;
+import com.example.flightreservationsystem.utils.DatabaseHelper;
 import com.example.flightreservationsystem.R;
 import com.example.flightreservationsystem.Sign.LoginActivity;
 

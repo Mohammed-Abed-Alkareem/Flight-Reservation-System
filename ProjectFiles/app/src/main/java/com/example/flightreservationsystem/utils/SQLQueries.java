@@ -1,4 +1,4 @@
-package com.example.flightreservationsystem;
+package com.example.flightreservationsystem.utils;
 
 public class SQLQueries {
 
@@ -24,6 +24,7 @@ public class SQLQueries {
                     "passport_number TEXT, " +
                     "passport_issue_date DATE, " +
                     "passport_issue_place TEXT, " +
+                    "passport_expiration_date DATE, " +
                     "food_preference TEXT, " +
                     "date_of_birth DATE, " +
                     "nationality TEXT, " +

@@ -10,8 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.flightreservationsystem.Classes.Admin;
 import com.example.flightreservationsystem.Classes.Validation;
-import com.example.flightreservationsystem.DatabaseHelper;
-import com.example.flightreservationsystem.Hash;
+import com.example.flightreservationsystem.utils.DatabaseHelper;
+import com.example.flightreservationsystem.utils.Hash;
 import com.example.flightreservationsystem.R;
 
 public class AdminSignUp extends AppCompatActivity {

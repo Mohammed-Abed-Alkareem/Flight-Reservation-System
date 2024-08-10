@@ -14,8 +14,9 @@ import com.example.flightreservationsystem.AdminHomeActivity.AdminHomeActivity;
 import com.example.flightreservationsystem.Classes.Admin;
 import com.example.flightreservationsystem.Classes.Passenger;
 import com.example.flightreservationsystem.Classes.User;
-import com.example.flightreservationsystem.DatabaseHelper;
-import com.example.flightreservationsystem.Hash;
+import com.example.flightreservationsystem.PassengerActivity.PassengerHomeActivity;
+import com.example.flightreservationsystem.utils.DatabaseHelper;
+import com.example.flightreservationsystem.utils.Hash;
 //import com.example.flightreservationsystem.AdminActivites.AdminHomeActivity;
 import com.example.flightreservationsystem.R;
 
@@ -96,14 +97,13 @@ public class LoginActivity extends AppCompatActivity {
             editor.apply();
 
             Intent intent = null;
-//            if (user instanceof Admin) {
-//                intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
+            if (user instanceof Admin) {
+                intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
 
-//            }
-//            else if (user instanceof Passenger) {
-//                intent = new Intent(LoginActivity.this, PassengerHomeActivity.class);
-//            }
-            intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
+            }
+            else if (user instanceof Passenger) {
+                intent = new Intent(LoginActivity.this, PassengerHomeActivity.class);
+            }
             startActivity(intent);
         } else {
             // Display an error message

@@ -1,4 +1,4 @@
-package com.example.flightreservationsystem;
+package com.example.flightreservationsystem.utils;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -12,6 +12,7 @@ import com.example.flightreservationsystem.Classes.Admin;
 import com.example.flightreservationsystem.Classes.Flights;
 import com.example.flightreservationsystem.Classes.Passenger;
 import com.example.flightreservationsystem.Classes.User;
+import com.example.flightreservationsystem.utils.SQLQueries;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -198,6 +199,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                                                 getColumnValue(cursor2, "passport_number"),
                                                 getColumnValue(cursor2, "passport_issue_date"),
                                                 getColumnValue(cursor2, "passport_issue_place"),
+                                                getColumnValue(cursor2, "passport_expiration_date"),
                                                 getColumnValue(cursor2, "food_preference"),
                                                 getColumnValue(cursor2, "date_of_birth"),
                                                 getColumnValue(cursor2, "nationality")
