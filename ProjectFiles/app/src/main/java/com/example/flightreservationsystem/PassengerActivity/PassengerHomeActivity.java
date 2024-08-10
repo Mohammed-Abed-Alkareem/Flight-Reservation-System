@@ -9,21 +9,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.flightreservationsystem.AdminHomeActivity.Archived.ViewArchiveActivity;
-import com.example.flightreservationsystem.AdminHomeActivity.EditFlightActivity;
-import com.example.flightreservationsystem.AdminHomeActivity.FilterFlightsActivity;
-import com.example.flightreservationsystem.AdminHomeActivity.Open.ViewOpenActivity;
-import com.example.flightreservationsystem.AdminHomeActivity.ScheduleFlightActivity;
-import com.example.flightreservationsystem.AdminHomeActivity.ViewReservationsActivity;
-import com.example.flightreservationsystem.AdminHomeActivity.ViewUnavailableActivity;
 import com.example.flightreservationsystem.R;
-import com.example.flightreservationsystem.Sign.LoginActivity;
 
 public class PassengerHomeActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.flightreservationsystem.AdminHomeActivity.Open;
+package com.example.flightreservationsystem.AdminHomeActivity.unava;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,12 +14,12 @@ import com.example.flightreservationsystem.R;
 
 import java.util.List;
 
-public class OpenAdapter extends RecyclerView.Adapter<OpenAdapter.FlightViewHolder> {
+public class UnavailableAdapter extends RecyclerView.Adapter<UnavailableAdapter.FlightViewHolder> {
 
     private Context context;
     private List<Flights> flightList;
 
-    public OpenAdapter(Context context, List<Flights> flightList) {
+    public UnavailableAdapter(Context context, List<Flights> flightList) {
         this.context = context;
         this.flightList = flightList;
     }
@@ -43,7 +43,7 @@ public class OpenAdapter extends RecyclerView.Adapter<OpenAdapter.FlightViewHold
         holder.aircraftModel.setText(flight.getAircraftModel());
         holder.maxSeats.setText(String.valueOf(flight.getMaxSeats()));
         holder.currentReservations.setText(String.valueOf(flight.getCurrentReservations()));
-        holder.bookingOpenDate.setText(flight.getDepartureDate() != null ? flight.getDepartureDate().toString() : "N/A");
+        holder.bookingOpenDate.setText(flight.getBookingOpenDate() != null ? flight.getBookingOpenDate().toString() : "N/A");
         holder.extraBaggagePrice.setText(String.format("$%.2f", flight.getExtraBaggagePrice()));
         holder.economyPrice.setText(String.format("$%.2f", flight.getEconomyPrice()));
         holder.businessPrice.setText(String.format("$%.2f", flight.getBusinessPrice()));

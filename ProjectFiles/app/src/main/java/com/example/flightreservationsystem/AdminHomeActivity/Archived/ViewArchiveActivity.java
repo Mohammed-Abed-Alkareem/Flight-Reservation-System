@@ -19,7 +19,7 @@ import com.example.flightreservationsystem.AdminHomeActivity.EditFlightActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.FilterFlightsActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.Open.ViewOpenActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.ViewReservationsActivity;
-import com.example.flightreservationsystem.AdminHomeActivity.ViewUnavailableActivity;
+import com.example.flightreservationsystem.AdminHomeActivity.unava.ViewUnavailableActivity;
 import com.example.flightreservationsystem.Classes.Flights;
 import com.example.flightreservationsystem.utils.DatabaseHelper;
 import com.example.flightreservationsystem.R;
