@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.flightreservationsystem.AdminHomeActivity.AdminHomeActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.EditFlightActivity;
-import com.example.flightreservationsystem.AdminHomeActivity.FilterFlightsActivity;
+import com.example.flightreservationsystem.AdminHomeActivity.filter.FilterFlightsActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.Open.ViewOpenActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.ViewReservationsActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.unava.ViewUnavailableActivity;

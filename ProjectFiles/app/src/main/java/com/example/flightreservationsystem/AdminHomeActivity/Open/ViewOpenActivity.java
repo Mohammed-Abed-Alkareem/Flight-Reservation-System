@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.flightreservationsystem.AdminHomeActivity.AdminHomeActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.Archived.ViewArchiveActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.EditFlightActivity;
-import com.example.flightreservationsystem.AdminHomeActivity.FilterFlightsActivity;
+import com.example.flightreservationsystem.AdminHomeActivity.filter.FilterFlightsActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.ViewReservationsActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.unava.ViewUnavailableActivity;
 import com.example.flightreservationsystem.Classes.Flights;
@@ -60,75 +60,27 @@ public class ViewOpenActivity extends AppCompatActivity {
         filter = findViewById(R.id.filter_flights);
         logout = findViewById(R.id.logout);
 
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDrawer(drawerLayout);
-            }
-        });
+        menu.setOnClickListener(v -> openDrawer(drawerLayout));
 
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                redirectActivity(ViewOpenActivity.this, AdminHomeActivity.class);
-            }
-        });
+        home.setOnClickListener(v -> redirectActivity(ViewOpenActivity.this, AdminHomeActivity.class));
 
-        schedule.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ViewOpenActivity.this, ViewArchiveActivity.class));
-            }
-        });
+        schedule.setOnClickListener(v -> startActivity(new Intent(ViewOpenActivity.this, ViewArchiveActivity.class)));
 
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ViewOpenActivity.this, EditFlightActivity.class));
-            }
-        });
+        edit.setOnClickListener(v -> startActivity(new Intent(ViewOpenActivity.this, EditFlightActivity.class)));
 
-        open.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                recreate();
-            }
-        });
+        open.setOnClickListener(v -> recreate());
 
-        unavailable.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ViewOpenActivity.this, ViewUnavailableActivity.class));
-            }
-        });
+        unavailable.setOnClickListener(v -> startActivity(new Intent(ViewOpenActivity.this, ViewUnavailableActivity.class)));
 
-        archive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ViewOpenActivity.this, ViewArchiveActivity.class));
-            }
-        });
+        archive.setOnClickListener(v -> startActivity(new Intent(ViewOpenActivity.this, ViewArchiveActivity.class)));
 
-        reservation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ViewOpenActivity.this, ViewReservationsActivity.class));
-            }
-        });
+        reservation.setOnClickListener(v -> startActivity(new Intent(ViewOpenActivity.this, ViewReservationsActivity.class)));
 
-        filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ViewOpenActivity.this, FilterFlightsActivity.class));
-            }
-        });
+        filter.setOnClickListener(v -> startActivity(new Intent(ViewOpenActivity.this, FilterFlightsActivity.class)));
 
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(ViewOpenActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(ViewOpenActivity.this, LoginActivity.class));
-            }
+        logout.setOnClickListener(v -> {
+            Toast.makeText(ViewOpenActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(ViewOpenActivity.this, LoginActivity.class));
         });
 
 

@@ -7,7 +7,7 @@
     android:background="@drawable/background_1"
     android:backgroundTint="@color/sky_blue"
     android:backgroundTintMode="multiply"
-    tools:context=".AdminHomeActivity.AdminHomeActivity">
+    tools:context=".PassengerActivity.PassengerHomeActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

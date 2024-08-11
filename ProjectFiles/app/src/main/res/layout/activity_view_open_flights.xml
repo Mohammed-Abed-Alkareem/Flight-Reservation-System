@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/admin_drawer_layout"
-    tools:context=".AdminHomeActivity.ScheduleFlightActivity">
+    tools:context=".AdminHomeActivity.Open.ViewOpenActivity">
 
     <LinearLayout
         android:id="@+id/main"

@@ -25,6 +25,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.flightreservationsystem.AdminHomeActivity.Archived.ViewArchiveActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.Open.ViewOpenActivity;
+import com.example.flightreservationsystem.AdminHomeActivity.filter.FilterFlightsActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.unava.ViewUnavailableActivity;
 import com.example.flightreservationsystem.Classes.Flights;
 import com.example.flightreservationsystem.R;

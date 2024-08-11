@@ -14,9 +14,7 @@ public class SQLQueries {
                     "role TEXT NOT NULL" +
                     ");";
 
-    public static final String INSERT_USER =
-            "INSERT INTO Users (email, phone, first_name, last_name, password_hash, role) " +
-                    "VALUES (?, ?, ?, ?, ?, ?);";
+
 
     public static final String CREATE_PASSENGER_DETAILS_TABLE =
             "CREATE TABLE PassengerDetails (" +
@@ -30,17 +28,7 @@ public class SQLQueries {
                     "nationality TEXT, " +
                     "FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE" +
                     ");";
-    /* Passport number
- Passport issue date
- Passport issue place
- Passport expiration date
- Food preference (seafood, vegetarian, etc.)
- Date of Birth
- Nationality*/
 
-    public static final String INSERT_PASSENGER_DETAILS =
-            "INSERT INTO PassengerDetails (user_id, passport_number,passport_issue_date, passport_issue_place , food_preference, date_of_birth, nationality) " +
-                    "VALUES (?, ?, ?, ?, ?, ?);";
 
     public static final String CREATE_FLIGHT_TABLE = "CREATE TABLE Flights (" +
             "flight_id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -64,26 +52,6 @@ public class SQLQueries {
             ");";
 
 
-    public static final String INSERT_FLIGHT =
-            "INSERT INTO Flights (" +
-                    "flight_number" +
-                    "departure_city," +
-                    "arrival_city," +
-                    "departure_date," +
-                    "arrival_date," +
-                    "departure_time," +
-                    "arrival_time," +
-                    "duration," +
-                    "aircraft_model," +
-                    "max_seats," +
-                    "current_reservations," +
-                    "people_missed," +
-                    "booking_open_date," +
-                    "economy_price," +
-                    "business_price," +
-                    "extra_baggage_price," +
-                    "is_recurrent" +
-                    ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 
     public static final String CREATE_RESERVATION_TABLE =
@@ -93,14 +61,11 @@ public class SQLQueries {
                     "user_id INTEGER, " +
                     "flight_class TEXT CHECK(flight_class IN ('Economy', 'Business')) NOT NULL, " +
                     "extra_bags INTEGER DEFAULT 0, " +
+                    "total_price REAL NOT NULL, " +
+                    "food_preferences TEXT NOT NULL"+
                     "reservation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
                     "FOREIGN KEY (flight_id) REFERENCES Flights(flight_id) ON DELETE CASCADE, " +
                     "FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE" +
                     ");";
 
-    public static final String INSERT_RESERVATION =
-            "INSERT INTO Reservations (flight_id, user_id, flight_class, extra_bags) VALUES (?, ?, ?, ?);";
-
-    public static final String SELECT_FLIGHTS_BY_CITY_AND_DATE =
-            "SELECT * FROM Flights WHERE departure_city = ? AND arrival_city = ? AND departure_datetime >= ?;";
 }

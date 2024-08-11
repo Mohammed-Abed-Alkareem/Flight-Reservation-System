@@ -18,6 +18,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.flightreservationsystem.AdminHomeActivity.Archived.ViewArchiveActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.Open.ViewOpenActivity;
+import com.example.flightreservationsystem.AdminHomeActivity.filter.FilterFlightsActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.unava.ViewUnavailableActivity;
 import com.example.flightreservationsystem.R;
 import com.example.flightreservationsystem.Sign.LoginActivity;
@@ -84,47 +85,17 @@ public class AdminHomeActivity extends AppCompatActivity {
             }
         });
 
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                redirectActivity(AdminHomeActivity.this, EditFlightActivity.class);
-            }
-        });
+        edit.setOnClickListener(v -> redirectActivity(AdminHomeActivity.this, EditFlightActivity.class));
 
-        open.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                redirectActivity(AdminHomeActivity.this, ViewOpenActivity.class);
-            }
-        });
+        open.setOnClickListener(v -> redirectActivity(AdminHomeActivity.this, ViewOpenActivity.class));
 
-        unavailable.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                redirectActivity(AdminHomeActivity.this, ViewUnavailableActivity.class);
-            }
-        });
+        unavailable.setOnClickListener(v -> redirectActivity(AdminHomeActivity.this, ViewUnavailableActivity.class));
 
-        archive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                redirectActivity(AdminHomeActivity.this, ViewArchiveActivity.class);
-            }
-        });
+        archive.setOnClickListener(v -> redirectActivity(AdminHomeActivity.this, ViewArchiveActivity.class));
 
-        reservation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                redirectActivity(AdminHomeActivity.this, ViewReservationsActivity.class);
-            }
-        });
+        reservation.setOnClickListener(v -> redirectActivity(AdminHomeActivity.this, ViewReservationsActivity.class));
 
-        filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                redirectActivity(AdminHomeActivity.this, FilterFlightsActivity.class);
-            }
-        });
+        filter.setOnClickListener(v -> redirectActivity(AdminHomeActivity.this, FilterFlightsActivity.class));
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override

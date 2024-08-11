@@ -9,19 +9,22 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.flightreservationsystem.AdminHomeActivity.AdminHomeActivity;
 import com.example.flightreservationsystem.R;
+import com.example.flightreservationsystem.Sign.LoginActivity;
 
 public class PassengerHomeActivity extends AppCompatActivity {
 
         DrawerLayout drawerLayout;
         ImageView menu;
 
-        LinearLayout home; // add others
+        LinearLayout home, search , reserve , current, previous, logout; // add others
 
         Button menuButton;
 
@@ -39,96 +42,32 @@ public class PassengerHomeActivity extends AppCompatActivity {
             menuButton = findViewById(R.id.menu);
 
             home = findViewById(R.id.passenger_home);
-//            schedule = findViewById(R.id.schedule_flight);
-//            edit = findViewById(R.id.edit_flight);
-//            open = findViewById(R.id.view_open_flights);
-//            unavailable = findViewById(R.id.view_unavailable_flights);
-//            archive = findViewById(R.id.view_flights_archive);
-//            reservation = findViewById(R.id.view_reservations);
-//            filter = findViewById(R.id.filter_flights);
-//            logout = findViewById(R.id.logout);
+            reserve = findViewById(R.id.make_reservation);
+            search = findViewById(R.id.search_flight);
+            current = findViewById(R.id.view_current_reservations);
+            previous = findViewById(R.id.view_previous_reservations);
+            logout = findViewById(R.id.logout);
 
 
-            menu.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    openDrawer(drawerLayout);
-                }
+
+            menu.setOnClickListener(v -> openDrawer(drawerLayout));
+
+            menuButton.setOnClickListener(v -> openDrawer(drawerLayout));
+
+
+            home.setOnClickListener(v -> recreate());
+
+            reserve.setOnClickListener(v -> redirectActivity(PassengerHomeActivity.this, ReserveFlight.class));
+
+            logout.setOnClickListener(v -> {
+                Toast.makeText(PassengerHomeActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();
+                redirectActivity(PassengerHomeActivity.this, LoginActivity.class);
             });
 
-            menuButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    openDrawer(drawerLayout);
-                }
-            });
 
+            //////////////////////////////////////
 
-            home.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    recreate();
-                }
-            });
-
-//            schedule.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    redirectActivity(com.example.flightreservationsystem.AdminHomeActivity.AdminHomeActivity.this, ScheduleFlightActivity.class);
-//                }
-//            });
-//
-//            edit.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    redirectActivity(com.example.flightreservationsystem.AdminHomeActivity.AdminHomeActivity.this, EditFlightActivity.class);
-//                }
-//            });
-//
-//            open.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    redirectActivity(com.example.flightreservationsystem.AdminHomeActivity.AdminHomeActivity.this, ViewOpenActivity.class);
-//                }
-//            });
-//
-//            unavailable.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    redirectActivity(com.example.flightreservationsystem.AdminHomeActivity.AdminHomeActivity.this, ViewUnavailableActivity.class);
-//                }
-//            });
-//
-//            archive.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    redirectActivity(com.example.flightreservationsystem.AdminHomeActivity.AdminHomeActivity.this, ViewArchiveActivity.class);
-//                }
-//            });
-//
-//            reservation.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    redirectActivity(com.example.flightreservationsystem.AdminHomeActivity.AdminHomeActivity.this, ViewReservationsActivity.class);
-//                }
-//            });
-//
-//            filter.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    redirectActivity(com.example.flightreservationsystem.AdminHomeActivity.AdminHomeActivity.this, FilterFlightsActivity.class);
-//                }
-//            });
-//
-//            logout.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Toast.makeText(com.example.flightreservationsystem.AdminHomeActivity.AdminHomeActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();
-//                    redirectActivity(com.example.flightreservationsystem.AdminHomeActivity.AdminHomeActivity.this, LoginActivity.class);
-//                }
-//            });
-
-            //////////////////////////////////////////////////
+            /////////////////////////////////
 
             passengerName = findViewById(R.id.passenger_name);
             //fetch naeme from shared preferences

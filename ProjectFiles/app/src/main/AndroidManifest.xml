@@ -14,10 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FlightReservationSystem">
         <activity
+            android:name=".PassengerActivity.ReserveFlight"
+            android:exported="false" />
+        <activity
             android:name=".PassengerActivity.PassengerHomeActivity"
             android:exported="false" />
         <activity
-            android:name=".AdminHomeActivity.FilterFlightsActivity"
+            android:name=".AdminHomeActivity.filter.FilterFlightsActivity"
             android:exported="false" />
         <activity
             android:name=".AdminHomeActivity.ViewReservationsActivity"
