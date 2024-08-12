@@ -11,8 +11,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.flightreservationsystem.Classes.Passenger;
-import com.example.flightreservationsystem.Classes.Validation;
+import com.example.flightreservationsystem.models.Passenger;
+import com.example.flightreservationsystem.models.Validation;
 import com.example.flightreservationsystem.utils.DatabaseHelper;
 import com.example.flightreservationsystem.utils.Hash;
 import com.example.flightreservationsystem.R;
@@ -23,7 +23,7 @@ import java.util.Calendar;
 
 public class PassengerSignUp extends AppCompatActivity {
 
-    DateTimeFormatter formatter_date = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+    DateTimeFormatter formatter_date = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     ;
     private EditText emailEditText, phoneEditText, firstNameEditText, lastNameEditText,
             passportNumberEditText, passportIssuePlaceEditText, nationalityEditText,
@@ -105,7 +105,7 @@ public class PassengerSignUp extends AppCompatActivity {
                 passportExpiryDate = LocalDate.parse(expiryDateEditText.getText().toString(), formatter_date);
             }
         } catch (Exception e) {
-            Toast.makeText(this, "Invalid date format. Expected format: yyyy/mm/dd", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Invalid date format. Expected format: yyyy-mm-dd", Toast.LENGTH_SHORT).show();
         }
 
         // Clear previous errors
@@ -197,15 +197,15 @@ public class PassengerSignUp extends AppCompatActivity {
 
         if (!Validation.isValidDate(dateOfBirth.format(formatter_date))) {
             isValid = false;
-            dateOfBirthEditText.setError("Invalid date format. Expected format: yyyy/mm/dd");
+            dateOfBirthEditText.setError("Invalid date format. Expected format: yyyy-mm-dd");
         }
         if (!Validation.isValidDate(passportIssueDate.format(formatter_date))) {
             isValid = false;
-            passportIssueDateEditText.setError("Invalid date format. Expected format: yyyy/mm/dd");
+            passportIssueDateEditText.setError("Invalid date format. Expected format: yyyy-mm-dd");
         }
         if (!Validation.isValidDate(passportExpiryDate.format(formatter_date))) {
             isValid = false;
-            expiryDateEditText.setError("Invalid date format. Expected format: yyyy/mm/dd");
+            expiryDateEditText.setError("Invalid date format. Expected format: yyyy-mm-dd");
         }
 
         return isValid;
@@ -234,7 +234,7 @@ public class PassengerSignUp extends AppCompatActivity {
                         expiryDay = selectedDay;
                     }
                     // Set the selected date to the EditText field
-                    editText.setText(String.format("%04d/%02d/%02d", selectedYear, selectedMonth + 1, selectedDay));
+                    editText.setText(String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay));
                 }, year, month, day);
 
         datePickerDialog.show();

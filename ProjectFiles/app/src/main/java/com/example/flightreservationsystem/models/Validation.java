@@ -1,4 +1,4 @@
-package com.example.flightreservationsystem.Classes;
+package com.example.flightreservationsystem.models;
 
 public class Validation {
 
@@ -35,7 +35,7 @@ public class Validation {
     }
 
     public static boolean isValidDate(String date) {
-        return date.matches("^\\d{4}/\\d{2}/\\d{2}$");
+        return date.matches("^\\d{4}-\\d{2}-\\d{2}$");
     }
 
     public static boolean isValidTime(String time) {

@@ -1,4 +1,4 @@
-package com.example.flightreservationsystem.Classes;
+package com.example.flightreservationsystem.models;
 
 public class Admin extends User {
     public Admin(int id, String email, String phone, String first_name, String last_name, String password_hash, String role) {

@@ -1,19 +1,12 @@
 package com.example.flightreservationsystem.AdminHomeActivity.filter;
 
-import static com.example.flightreservationsystem.Classes.Validation.isValidAirCraftModel;
-import static com.example.flightreservationsystem.Classes.Validation.isValidDate;
-import static com.example.flightreservationsystem.Classes.Validation.isValidDuration;
-import static com.example.flightreservationsystem.Classes.Validation.isValidFlightNumber;
-import static com.example.flightreservationsystem.Classes.Validation.isValidName;
-import static com.example.flightreservationsystem.Classes.Validation.isValidRecurrence;
-import static com.example.flightreservationsystem.Classes.Validation.isValidTime;
+import static com.example.flightreservationsystem.models.Validation.isValidDate;
+import static com.example.flightreservationsystem.models.Validation.isValidName;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,18 +22,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.flightreservationsystem.AdminHomeActivity.AdminHomeActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.Archived.ViewArchiveActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.EditFlightActivity;
-import com.example.flightreservationsystem.AdminHomeActivity.Open.OpenAdapter;
 import com.example.flightreservationsystem.AdminHomeActivity.Open.ViewOpenActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.ScheduleFlightActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.ViewReservationsActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.unava.ViewUnavailableActivity;
-import com.example.flightreservationsystem.Classes.Flights;
+import com.example.flightreservationsystem.models.Flights;
 import com.example.flightreservationsystem.R;
 import com.example.flightreservationsystem.Sign.LoginActivity;
 import com.example.flightreservationsystem.utils.DatabaseHelper;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,7 +38,7 @@ import java.util.List;
 
 public class FilterFlightsActivity extends AppCompatActivity {
 
-    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     DrawerLayout drawerLayout;
     ImageView menu;
@@ -192,7 +182,7 @@ public class FilterFlightsActivity extends AppCompatActivity {
             DatePickerDialog datePickerDialog = new DatePickerDialog(FilterFlightsActivity.this,
                     (view, year1, monthOfYear, dayOfMonth) -> {
 
-                        editText.setText(String.format("%04d/%02d/%02d", year1, monthOfYear + 1, dayOfMonth));
+                        editText.setText(String.format("%04d-%02d-%02d", year1, monthOfYear + 1, dayOfMonth));
                     }, year, month, day);
             datePickerDialog.show();
         });
@@ -206,28 +196,28 @@ public class FilterFlightsActivity extends AppCompatActivity {
         if(isValidDate(fromDepDate)) {
             fromDepartureDate.setError(null);
         } else {
-            fromDepartureDate.setError("Invalid Date Format yyyy/MM/dd");
+            fromDepartureDate.setError("Invalid Date Format yyyy-MM-dd");
             isValid = false;
         }
 
         if(isValidDate(toDepDate)) {
             toDepartureDate.setError(null);
         } else {
-            toDepartureDate.setError("Invalid Date Format yyyy/MM/dd");
+            toDepartureDate.setError("Invalid Date Format yyyy-MM-dd");
             isValid = false;
         }
 
         if(isValidDate(fromArrDate)) {
             fromArrivalDate.setError(null);
         } else {
-            fromArrivalDate.setError("Invalid Date Format yyyy/MM/dd");
+            fromArrivalDate.setError("Invalid Date Format yyyy-MM-dd");
             isValid = false;
         }
 
         if(isValidDate(toArrDate)) {
             toArrivalDate.setError(null);
         } else {
-            toArrivalDate.setError("Invalid Date Format yyyy/MM/dd");
+            toArrivalDate.setError("Invalid Date Format yyyy-MM-dd");
             isValid = false;
         }
 

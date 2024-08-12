@@ -10,16 +10,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.flightreservationsystem.Classes.Flights;
-import com.example.flightreservationsystem.Classes.Reservations;
+import com.example.flightreservationsystem.models.Flights;
+import com.example.flightreservationsystem.models.Reservations;
 import com.example.flightreservationsystem.R;
 import com.example.flightreservationsystem.utils.DatabaseHelper;
 

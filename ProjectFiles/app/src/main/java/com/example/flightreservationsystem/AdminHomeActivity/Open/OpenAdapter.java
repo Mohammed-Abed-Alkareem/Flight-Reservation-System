@@ -9,14 +9,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.flightreservationsystem.Classes.Flights;
+import com.example.flightreservationsystem.models.Flights;
 import com.example.flightreservationsystem.R;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class OpenAdapter extends RecyclerView.Adapter<OpenAdapter.FlightViewHolder> {
-    private static final DateTimeFormatter FORMATTER_DATE = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+    private static final DateTimeFormatter FORMATTER_DATE = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final DateTimeFormatter FORMATTER_TIME = DateTimeFormatter.ofPattern("HH:mm");
 
     private Context context;

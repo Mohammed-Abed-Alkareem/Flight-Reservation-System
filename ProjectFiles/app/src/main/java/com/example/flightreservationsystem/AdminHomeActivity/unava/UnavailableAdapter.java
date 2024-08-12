@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.flightreservationsystem.Classes.Flights;
+import com.example.flightreservationsystem.models.Flights;
 import com.example.flightreservationsystem.R;
 
 import java.util.List;

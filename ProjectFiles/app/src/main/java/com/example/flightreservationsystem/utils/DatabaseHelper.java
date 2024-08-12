@@ -8,12 +8,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.flightreservationsystem.Classes.Admin;
-import com.example.flightreservationsystem.Classes.Flights;
-import com.example.flightreservationsystem.Classes.Passenger;
-import com.example.flightreservationsystem.Classes.Reservations;
-import com.example.flightreservationsystem.Classes.User;
-import com.example.flightreservationsystem.utils.SQLQueries;
+import com.example.flightreservationsystem.models.Admin;
+import com.example.flightreservationsystem.models.Flights;
+import com.example.flightreservationsystem.models.Passenger;
+import com.example.flightreservationsystem.models.Reservations;
+import com.example.flightreservationsystem.models.User;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -28,7 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "FlightReservationSystem.db";
     private static final int DATABASE_VERSION = 1;
-    DateTimeFormatter formatter_date = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+    DateTimeFormatter formatter_date = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     DateTimeFormatter formatter_time = DateTimeFormatter.ofPattern("HH:mm");
 
     private Context context;
@@ -145,6 +144,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             userValues.put("last_name", admin.getLast_name());
             userValues.put("password_hash", admin.getPassword_hash());
             userValues.put("role", admin.getRole());
+
+            System.out.println("Admin values: " + userValues);
 
             long userId = db.insert("Users", null, userValues);
 

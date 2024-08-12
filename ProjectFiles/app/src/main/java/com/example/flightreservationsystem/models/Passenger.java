@@ -1,6 +1,4 @@
-package com.example.flightreservationsystem.Classes;
-
-import com.example.flightreservationsystem.Classes.User;
+package com.example.flightreservationsystem.models;
 
 import java.time.LocalDate;
 

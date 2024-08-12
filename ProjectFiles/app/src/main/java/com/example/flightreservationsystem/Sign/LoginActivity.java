@@ -11,9 +11,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.flightreservationsystem.AdminHomeActivity.AdminHomeActivity;
-import com.example.flightreservationsystem.Classes.Admin;
-import com.example.flightreservationsystem.Classes.Passenger;
-import com.example.flightreservationsystem.Classes.User;
+import com.example.flightreservationsystem.models.Admin;
+import com.example.flightreservationsystem.models.Passenger;
+import com.example.flightreservationsystem.models.User;
 import com.example.flightreservationsystem.PassengerActivity.PassengerHomeActivity;
 import com.example.flightreservationsystem.utils.DatabaseHelper;
 import com.example.flightreservationsystem.utils.Hash;

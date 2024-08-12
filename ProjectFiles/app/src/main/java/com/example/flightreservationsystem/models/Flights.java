@@ -1,8 +1,7 @@
-package com.example.flightreservationsystem.Classes;
+package com.example.flightreservationsystem.models;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 
 public class Flights {
     private int flight_id;
@@ -23,6 +22,10 @@ public class Flights {
     private double businessPrice;
     private double extraBaggagePrice;
     private String isRecurrent;
+
+    //format
+    public static final String DATE_FORMAT = "yyyy/MM/dd";
+    public static final String TIME_FORMAT = "HH:mm";
 
     public Flights() {
     }

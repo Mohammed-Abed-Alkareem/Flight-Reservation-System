@@ -6,7 +6,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.flightreservationsystem.Classes.Flights;
+import com.example.flightreservationsystem.models.Flights;
 import com.example.flightreservationsystem.RestApi.ConnectionAsyncTask;
 import com.example.flightreservationsystem.Sign.LoginActivity;
 import com.example.flightreservationsystem.Sign.RoleSelection;
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         ///////////////////Read from API/////////////////////
 
         ConnectionAsyncTask connectionAsyncTask = new ConnectionAsyncTask(MainActivity.this);
-        connectionAsyncTask.execute("https://mocki.io/v1/c26a75f7-c431-4042-8cb9-d4b495c0376c");
+        connectionAsyncTask.execute("https://mocki.io/v1/1452799c-b19c-45e8-a628-c12465a3ddf9");
 
         ///////////////////////////////////////////
 

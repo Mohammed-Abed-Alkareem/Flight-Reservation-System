@@ -3,7 +3,7 @@ package com.example.flightreservationsystem.RestApi;
 import android.app.Activity;
 import android.os.AsyncTask;
 
-import com.example.flightreservationsystem.Classes.Flights;
+import com.example.flightreservationsystem.models.Flights;
 
 import com.example.flightreservationsystem.MainActivity;
 

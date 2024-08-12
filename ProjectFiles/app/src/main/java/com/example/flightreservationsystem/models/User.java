@@ -1,4 +1,4 @@
-package com.example.flightreservationsystem.Classes;
+package com.example.flightreservationsystem.models;
 
 public class User {
     private int id;

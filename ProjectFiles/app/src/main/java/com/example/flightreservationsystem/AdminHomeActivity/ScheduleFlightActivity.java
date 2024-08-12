@@ -1,12 +1,12 @@
 package com.example.flightreservationsystem.AdminHomeActivity;
 
-import static com.example.flightreservationsystem.Classes.Validation.isValidAirCraftModel;
-import static com.example.flightreservationsystem.Classes.Validation.isValidDate;
-import static com.example.flightreservationsystem.Classes.Validation.isValidDuration;
-import static com.example.flightreservationsystem.Classes.Validation.isValidFlightNumber;
-import static com.example.flightreservationsystem.Classes.Validation.isValidName;
-import static com.example.flightreservationsystem.Classes.Validation.isValidRecurrence;
-import static com.example.flightreservationsystem.Classes.Validation.isValidTime;
+import static com.example.flightreservationsystem.models.Validation.isValidAirCraftModel;
+import static com.example.flightreservationsystem.models.Validation.isValidDate;
+import static com.example.flightreservationsystem.models.Validation.isValidDuration;
+import static com.example.flightreservationsystem.models.Validation.isValidFlightNumber;
+import static com.example.flightreservationsystem.models.Validation.isValidName;
+import static com.example.flightreservationsystem.models.Validation.isValidRecurrence;
+import static com.example.flightreservationsystem.models.Validation.isValidTime;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -27,7 +27,7 @@ import com.example.flightreservationsystem.AdminHomeActivity.Archived.ViewArchiv
 import com.example.flightreservationsystem.AdminHomeActivity.Open.ViewOpenActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.filter.FilterFlightsActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.unava.ViewUnavailableActivity;
-import com.example.flightreservationsystem.Classes.Flights;
+import com.example.flightreservationsystem.models.Flights;
 import com.example.flightreservationsystem.R;
 import com.example.flightreservationsystem.Sign.LoginActivity;
 import com.example.flightreservationsystem.utils.DatabaseHelper;
@@ -38,7 +38,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 
 public class ScheduleFlightActivity extends AppCompatActivity {
-    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     DrawerLayout drawerLayout;
     ImageView menu;
@@ -217,7 +217,7 @@ public class ScheduleFlightActivity extends AppCompatActivity {
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 (view, selectedYear, selectedMonth,selectedDay ) ->
-                        editText.setText(String.format("%04d/%02d/%02d", selectedYear, selectedMonth + 1, selectedDay)),
+                        editText.setText(String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay)),
                 year, month, day);
 
         datePickerDialog.show();
