@@ -96,7 +96,7 @@ public class ViewOpenActivity extends AppCompatActivity {
         flightList = databaseHelper.getOpenFlights();
 
         if (flightList.isEmpty()) {
-            Toast.makeText(this, "No flights in archive", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No flights are open for reservation", Toast.LENGTH_SHORT).show();
         }
 
         // Set the adapter with flightList

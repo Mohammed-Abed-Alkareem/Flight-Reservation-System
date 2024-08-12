@@ -12,9 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.flightreservationsystem.Classes.Flights;
 import com.example.flightreservationsystem.R;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class OpenAdapter extends RecyclerView.Adapter<OpenAdapter.FlightViewHolder> {
+    private static final DateTimeFormatter FORMATTER_DATE = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+    private static final DateTimeFormatter FORMATTER_TIME = DateTimeFormatter.ofPattern("HH:mm");
 
     private Context context;
     private List<Flights> flightList;
@@ -34,16 +37,30 @@ public class OpenAdapter extends RecyclerView.Adapter<OpenAdapter.FlightViewHold
     @Override
     public void onBindViewHolder(@NonNull FlightViewHolder holder, int position) {
         Flights flight = flightList.get(position);
-        holder.flightNumber.setText("Flight #: "+flight.getFlightNumber());
-        holder.departureCity.setText("dep: "+flight.getDepartureCity());
-        holder.arrivalCity.setText("arr: " +flight.getArrivalCity());
-        holder.departureTime.setText(flight.getDepartureTime() != null ? flight.getDepartureTime().toString() : "N/A");
-        holder.arrivalTime.setText(flight.getArrivalTime() != null ? flight.getArrivalTime().toString() : "N/A");
+
+        holder.flightNumber.setText("Flight #: " + flight.getFlightNumber());
+        holder.departureCity.setText("Dep: " + flight.getDepartureCity());
+        holder.arrivalCity.setText("Arr: " + flight.getArrivalCity());
+
+        // Handle departure and arrival times
+        holder.departureTime.setText(flight.getDepartureTime() != null
+                ? flight.getDepartureTime().format(FORMATTER_TIME)
+                : "N/A");
+
+        holder.arrivalTime.setText(flight.getArrivalTime() != null
+                ? flight.getArrivalTime().format(FORMATTER_TIME)
+                : "N/A");
+
         holder.duration.setText(flight.getDuration());
         holder.aircraftModel.setText(flight.getAircraftModel());
         holder.maxSeats.setText(String.valueOf(flight.getMaxSeats()));
         holder.currentReservations.setText(String.valueOf(flight.getCurrentReservations()));
-        holder.bookingOpenDate.setText(flight.getDepartureDate() != null ? flight.getDepartureDate().toString() : "N/A");
+
+        // Handle booking open date
+        holder.bookingOpenDate.setText(flight.getDepartureDate() != null
+                ? flight.getDepartureDate().format(FORMATTER_DATE)
+                : "N/A");
+
         holder.extraBaggagePrice.setText(String.format("$%.2f", flight.getExtraBaggagePrice()));
         holder.economyPrice.setText(String.format("$%.2f", flight.getEconomyPrice()));
         holder.businessPrice.setText(String.format("$%.2f", flight.getBusinessPrice()));

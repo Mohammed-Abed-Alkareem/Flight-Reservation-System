@@ -3,10 +3,8 @@ package com.example.flightreservationsystem.Sign;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -19,23 +17,21 @@ import com.example.flightreservationsystem.utils.DatabaseHelper;
 import com.example.flightreservationsystem.utils.Hash;
 import com.example.flightreservationsystem.R;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 
 public class PassengerSignUp extends AppCompatActivity {
 
+    DateTimeFormatter formatter_date = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+    ;
     private EditText emailEditText, phoneEditText, firstNameEditText, lastNameEditText,
             passportNumberEditText, passportIssuePlaceEditText, nationalityEditText,
-            passwordEditText, confirmPasswordEditText;
-    private Button passportIssueDateButton, dateOfBirthButton, expiryDateButton;
+            passwordEditText, confirmPasswordEditText, passportIssueDateEditText,
+            dateOfBirthEditText, expiryDateEditText;
     private Spinner foodPreferencesSpinner;
 
-    private EditText currentDateField; // to track the current date field
-
-    private DatePickerDialog datePickerDialog;
-
     private DatabaseHelper databaseHelper;
-    private Button registerButton;
-    private Button loginButton;
 
     // Variables to store the selected dates
     private int dobYear, dobMonth, dobDay;
@@ -60,13 +56,13 @@ public class PassengerSignUp extends AppCompatActivity {
         passwordEditText = findViewById(R.id.password_edit_text);
         confirmPasswordEditText = findViewById(R.id.confirm_password_edit_text);
 
-        foodPreferencesSpinner = findViewById(R.id.spinnerFoodPreference);
-        registerButton = findViewById(R.id.register_button);
-        loginButton = findViewById(R.id.signup_button);
+        passportIssueDateEditText = findViewById(R.id.passportIssueDateEditText);
+        dateOfBirthEditText = findViewById(R.id.dateOfBirthEditText);
+        expiryDateEditText = findViewById(R.id.expiryDateEditText);
 
-        passportIssueDateButton = findViewById(R.id.passportIssueDateButton);
-        dateOfBirthButton = findViewById(R.id.dateOfBirthButton);
-        expiryDateButton = findViewById(R.id.expiryDateButton);
+        foodPreferencesSpinner = findViewById(R.id.spinnerFoodPreference);
+        Button registerButton = findViewById(R.id.register_button);
+        Button loginButton = findViewById(R.id.signup_button);
 
         // Set up food preferences spinner
         String[] options = {"Normal", "Vegetarian", "Non-Vegetarian", "Vegan", "Halal", "Gluten-Free"};
@@ -77,20 +73,9 @@ public class PassengerSignUp extends AppCompatActivity {
         loginButton.setOnClickListener(v -> startActivity(new Intent(this, LoginActivity.class)));
         registerButton.setOnClickListener(v -> registerPassenger());
 
-        passportIssueDateButton.setOnClickListener(v -> {
-            showDatePickerDialog("issue");
-        });
-
-        dateOfBirthButton.setOnClickListener(v -> {
-            showDatePickerDialog("dob");
-        });
-
-        expiryDateButton.setOnClickListener(v -> {
-            showDatePickerDialog("expiry");
-        });
-
-
-
+        passportIssueDateEditText.setOnClickListener(v -> showDatePickerDialog("issue", passportIssueDateEditText));
+        dateOfBirthEditText.setOnClickListener(v -> showDatePickerDialog("dob", dateOfBirthEditText));
+        expiryDateEditText.setOnClickListener(v -> showDatePickerDialog("expiry", expiryDateEditText));
     }
 
     private void registerPassenger() {
@@ -103,14 +88,25 @@ public class PassengerSignUp extends AppCompatActivity {
         String confirmPassword = confirmPasswordEditText.getText().toString();
         String passportNumber = passportNumberEditText.getText().toString();
         String passportIssuePlace = passportIssuePlaceEditText.getText().toString();
-        //String passportIssueDate = passportIssueDateButton.getText().toString();
-        //String dateOfBirth = dateOfBirthButton.getText().toString();
         String nationality = nationalityEditText.getText().toString();
 
-        String passportIssueDate = getDate(issueYear, issueMonth, issueDay);
-        String dateOfBirth = getDate(dobYear, dobMonth, dobDay);
-        String passportExpiryDate = getDate(expiryYear, expiryMonth, expiryDay);
-
+        LocalDate passportIssueDate = null;
+        LocalDate dateOfBirth = null;
+        LocalDate passportExpiryDate = null;
+        try {
+            // Only parse if the text is not empty
+            if (!passportIssueDateEditText.getText().toString().isEmpty()) {
+                passportIssueDate = LocalDate.parse(passportIssueDateEditText.getText().toString(), formatter_date);
+            }
+            if (!dateOfBirthEditText.getText().toString().isEmpty()) {
+                dateOfBirth = LocalDate.parse(dateOfBirthEditText.getText().toString(), formatter_date);
+            }
+            if (!expiryDateEditText.getText().toString().isEmpty()) {
+                passportExpiryDate = LocalDate.parse(expiryDateEditText.getText().toString(), formatter_date);
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "Invalid date format. Expected format: yyyy/mm/dd", Toast.LENGTH_SHORT).show();
+        }
 
         // Clear previous errors
         clearErrors();
@@ -119,7 +115,7 @@ public class PassengerSignUp extends AppCompatActivity {
 
         try {
             // Validation
-            isValid = validateFields(email, phone, firstName, lastName, password, confirmPassword, passportNumber, passportIssuePlace);
+            isValid = validateFields(email, phone, firstName, lastName, password, confirmPassword, passportNumber, passportIssuePlace, passportExpiryDate, dateOfBirth, passportIssueDate);
 
             if (isValid) {
                 // Create a new Passenger object
@@ -138,14 +134,12 @@ public class PassengerSignUp extends AppCompatActivity {
                 passenger.setDate_of_birth(dateOfBirth);
                 passenger.setNationality(nationality);
 
-
-
                 // Add the Passenger object to the database
                 databaseHelper.insertPassengerDetails(passenger);
                 // Redirect to the login page
                 startActivity(new Intent(this, LoginActivity.class));
             } else {
-                throw new Exception("Failed to register passenger.");
+                Toast.makeText(this, "Please fill in all the fields correctly.", Toast.LENGTH_SHORT).show();
             }
 
         } catch (Exception e) {
@@ -163,10 +157,9 @@ public class PassengerSignUp extends AppCompatActivity {
         confirmPasswordEditText.setError(null);
         passportNumberEditText.setError(null);
         passportIssuePlaceEditText.setError(null);
-
     }
 
-    private boolean validateFields(String email, String phone, String firstName, String lastName, String password, String confirmPassword, String passportNumber, String passportIssuePlace) {
+    private boolean validateFields(String email, String phone, String firstName, String lastName, String password, String confirmPassword, String passportNumber, String passportIssuePlace, LocalDate passportExpiryDate, LocalDate dateOfBirth, LocalDate passportIssueDate) {
         boolean isValid = true;
 
         if (!Validation.isValidEmail(email)) {
@@ -202,51 +195,50 @@ public class PassengerSignUp extends AppCompatActivity {
             passportIssuePlaceEditText.setError("Invalid name format. Expected format: alphabetic characters and certain special characters like ',.-");
         }
 
+        if (!Validation.isValidDate(dateOfBirth.format(formatter_date))) {
+            isValid = false;
+            dateOfBirthEditText.setError("Invalid date format. Expected format: yyyy/mm/dd");
+        }
+        if (!Validation.isValidDate(passportIssueDate.format(formatter_date))) {
+            isValid = false;
+            passportIssueDateEditText.setError("Invalid date format. Expected format: yyyy/mm/dd");
+        }
+        if (!Validation.isValidDate(passportExpiryDate.format(formatter_date))) {
+            isValid = false;
+            expiryDateEditText.setError("Invalid date format. Expected format: yyyy/mm/dd");
+        }
+
         return isValid;
     }
 
-    private void showDatePickerDialog(final String kind) {
+    private void showDatePickerDialog(final String kind, final EditText editText) {
         final Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                PassengerSignUp.this,
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        // Store the selected date
-                        if (kind.equals("dob")) {
-                            dobYear = year;
-                            dobMonth = month + 1; // Month is 0-indexed so add 1
-                            dobDay = dayOfMonth;
-                        } else if (kind.equals("issue")) {
-                            issueYear = year;
-                            issueMonth = month + 1; // Month is 0-indexed so add 1
-                            issueDay = dayOfMonth;
-                        } else if (kind.equals("expiry")) {
-                            expiryYear = year;
-                            expiryMonth = month + 1; // Month is 0-indexed so add 1
-                            expiryDay = dayOfMonth;
-                        }
-
-
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                (view, selectedYear, selectedMonth, selectedDay) -> {
+                    // Store the selected date
+                    if (kind.equals("dob")) {
+                        dobYear = selectedYear;
+                        dobMonth = selectedMonth + 1; // Month is 0-indexed so add 1
+                        dobDay = selectedDay;
+                    } else if (kind.equals("issue")) {
+                        issueYear = selectedYear;
+                        issueMonth = selectedMonth + 1;
+                        issueDay = selectedDay;
+                    } else if (kind.equals("expiry")) {
+                        expiryYear = selectedYear;
+                        expiryMonth = selectedMonth + 1;
+                        expiryDay = selectedDay;
                     }
+                    // Set the selected date to the EditText field
+                    editText.setText(String.format("%04d/%02d/%02d", selectedYear, selectedMonth + 1, selectedDay));
                 }, year, month, day);
+
         datePickerDialog.show();
     }
 
-    // Method to get the selected Date
-    public String getDate(int year, int month, int day) {
-        // yyyy/mm/dd
-        // make sure the month and day are in two digits
-        String monthString = month < 10 ? "0" + month : String.valueOf(month);
-        String dayString = day < 10 ? "0" + day : String.valueOf(day);
-
-        return year + "-" + monthString + "-" + dayString;
-
-    }
 
 }
-

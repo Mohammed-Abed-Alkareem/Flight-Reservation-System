@@ -106,23 +106,24 @@
                 android:textColorHint="@android:color/darker_gray"
                 android:textSize="18sp" />
 
-            <TextView
+            <EditText
+                android:id="@+id/passportIssueDateEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Passport Issue Date"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
-            <Button
-                android:id="@+id/passportIssueDateButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="JAN 01 2020"
-                android:textSize="18sp"
-                android:textColor="@android:color/black"
-                android:backgroundTint="@color/white"
-                android:backgroundTintMode="src_in"
+                android:layout_height="72dp"
                 android:layout_marginTop="8dp"
+                android:backgroundTint="@color/black"
+                android:backgroundTintMode="src_over"
+                android:hint="Passport Issue Date"
+                android:inputType="date"
+                android:shadowColor="#000000"
+                android:shadowDx="20"
+                android:shadowDy="20"
+                android:shadowRadius="30"
+                android:textColorHighlight="#000000"
+                android:textColorHint="#000000"
+                android:textSize="20sp"
+                android:focusable="false"
+                android:clickable="true"
                 android:onClick="openDatePicker"
                 android:contentDescription="Select passport issue date" />
 
@@ -139,25 +140,27 @@
                 android:textColorHint="@android:color/darker_gray"
                 android:textSize="18sp" />
 
-            <TextView
+
+            <EditText
+                android:id="@+id/expiryDateEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Passport Expiration Date"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
-            <Button
-                android:id="@+id/expiryDateButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="JAN 01 2020"
-                android:textSize="18sp"
-                android:textColor="@android:color/black"
-                android:backgroundTint="@color/white"
-                android:backgroundTintMode="src_in"
+                android:layout_height="72dp"
                 android:layout_marginTop="8dp"
+                android:backgroundTint="@color/black"
+                android:backgroundTintMode="src_over"
+                android:hint="Passport Expiration Date"
+                android:inputType="date"
+                android:shadowColor="#000000"
+                android:shadowDx="20"
+                android:shadowDy="20"
+                android:shadowRadius="30"
+                android:textColorHighlight="#000000"
+                android:textColorHint="#000000"
+                android:textSize="20sp"
+                android:focusable="false"
+                android:clickable="true"
                 android:onClick="openDatePicker"
-                android:contentDescription="Select passport issue date" />
+                android:contentDescription="Select passport expiration date" />
 
             <Spinner
                 android:id="@+id/spinnerFoodPreference"
@@ -168,25 +171,27 @@
                 android:backgroundTintMode="src_over"
                 android:hint="Food Preference" />
 
-            <TextView
+
+            <EditText
+                android:id="@+id/dateOfBirthEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Date of Birth"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
-            <Button
-                android:id="@+id/dateOfBirthButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="JAN 01 2020"
-                android:textSize="18sp"
-                android:textColor="@android:color/black"
-                android:backgroundTint="@color/white"
-                android:backgroundTintMode="src_in"
+                android:layout_height="72dp"
                 android:layout_marginTop="8dp"
+                android:backgroundTint="@color/black"
+                android:backgroundTintMode="src_over"
+                android:hint="Date of Birth"
+                android:inputType="date"
+                android:shadowColor="#000000"
+                android:shadowDx="20"
+                android:shadowDy="20"
+                android:shadowRadius="30"
+                android:textColorHighlight="#000000"
+                android:textColorHint="#000000"
+                android:textSize="20sp"
+                android:focusable="false"
+                android:clickable="true"
                 android:onClick="openDatePicker"
-                android:contentDescription="Select passport issue date" />
+                android:contentDescription="Select date of birth" />
 
             <EditText
                 android:id="@+id/editTextNationality"

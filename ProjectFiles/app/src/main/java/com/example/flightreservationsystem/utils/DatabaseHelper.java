@@ -28,7 +28,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "FlightReservationSystem.db";
     private static final int DATABASE_VERSION = 1;
-    DateTimeFormatter formatter_date = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    DateTimeFormatter formatter_date = DateTimeFormatter.ofPattern("yyyy/MM/dd");
     DateTimeFormatter formatter_time = DateTimeFormatter.ofPattern("HH:mm");
 
     private Context context;
@@ -42,9 +42,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         try {
             db.execSQL(SQLQueries.CREATE_USER_TABLE);
+            db.execSQL(SQLQueries.CREATE_PASSENGER_DETAILS_TABLE);
             db.execSQL(SQLQueries.CREATE_FLIGHT_TABLE);
             db.execSQL(SQLQueries.CREATE_RESERVATION_TABLE);
-            db.execSQL(SQLQueries.CREATE_PASSENGER_DETAILS_TABLE);
+
 
 
 
@@ -86,10 +87,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             ContentValues passengerValues = new ContentValues();
             passengerValues.put("user_id", userId);
             passengerValues.put("passport_number", passenger.getPassport_number());
-            passengerValues.put("passport_issue_date", passenger.getPassport_issue_date());
+            passengerValues.put("passport_issue_date", passenger.getPassport_issue_date().format(formatter_date));
             passengerValues.put("passport_issue_place", passenger.getPassport_issue_place());
+            passengerValues.put("passport_expiration_date", passenger.getPassport_expiration_date().format(formatter_date));
             passengerValues.put("food_preference", passenger.getFood_preference());
-            passengerValues.put("date_of_birth", passenger.getDate_of_birth());
+            passengerValues.put("date_of_birth", passenger.getDate_of_birth().format(formatter_date));
+
             passengerValues.put("nationality", passenger.getNationality());
 
             long passengerId = db.insert("PassengerDetails", null, passengerValues);
@@ -206,11 +209,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                                                 getColumnValue(cursor, "password_hash"),
                                                 getColumnValue(cursor, "role"),
                                                 getColumnValue(cursor2, "passport_number"),
-                                                getColumnValue(cursor2, "passport_issue_date"),
+                                                LocalDate.parse(getColumnValue(cursor2, "passport_issue_date"), formatter_date),
                                                 getColumnValue(cursor2, "passport_issue_place"),
-                                                getColumnValue(cursor2, "passport_expiration_date"),
+                                                LocalDate.parse(getColumnValue(cursor2, "passport_expiration_date"), formatter_date),
                                                 getColumnValue(cursor2, "food_preference"),
-                                                getColumnValue(cursor2, "date_of_birth"),
+                                                LocalDate.parse(getColumnValue(cursor2, "date_of_birth"), formatter_date),
                                                 getColumnValue(cursor2, "nationality")
                                         );
                                     } else {
