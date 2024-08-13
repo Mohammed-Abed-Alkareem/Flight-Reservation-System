@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.flightreservationsystem.AdminHomeActivity.AdminHomeActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.Archived.ViewArchiveActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.EditFlightActivity;
+import com.example.flightreservationsystem.AdminHomeActivity.ScheduleFlightActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.filter.FilterFlightsActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.ViewReservationsActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.unava.ViewUnavailableActivity;
@@ -63,7 +64,7 @@ public class ViewOpenActivity extends AppCompatActivity {
 
         home.setOnClickListener(v -> redirectActivity(ViewOpenActivity.this, AdminHomeActivity.class));
 
-        schedule.setOnClickListener(v -> startActivity(new Intent(ViewOpenActivity.this, ViewArchiveActivity.class)));
+        schedule.setOnClickListener(v -> startActivity(new Intent(ViewOpenActivity.this, ScheduleFlightActivity.class)));
 
         edit.setOnClickListener(v -> startActivity(new Intent(ViewOpenActivity.this, EditFlightActivity.class)));
 

@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         ///////////////////Read from API/////////////////////
 
         ConnectionAsyncTask connectionAsyncTask = new ConnectionAsyncTask(MainActivity.this);
-        connectionAsyncTask.execute("https://mocki.io/v1/1452799c-b19c-45e8-a628-c12465a3ddf9");
+        connectionAsyncTask.execute("https://mocki.io/v1/c26a75f7-c431-4042-8cb9-d4b495c0376c");
 
         ///////////////////////////////////////////
 

@@ -16,7 +16,7 @@ public class FlightJsonParser {
 
     // The expected date format in JSON
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
 
     public static List<Flights> getObjectFromJson(String json) {
         List<Flights> flights = new ArrayList<>();
@@ -45,9 +45,9 @@ public class FlightJsonParser {
                 System.out.println(formatDate(flight.getBookingOpenDate()));
                 System.out.println("***********************************");
 
-                // Parse times using HH:mm
-                flight.setDepartureTime(parseTime(flightObject.optString("departure_time", "00:00")));
-                flight.setArrivalTime(parseTime(flightObject.optString("arrival_time", "00:00")));
+                // Parse times using HH:mm:ss
+                flight.setDepartureTime(parseTime(flightObject.optString("departure_time", "00:00:00")));
+                flight.setArrivalTime(parseTime(flightObject.optString("arrival_time", "00:00:00")));
 
                 flight.setDuration(flightObject.optString("duration", "0h"));
                 flight.setAircraftModel(flightObject.optString("aircraft_model", "Unknown"));
