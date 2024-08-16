@@ -24,7 +24,7 @@ import com.example.flightreservationsystem.AdminHomeActivity.Archived.ViewArchiv
 import com.example.flightreservationsystem.AdminHomeActivity.EditFlightActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.Open.ViewOpenActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.ScheduleFlightActivity;
-import com.example.flightreservationsystem.AdminHomeActivity.ViewReservationsActivity;
+import com.example.flightreservationsystem.AdminHomeActivity.reser.ViewReservations;
 import com.example.flightreservationsystem.AdminHomeActivity.unava.ViewUnavailableActivity;
 import com.example.flightreservationsystem.models.Flights;
 import com.example.flightreservationsystem.R;
@@ -91,7 +91,7 @@ public class FilterFlightsActivity extends AppCompatActivity {
 
         archive.setOnClickListener(v -> startActivity(new Intent(FilterFlightsActivity.this, ViewArchiveActivity.class)));
 
-        reservation.setOnClickListener(v -> startActivity(new Intent(FilterFlightsActivity.this, ViewReservationsActivity.class)));
+        reservation.setOnClickListener(v -> startActivity(new Intent(FilterFlightsActivity.this, ViewReservations.class)));
 
         filter.setOnClickListener(v -> recreate());
 

@@ -18,7 +18,7 @@ import com.example.flightreservationsystem.AdminHomeActivity.AdminHomeActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.EditFlightActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.filter.FilterFlightsActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.Open.ViewOpenActivity;
-import com.example.flightreservationsystem.AdminHomeActivity.ViewReservationsActivity;
+import com.example.flightreservationsystem.AdminHomeActivity.reser.ViewReservations;
 import com.example.flightreservationsystem.AdminHomeActivity.unava.ViewUnavailableActivity;
 import com.example.flightreservationsystem.models.Flights;
 import com.example.flightreservationsystem.utils.DatabaseHelper;
@@ -112,7 +112,7 @@ public class ViewArchiveActivity extends AppCompatActivity {
         reservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ViewArchiveActivity.this, ViewReservationsActivity.class));
+                startActivity(new Intent(ViewArchiveActivity.this, ViewReservations.class));
             }
         });
 

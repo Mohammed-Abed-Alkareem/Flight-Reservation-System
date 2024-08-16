@@ -19,6 +19,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.flightreservationsystem.AdminHomeActivity.Archived.ViewArchiveActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.Open.ViewOpenActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.filter.FilterFlightsActivity;
+import com.example.flightreservationsystem.AdminHomeActivity.reser.ViewReservations;
 import com.example.flightreservationsystem.AdminHomeActivity.unava.ViewUnavailableActivity;
 import com.example.flightreservationsystem.R;
 import com.example.flightreservationsystem.Sign.LoginActivity;
@@ -93,7 +94,7 @@ public class AdminHomeActivity extends AppCompatActivity {
 
         archive.setOnClickListener(v -> redirectActivity(AdminHomeActivity.this, ViewArchiveActivity.class));
 
-        reservation.setOnClickListener(v -> redirectActivity(AdminHomeActivity.this, ViewReservationsActivity.class));
+        reservation.setOnClickListener(v -> redirectActivity(AdminHomeActivity.this, ViewReservations.class));
 
         filter.setOnClickListener(v -> redirectActivity(AdminHomeActivity.this, FilterFlightsActivity.class));
 

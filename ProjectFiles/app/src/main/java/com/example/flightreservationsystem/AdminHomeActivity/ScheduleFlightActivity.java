@@ -26,6 +26,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.flightreservationsystem.AdminHomeActivity.Archived.ViewArchiveActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.Open.ViewOpenActivity;
 import com.example.flightreservationsystem.AdminHomeActivity.filter.FilterFlightsActivity;
+import com.example.flightreservationsystem.AdminHomeActivity.reser.ViewReservations;
 import com.example.flightreservationsystem.AdminHomeActivity.unava.ViewUnavailableActivity;
 import com.example.flightreservationsystem.models.Flights;
 import com.example.flightreservationsystem.R;
@@ -92,7 +93,7 @@ public class ScheduleFlightActivity extends AppCompatActivity {
 
         archive.setOnClickListener(v -> startActivity(new Intent(ScheduleFlightActivity.this, ViewArchiveActivity.class)));
 
-        reservation.setOnClickListener(v -> startActivity(new Intent(ScheduleFlightActivity.this, ViewReservationsActivity.class)));
+        reservation.setOnClickListener(v -> startActivity(new Intent(ScheduleFlightActivity.this, ViewReservations.class)));
 
         filter.setOnClickListener(v -> startActivity(new Intent(ScheduleFlightActivity.this, FilterFlightsActivity.class)));
 
