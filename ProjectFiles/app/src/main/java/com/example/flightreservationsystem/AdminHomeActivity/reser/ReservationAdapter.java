@@ -38,13 +38,13 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
     @Override
     public void onBindViewHolder(@NonNull ReservationViewHolder holder, int position) {
         Reservations reservation = reservations.get(position);
-//        holder.flightIdTextView.setText("Flight ID: " + reservation.getFlightId());
-//        holder.userIdTextView.setText("User ID: " + reservation.getUserId());
-//        holder.flightClassTextView.setText("Flight Class: " + reservation.getFlightClass());
-//        holder.extraBagsTextView.setText("Extra Bags: " + reservation.getExtraBags());
-//        holder.totalPriceTextView.setText("Total Price: $" + reservation.getTotalPrice());
-//        holder.foodPreferencesTextView.setText("Food Preferences: " + reservation.getFoodPreferences());
-//        holder.reservationDateTextView.setText("Reservation Date: " + reservation.getReservationDate());
+        holder.flightIdTextView.setText("Flight ID: " + reservation.getFlightID());
+        holder.userIdTextView.setText("User ID: " + reservation.getUserID());
+        holder.flightClassTextView.setText("Flight Class: " + reservation.getFlightClass());
+        holder.extraBagsTextView.setText("Extra Bags: " + reservation.getExtraBags());
+        holder.totalPriceTextView.setText("Total Price: $" + reservation.getTotalPrice());
+        holder.foodPreferencesTextView.setText("Food Preferences: " + reservation.getFoodPreference());
+        holder.reservationDateTextView.setText("Reservation Date: " + reservation.getReservationDate());
     }
 
     @Override

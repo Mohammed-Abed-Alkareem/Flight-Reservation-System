@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.flightreservationsystem.AdminHomeActivity.AdminHomeActivity;
@@ -26,7 +27,9 @@ import com.example.flightreservationsystem.R;
 import com.example.flightreservationsystem.Sign.LoginActivity;
 import com.example.flightreservationsystem.models.Reservations;
 import com.example.flightreservationsystem.models.Validation;
+import com.example.flightreservationsystem.utils.DatabaseHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViewReservations extends AppCompatActivity {
@@ -40,7 +43,7 @@ public class ViewReservations extends AppCompatActivity {
 
     /////////cards/////
     private RecyclerView recyclerView;
-    private OpenAdapter openAdapter;
+    private ReservationAdapter reservationAdapter;
     private List<Reservations> reservationList;
 
     Button searchReservations;
@@ -98,20 +101,28 @@ public class ViewReservations extends AppCompatActivity {
             // Get flight number from the user
             String flight_number = flightNumber.getText().toString();
 
-            if(Validation.isValidFlightNumber(flight_number)) {
+            if(!Validation.isValidFlightNumber(flight_number)) {
                 flightNumber.setError("Invalid Flight Number");
                 Toast.makeText(ViewReservations.this, "Invalid Flight Number", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-//            DatabaseHelper databaseHelper = new DatabaseHelper(ViewReservationsActivity.this);
-//            reservationList = new ArrayList<>();
-//            reservationList = databaseHelper.getReservations(flight_number);
-//            recyclerView = findViewById(R.id.reservation_recycler);
-//            recyclerView.setHasFixedSize(true);
-//            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//            openAdapter = new OpenAdapter(this, reservationList);
-//            recyclerView.setAdapter(openAdapter);
+            // Initialize RecyclerView and adapter
+            recyclerView = findViewById(R.id.recycler_view);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));  // Enables vertical scrolling
+
+            reservationList = new ArrayList<>();
+
+            DatabaseHelper databaseHelper = new DatabaseHelper(this, null, 1);
+            reservationList = databaseHelper.getReservationsByFlightNumber(flight_number);
+
+            if (reservationList.isEmpty()) {
+                Toast.makeText(this, "No Reservations For this Flight", Toast.LENGTH_SHORT).show();
+            }
+
+            // Set the adapter with flightList
+            reservationAdapter = new ReservationAdapter(this, reservationList);
+            recyclerView.setAdapter(reservationAdapter);  // Set the adapter for RecyclerView
         });
 
     }

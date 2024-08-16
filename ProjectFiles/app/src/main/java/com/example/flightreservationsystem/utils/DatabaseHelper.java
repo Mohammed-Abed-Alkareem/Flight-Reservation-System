@@ -21,6 +21,7 @@ import com.example.flightreservationsystem.models.User;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -717,7 +718,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             reservationValues.put("flight_id", reservation.getFlightID());
             reservationValues.put("user_id", reservation.getUserID());
-            reservationValues.put("extra_bags", reservation.getExtraBaggage());
+            reservationValues.put("extra_bags", reservation.getExtraBags());
             reservationValues.put("flight_class", reservation.getClassType());
             reservationValues.put("food_preferences", reservation.getFoodPreference());
             reservationValues.put("total_price", reservation.getTotalPrice());
@@ -784,6 +785,50 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         } finally {
             db.endTransaction(); // End transaction
             db.close(); // Close database
+        }
+    }
+
+    public List<Reservations> getReservationsByFlightNumber(String flight_number){
+
+        Flights flight = getFlightByNumber(flight_number);
+
+        String flight_id = String.valueOf(flight.getFlight_id());
+
+        List<Reservations> reservationList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Reservations WHERE flight_id = ?", new String[]{flight_id});
+
+        if (cursor == null) {
+            return reservationList;
+        }
+
+        if (cursor.moveToFirst()) {
+            do {
+                Reservations reservation = new Reservations();
+
+                reservation.setReservationID(Integer.parseInt(getColumnValue(cursor, "reservation_id")));
+                reservation.setFlightID(Integer.parseInt(getColumnValue(cursor, "flight_id")));
+                reservation.setUserID(Integer.parseInt(getColumnValue(cursor, "user_id")));
+                reservation.setClassType(getColumnValue(cursor, "flight_class"));
+                reservation.setExtraBags(Integer.parseInt(getColumnValue(cursor, "extra_bags")));
+                reservation.setTotalPrice(Double.parseDouble(getColumnValue(cursor, "total_price")));
+                reservation.setFoodPreference(getColumnValue(cursor, "food_preferences"));
+                reservation.setReservationDate(getLocalDateTimeColumnValue(cursor, "reservation_date"));
+
+                reservationList.add(reservation);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return reservationList;
+    }
+
+    private LocalDateTime getLocalDateTimeColumnValue(Cursor cursor, String dateTime) {
+        String dateTimeString = getColumnValue(cursor, dateTime);
+        if (dateTimeString != null) {
+            return LocalDateTime.parse(dateTimeString);
+        } else {
+            return null;
         }
     }
 }

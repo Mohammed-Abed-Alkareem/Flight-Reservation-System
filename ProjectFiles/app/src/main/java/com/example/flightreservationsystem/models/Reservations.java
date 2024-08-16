@@ -1,38 +1,38 @@
 package com.example.flightreservationsystem.models;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Reservations {
     private int reservationID;
     private int flightID;
     private int userID;
-    private String seatClass;
-    private int extraBaggage;
+    private String flightClass;
+    private int extraBags;
     private String classType;
     private double totalPrice;
-    private LocalDate reservationDate;
+    private LocalDateTime reservationDate;
 
     private String foodPreference;
 
     public Reservations() {
     }
 
-    public Reservations(int reservationID, int flightID, int userID, String seatClass, int extraBaggage, double totalPrice, String foodPreference , LocalDate reservationDate) {
+    public Reservations(int reservationID, int flightID, int userID, String flightClass, int extraBags, double totalPrice, String foodPreference , LocalDateTime reservationDate) {
         this.reservationID = reservationID;
         this.flightID = flightID;
         this.userID = userID;
-        this.seatClass = seatClass;
-        this.extraBaggage = extraBaggage;
+        this.flightClass = flightClass;
+        this.extraBags = extraBags;
         this.totalPrice = totalPrice;
         this.foodPreference = foodPreference;
         this.reservationDate = reservationDate;
     }
 
-    public Reservations(int flightID, int userID, String seatClass, int extraBaggage , String foodPreference) {
+    public Reservations(int flightID, int userID, String flightClass, int extraBags, String foodPreference) {
         this.flightID = flightID;
         this.userID = userID;
-        this.seatClass = seatClass;
-        this.extraBaggage = extraBaggage;
+        this.flightClass = flightClass;
+        this.extraBags = extraBags;
         this.foodPreference = foodPreference;
 
 
@@ -80,20 +80,20 @@ public class Reservations {
         this.userID = userID;
     }
 
-    public String getSeatClass() {
-        return seatClass;
+    public String getFlightClass() {
+        return flightClass;
     }
 
-    public void setSeatClass(String seatClass) {
-        this.seatClass = seatClass;
+    public void setFlightClass(String flightClass) {
+        this.flightClass = flightClass;
     }
 
-    public int getExtraBaggage() {
-        return extraBaggage;
+    public int getExtraBags() {
+        return extraBags;
     }
 
-    public void setExtraBaggage(int extraBaggage) {
-        this.extraBaggage = extraBaggage;
+    public void setExtraBags(int extraBags) {
+        this.extraBags = extraBags;
     }
 
     public double getTotalPrice() {
@@ -104,11 +104,11 @@ public class Reservations {
         this.totalPrice = totalPrice;
     }
 
-    public LocalDate getReservationDate() {
+    public LocalDateTime getReservationDate() {
         return reservationDate;
     }
 
-    public void setReservationDate(LocalDate reservationDate) {
+    public void setReservationDate(LocalDateTime reservationDate) {
         this.reservationDate = reservationDate;
     }
 }

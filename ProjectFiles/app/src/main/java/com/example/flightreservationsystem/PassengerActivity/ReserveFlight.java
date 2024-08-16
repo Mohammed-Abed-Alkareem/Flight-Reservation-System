@@ -119,7 +119,7 @@ public class ReserveFlight extends AppCompatActivity {
             Reservations reservation = new Reservations();
             reservation.setFlightID(flight.getFlight_id());
             reservation.setUserID(preferences.getInt("userId", 0));
-            reservation.setExtraBaggage(extra_bags);
+            reservation.setExtraBags(extra_bags);
             reservation.setClassType(class_type);
             reservation.setFoodPreference(food_preference);
 
