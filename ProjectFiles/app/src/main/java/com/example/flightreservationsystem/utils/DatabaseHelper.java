@@ -1,5 +1,10 @@
 package com.example.flightreservationsystem.utils;
 
+import static com.example.flightreservationsystem.utils.SQLQueries.CREATE_FLIGHT_TABLE;
+import static com.example.flightreservationsystem.utils.SQLQueries.CREATE_PASSENGER_DETAILS_TABLE;
+import static com.example.flightreservationsystem.utils.SQLQueries.CREATE_RESERVATION_TABLE;
+import static com.example.flightreservationsystem.utils.SQLQueries.CREATE_USER_TABLE;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -40,16 +45,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         try {
-            db.execSQL(SQLQueries.CREATE_USER_TABLE);
-            db.execSQL(SQLQueries.CREATE_PASSENGER_DETAILS_TABLE);
-            db.execSQL(SQLQueries.CREATE_FLIGHT_TABLE);
-            db.execSQL(SQLQueries.CREATE_RESERVATION_TABLE);
-
-
-
-
+            db.execSQL(CREATE_USER_TABLE);
         } catch (Exception e) {
-            Toast.makeText(context, "Error creating tables: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Error creating Users table: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+        try {
+            db.execSQL(CREATE_PASSENGER_DETAILS_TABLE);
+        } catch (Exception e) {
+            Toast.makeText(context, "Error creating PassengerDetails table: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+        try {
+            db.execSQL(CREATE_FLIGHT_TABLE);
+        } catch (Exception e) {
+            Toast.makeText(context, "Error creating Flights table: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+        try {
+            db.execSQL(CREATE_RESERVATION_TABLE);
+        } catch (Exception e) {
+            Toast.makeText(context, "Error creating Reservations table: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -555,6 +571,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public Flights getFlightByNumber(String flightNum){
+
         Flights flight = new Flights();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM Flights WHERE flight_number = ?", new String[]{String.valueOf(flightNum)});
@@ -564,7 +581,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         if (cursor.moveToFirst()) {
+
+            flight.setFlight_id(Integer.parseInt(getColumnValue(cursor, "flight_id")));
+
             flight.setFlightNumber(getColumnValue(cursor, "flight_number"));
+
+            System.out.println("Flight Number: extracted " + getColumnValue(cursor, "flight_number"));
+
             flight.setDepartureCity(getColumnValue(cursor, "departure_city"));
             flight.setArrivalCity(getColumnValue(cursor, "arrival_city"));
 
@@ -694,9 +717,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             reservationValues.put("flight_id", reservation.getFlightID());
             reservationValues.put("user_id", reservation.getUserID());
-            reservationValues.put("extra_baggage", reservation.getExtraBaggage());
-            reservationValues.put("class_type", reservation.getClassType());
-            reservationValues.put("food_preference", reservation.getFoodPreference());
+            reservationValues.put("extra_bags", reservation.getExtraBaggage());
+            reservationValues.put("flight_class", reservation.getClassType());
+            reservationValues.put("food_preferences", reservation.getFoodPreference());
             reservationValues.put("total_price", reservation.getTotalPrice());
 
 

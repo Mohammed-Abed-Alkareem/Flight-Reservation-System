@@ -25,7 +25,7 @@ public class ReserveFlight extends AppCompatActivity {
 
     LinearLayout home, search, reserve, current, previous; // add others
 
-    Button menuButton;
+
 
     TextView passengerName;
     SharedPreferences preferences;
@@ -38,12 +38,12 @@ public class ReserveFlight extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_passenger_home);
+        setContentView(R.layout.activity_reserve_flight);
 
         drawerLayout = findViewById(R.id.passenger_drawer_layout);
         menu = findViewById(R.id.menu_icon);
 
-        menuButton = findViewById(R.id.menu);
+
 
         home = findViewById(R.id.passenger_home);
         reserve = findViewById(R.id.make_reservation);
@@ -60,12 +60,13 @@ public class ReserveFlight extends AppCompatActivity {
 
         menu.setOnClickListener(v -> openDrawer(drawerLayout));
 
-        menuButton.setOnClickListener(v -> openDrawer(drawerLayout));
+
 
 
         home.setOnClickListener(v -> redirectActivity(ReserveFlight.this, PassengerHomeActivity.class));
 
         reserve.setOnClickListener(v -> recreate());
+        search.setOnClickListener(v -> redirectActivity(ReserveFlight.this, SearchFlights.class));
 
 
         ///////////////////drawer name and email///////////////////////////////
@@ -84,7 +85,7 @@ public class ReserveFlight extends AppCompatActivity {
 
         reserveButton.setOnClickListener(v -> {
             String flight_number = flightNumber.getText().toString();
-            Integer extra_bags = Integer.parseInt(extraBag.getText().toString());
+            int extra_bags = Integer.parseInt(extraBag.getText().toString());
             String class_type = classType.getText().toString();
             String food_preference = foodPreference.getText().toString();
             if (flight_number.isEmpty()) {
@@ -94,6 +95,11 @@ public class ReserveFlight extends AppCompatActivity {
 
             databasehelper = new DatabaseHelper(this, null, 1);
             Flights flight = databasehelper.getFlightByNumber(flight_number);
+
+            System.out.println("====================================");
+            System.out.println(flight);
+            System.out.println(flight.getFlight_id());
+            System.out.println("====================================");
 
             if (flight == null) {
                 flightNumber.setError("Flight not found");
@@ -105,7 +111,7 @@ public class ReserveFlight extends AppCompatActivity {
                 return;
             }
 
-            if (!class_type.equals("economy") && !class_type.equals("business")) {
+            if (!class_type.equals("Economy") && !class_type.equals("Business")) {
                 classType.setError("Please enter a valid class type");
                 return;
             }
@@ -118,7 +124,7 @@ public class ReserveFlight extends AppCompatActivity {
             reservation.setFoodPreference(food_preference);
 
             double total_price = 0;
-            if (class_type.equals("economy")) {
+            if (class_type.equals("Economy")) {
                 total_price = flight.getEconomyPrice();
             } else {
                 total_price = flight.getBusinessPrice();

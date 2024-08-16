@@ -62,7 +62,7 @@ public class SQLQueries {
                     "flight_class TEXT CHECK(flight_class IN ('Economy', 'Business')) NOT NULL, " +
                     "extra_bags INTEGER DEFAULT 0, " +
                     "total_price REAL NOT NULL, " +
-                    "food_preferences TEXT NOT NULL"+
+                    "food_preferences TEXT NOT NULL, "+
                     "reservation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
                     "FOREIGN KEY (flight_id) REFERENCES Flights(flight_id) ON DELETE CASCADE, " +
                     "FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE" +

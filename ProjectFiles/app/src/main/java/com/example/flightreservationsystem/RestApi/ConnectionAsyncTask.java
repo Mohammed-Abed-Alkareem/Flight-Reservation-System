@@ -2,6 +2,7 @@ package com.example.flightreservationsystem.RestApi;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import com.example.flightreservationsystem.models.Flights;
 
@@ -17,6 +18,7 @@ public class ConnectionAsyncTask extends AsyncTask<String, String, String> {
     @Override
     protected void onPreExecute() {
 
+        Toast.makeText(activity, "Loading data...", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -34,6 +36,8 @@ public class ConnectionAsyncTask extends AsyncTask<String, String, String> {
 
         MainActivity mainActivity = (MainActivity) activity;
         mainActivity.insertFlightsDB(flights);
+
+        Toast.makeText(activity, "Data loaded", Toast.LENGTH_SHORT).show();
 
 
     }

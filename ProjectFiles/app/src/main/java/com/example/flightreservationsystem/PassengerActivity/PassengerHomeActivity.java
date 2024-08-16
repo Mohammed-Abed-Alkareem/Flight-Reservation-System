@@ -57,6 +57,8 @@ public class PassengerHomeActivity extends AppCompatActivity {
 
             home.setOnClickListener(v -> recreate());
 
+            search.setOnClickListener(v -> redirectActivity(PassengerHomeActivity.this, SearchFlights.class));
+
             reserve.setOnClickListener(v -> redirectActivity(PassengerHomeActivity.this, ReserveFlight.class));
 
             logout.setOnClickListener(v -> {
