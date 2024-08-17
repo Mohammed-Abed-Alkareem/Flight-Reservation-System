@@ -44,7 +44,9 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
         holder.extraBagsTextView.setText("Extra Bags: " + reservation.getExtraBags());
         holder.totalPriceTextView.setText("Total Price: $" + reservation.getTotalPrice());
         holder.foodPreferencesTextView.setText("Food Preferences: " + reservation.getFoodPreference());
-        holder.reservationDateTextView.setText("Reservation Date: " + reservation.getReservationDate());
+
+        String reservationDate = reservation.getReservationDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        holder.reservationDateTextView.setText("Reservation Date: " + reservationDate);
     }
 
     @Override

@@ -39,7 +39,6 @@ public class ViewReservations extends AppCompatActivity {
 
     LinearLayout home, schedule , edit , open , unavailable, archive ,reservation ,filter , logout;
 
-//    Button scheduleFlightButton;
 
     /////////cards/////
     private RecyclerView recyclerView;
@@ -100,6 +99,8 @@ public class ViewReservations extends AppCompatActivity {
 
             // Get flight number from the user
             String flight_number = flightNumber.getText().toString();
+            System.out.println("++++++++++++++++++++++++++++++++++++++++");
+            System.out.println(flight_number);
 
             if(!Validation.isValidFlightNumber(flight_number)) {
                 flightNumber.setError("Invalid Flight Number");

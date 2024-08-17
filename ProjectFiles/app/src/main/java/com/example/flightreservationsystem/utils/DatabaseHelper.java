@@ -826,7 +826,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private LocalDateTime getLocalDateTimeColumnValue(Cursor cursor, String dateTime) {
         String dateTimeString = getColumnValue(cursor, dateTime);
         if (dateTimeString != null) {
-            return LocalDateTime.parse(dateTimeString);
+            return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         } else {
             return null;
         }
