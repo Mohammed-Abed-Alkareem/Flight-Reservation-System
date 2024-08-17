@@ -2,7 +2,10 @@ package com.example.flightreservationsystem;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -49,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
 
         // Set OnClickListener for signup button (if needed)
         signupButton.setOnClickListener(v -> startActivity(signupIntent));
+
+        final ImageView airplane = findViewById(R.id.airplane);
+        Animation airplaneAnimation = AnimationUtils.loadAnimation(this, R.anim.plane);
+        airplane.startAnimation(airplaneAnimation);
     }
 
     public void insertFlightsDB(List<Flights> flights) {
