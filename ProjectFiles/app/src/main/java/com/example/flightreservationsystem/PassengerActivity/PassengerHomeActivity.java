@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,8 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.flightreservationsystem.AdminHomeActivity.AdminHomeActivity;
-import com.example.flightreservationsystem.PassengerActivity.current.CurrentRservations;
 import com.example.flightreservationsystem.R;
 import com.example.flightreservationsystem.Sign.LoginActivity;
 
@@ -62,7 +59,9 @@ public class PassengerHomeActivity extends AppCompatActivity {
 
             reserve.setOnClickListener(v -> redirectActivity(PassengerHomeActivity.this, ReserveFlight.class));
 
-            current.setOnClickListener(v -> redirectActivity(PassengerHomeActivity.this, CurrentRservations.class));
+            current.setOnClickListener(v -> redirectActivity(PassengerHomeActivity.this, CurrentReservations.class));
+
+            previous.setOnClickListener(v -> redirectActivity(PassengerHomeActivity.this, PreviousReservations.class));
 
             logout.setOnClickListener(v -> {
                 Toast.makeText(PassengerHomeActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();

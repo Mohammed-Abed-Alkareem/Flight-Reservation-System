@@ -1,41 +1,30 @@
-package com.example.flightreservationsystem.PassengerActivity.current;
+package com.example.flightreservationsystem.PassengerActivity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.example.flightreservationsystem.PassengerActivity.PassengerHomeActivity;
-import com.example.flightreservationsystem.PassengerActivity.ReservationAdapter;
-import com.example.flightreservationsystem.PassengerActivity.ReserveFlight;
-import com.example.flightreservationsystem.PassengerActivity.SearchFlights;
 import com.example.flightreservationsystem.R;
 import com.example.flightreservationsystem.Sign.LoginActivity;
-import com.example.flightreservationsystem.models.Flights;
 import com.example.flightreservationsystem.models.Reservations;
 import com.example.flightreservationsystem.utils.DatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CurrentRservations extends AppCompatActivity {
+public class CurrentReservations extends AppCompatActivity {
 
 
         DrawerLayout drawerLayout;
@@ -80,15 +69,15 @@ public class CurrentRservations extends AppCompatActivity {
 
 
 
-            home.setOnClickListener(v -> redirectActivity(CurrentRservations.this, PassengerHomeActivity.class));
+            home.setOnClickListener(v -> redirectActivity(CurrentReservations.this, PassengerHomeActivity.class));
 
-            reserve.setOnClickListener(v -> redirectActivity(CurrentRservations.this, ReserveFlight.class));
-            search.setOnClickListener(v -> redirectActivity(CurrentRservations.this, SearchFlights.class));
+            reserve.setOnClickListener(v -> redirectActivity(CurrentReservations.this, ReserveFlight.class));
+            search.setOnClickListener(v -> redirectActivity(CurrentReservations.this, SearchFlights.class));
             current.setOnClickListener(v -> recreate());
 
             logout.setOnClickListener(v -> {
-                Toast.makeText(CurrentRservations.this, "Logged Out", Toast.LENGTH_SHORT).show();
-                redirectActivity(CurrentRservations.this, LoginActivity.class);
+                Toast.makeText(CurrentReservations.this, "Logged Out", Toast.LENGTH_SHORT).show();
+                redirectActivity(CurrentReservations.this, LoginActivity.class);
             });
 
             ///////////////////drawer name and email///////////////////////////////

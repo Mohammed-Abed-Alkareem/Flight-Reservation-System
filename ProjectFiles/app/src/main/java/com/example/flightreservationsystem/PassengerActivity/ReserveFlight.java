@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.flightreservationsystem.PassengerActivity.current.CurrentRservations;
 import com.example.flightreservationsystem.Sign.LoginActivity;
 import com.example.flightreservationsystem.models.Flights;
 import com.example.flightreservationsystem.models.Reservations;
@@ -71,7 +70,8 @@ public class ReserveFlight extends AppCompatActivity {
 
         reserve.setOnClickListener(v -> recreate());
         search.setOnClickListener(v -> redirectActivity(ReserveFlight.this, SearchFlights.class));
-        current.setOnClickListener(v -> redirectActivity(ReserveFlight.this, CurrentRservations.class));
+        current.setOnClickListener(v -> redirectActivity(ReserveFlight.this, CurrentReservations.class));
+        previous.setOnClickListener(v -> redirectActivity(ReserveFlight.this, PreviousReservations.class));
 
         logout.setOnClickListener(v -> {
             Toast.makeText(ReserveFlight.this, "Logged Out", Toast.LENGTH_SHORT).show();

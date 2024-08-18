@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/passenger_drawer_layout"
-    tools:context=".PassengerActivity.CurrentReservations">
+    tools:context=".PassengerActivity.PreviousReservations">
 
     <LinearLayout
         android:id="@+id/main"
@@ -27,7 +27,7 @@
             android:gravity="center"
             android:shadowColor="#000000"
             android:shadowRadius="50"
-            android:text="View Current Reservations"
+            android:text="View Previous Reservations"
             android:layout_gravity="center"
             android:textColor="@android:color/white"
             android:textSize="36sp"
