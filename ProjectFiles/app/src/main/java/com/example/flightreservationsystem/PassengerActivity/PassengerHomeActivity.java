@@ -16,6 +16,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.flightreservationsystem.AdminHomeActivity.AdminHomeActivity;
+import com.example.flightreservationsystem.PassengerActivity.current.CurrentRservations;
 import com.example.flightreservationsystem.R;
 import com.example.flightreservationsystem.Sign.LoginActivity;
 
@@ -60,6 +61,8 @@ public class PassengerHomeActivity extends AppCompatActivity {
             search.setOnClickListener(v -> redirectActivity(PassengerHomeActivity.this, SearchFlights.class));
 
             reserve.setOnClickListener(v -> redirectActivity(PassengerHomeActivity.this, ReserveFlight.class));
+
+            current.setOnClickListener(v -> redirectActivity(PassengerHomeActivity.this, CurrentRservations.class));
 
             logout.setOnClickListener(v -> {
                 Toast.makeText(PassengerHomeActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();

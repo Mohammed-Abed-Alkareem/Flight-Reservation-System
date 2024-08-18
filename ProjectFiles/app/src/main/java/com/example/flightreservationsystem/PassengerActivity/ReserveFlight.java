@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.flightreservationsystem.PassengerActivity.current.CurrentRservations;
+import com.example.flightreservationsystem.Sign.LoginActivity;
 import com.example.flightreservationsystem.models.Flights;
 import com.example.flightreservationsystem.models.Reservations;
 import com.example.flightreservationsystem.R;
@@ -26,7 +26,7 @@ public class ReserveFlight extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ImageView menu;
 
-    LinearLayout home, search, reserve, current, previous; // add others
+    LinearLayout home, search, reserve, current, previous, logout; // add others
 
 
 
@@ -47,13 +47,13 @@ public class ReserveFlight extends AppCompatActivity {
         menu = findViewById(R.id.menu_icon);
 
         final ImageView airplane = findViewById(R.id.airplane);
-        Animation airplaneAnimation = AnimationUtils.loadAnimation(this, R.anim.plane);
 
         home = findViewById(R.id.passenger_home);
         reserve = findViewById(R.id.make_reservation);
         search = findViewById(R.id.search_flight);
         current = findViewById(R.id.view_current_reservations);
         previous = findViewById(R.id.view_previous_reservations);
+        logout = findViewById(R.id.logout);
 
         flightNumber = findViewById(R.id.flight_number);
         extraBag = findViewById(R.id.extra_bags);
@@ -71,7 +71,12 @@ public class ReserveFlight extends AppCompatActivity {
 
         reserve.setOnClickListener(v -> recreate());
         search.setOnClickListener(v -> redirectActivity(ReserveFlight.this, SearchFlights.class));
+        current.setOnClickListener(v -> redirectActivity(ReserveFlight.this, CurrentRservations.class));
 
+        logout.setOnClickListener(v -> {
+            Toast.makeText(ReserveFlight.this, "Logged Out", Toast.LENGTH_SHORT).show();
+            redirectActivity(ReserveFlight.this, LoginActivity.class);
+        });
 
         ///////////////////drawer name and email///////////////////////////////
         TextView email = findViewById(R.id.passenger_email);
@@ -154,8 +159,6 @@ public class ReserveFlight extends AppCompatActivity {
             extraBag.setError(null);
             classType.setError(null);
             foodPreference.setError(null);
-
-            airplane.startAnimation(airplaneAnimation);
 
             Toast.makeText(this, "Reservation Successful", Toast.LENGTH_SHORT).show();
 

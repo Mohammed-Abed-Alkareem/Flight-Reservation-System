@@ -831,4 +831,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return null;
         }
     }
+
+    public List<Reservations> getReservationsByUserId(int userId) {
+
+        List<Reservations> reservationList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Reservations WHERE user_id = ?", new String[]{String.valueOf(userId)});
+
+        if (cursor == null) {
+            return reservationList;
+        }
+
+        if (cursor.moveToFirst()) {
+            do {
+                Reservations reservation = new Reservations();
+
+                reservation.setReservationID(Integer.parseInt(getColumnValue(cursor, "reservation_id")));
+                reservation.setFlightID(Integer.parseInt(getColumnValue(cursor, "flight_id")));
+                reservation.setUserID(Integer.parseInt(getColumnValue(cursor, "user_id")));
+                reservation.setClassType(getColumnValue(cursor, "flight_class"));
+                reservation.setExtraBags(Integer.parseInt(getColumnValue(cursor, "extra_bags")));
+                reservation.setTotalPrice(Double.parseDouble(getColumnValue(cursor, "total_price")));
+                reservation.setFoodPreference(getColumnValue(cursor, "food_preferences"));
+                reservation.setReservationDate(getLocalDateTimeColumnValue(cursor, "reservation_date"));
+
+                reservationList.add(reservation);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return reservationList;
+
+    }
 }

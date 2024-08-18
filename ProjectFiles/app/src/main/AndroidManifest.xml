@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FlightReservationSystem">
         <activity
+            android:name=".PassengerActivity.current.CurrentRservations"
+            android:exported="false" />
+        <activity
             android:name=".PassengerActivity.SearchFlights"
             android:exported="false" />
         <activity

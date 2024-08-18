@@ -93,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
             editor.putInt("userId", user.getId());
             //add name
             editor.putString("userFirstName", user.getFirst_name());
+            editor.putString("userEmail", user.getEmail());
             editor.putString("userRole", user instanceof Passenger ? "Passenger" : "Admin");
             editor.apply();
 
