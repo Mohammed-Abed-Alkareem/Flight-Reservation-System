@@ -19,6 +19,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.flightreservationsystem.PassengerActivity.search.SearchFlightsActivity;
 import com.example.flightreservationsystem.R;
 import com.example.flightreservationsystem.Sign.LoginActivity;
 import com.example.flightreservationsystem.models.Reservations;
@@ -75,7 +76,7 @@ public class PreviousReservations extends AppCompatActivity {
         home.setOnClickListener(v -> redirectActivity(PreviousReservations.this, PassengerHomeActivity.class));
 
         reserve.setOnClickListener(v -> redirectActivity(PreviousReservations.this, ReserveFlight.class));
-        search.setOnClickListener(v -> redirectActivity(PreviousReservations.this, SearchFlights.class));
+        search.setOnClickListener(v -> redirectActivity(PreviousReservations.this, SearchFlightsActivity.class));
         current.setOnClickListener(v -> redirectActivity(PreviousReservations.this, CurrentReservations.class));
         previous.setOnClickListener(v -> recreate());
 

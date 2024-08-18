@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.flightreservationsystem.PassengerActivity.search.SearchFlightsActivity;
 import com.example.flightreservationsystem.R;
 import com.example.flightreservationsystem.Sign.LoginActivity;
 import com.example.flightreservationsystem.models.Reservations;
@@ -30,7 +31,7 @@ public class CurrentReservations extends AppCompatActivity {
         DrawerLayout drawerLayout;
         ImageView menu;
 
-        LinearLayout home, search, reserve, current, previous, logout; // add others
+        LinearLayout home, search, reserve, current, previous, logout;
 
 
 
@@ -50,11 +51,8 @@ public class CurrentReservations extends AppCompatActivity {
             setContentView(R.layout.activity_current_rservations);
 
             drawerLayout = findViewById(R.id.passenger_drawer_layout);
+
             menu = findViewById(R.id.menu_icon);
-
-
-
-
             home = findViewById(R.id.passenger_home);
             reserve = findViewById(R.id.make_reservation);
             search = findViewById(R.id.search_flight);
@@ -72,7 +70,7 @@ public class CurrentReservations extends AppCompatActivity {
             home.setOnClickListener(v -> redirectActivity(CurrentReservations.this, PassengerHomeActivity.class));
 
             reserve.setOnClickListener(v -> redirectActivity(CurrentReservations.this, ReserveFlight.class));
-            search.setOnClickListener(v -> redirectActivity(CurrentReservations.this, SearchFlights.class));
+            search.setOnClickListener(v -> redirectActivity(CurrentReservations.this, SearchFlightsActivity.class));
             current.setOnClickListener(v -> recreate());
 
             logout.setOnClickListener(v -> {

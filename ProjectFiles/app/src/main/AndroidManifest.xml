@@ -49,6 +49,11 @@
         <activity
             android:name=".AdminHomeActivity.ScheduleFlightActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".PassengerActivity.search.SearchFlightsActivity"
+            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true" >

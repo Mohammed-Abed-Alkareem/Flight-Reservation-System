@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.flightreservationsystem.PassengerActivity.search.SearchFlightsActivity;
 import com.example.flightreservationsystem.Sign.LoginActivity;
 import com.example.flightreservationsystem.models.Flights;
 import com.example.flightreservationsystem.models.Reservations;
@@ -69,7 +70,7 @@ public class ReserveFlight extends AppCompatActivity {
         home.setOnClickListener(v -> redirectActivity(ReserveFlight.this, PassengerHomeActivity.class));
 
         reserve.setOnClickListener(v -> recreate());
-        search.setOnClickListener(v -> redirectActivity(ReserveFlight.this, SearchFlights.class));
+        search.setOnClickListener(v -> redirectActivity(ReserveFlight.this, SearchFlightsActivity.class));
         current.setOnClickListener(v -> redirectActivity(ReserveFlight.this, CurrentReservations.class));
         previous.setOnClickListener(v -> redirectActivity(ReserveFlight.this, PreviousReservations.class));
 
@@ -93,76 +94,81 @@ public class ReserveFlight extends AppCompatActivity {
         passengerName.setText(preferences.getString("userFirstName", ""));
 
         reserveButton.setOnClickListener(v -> {
-            String flight_number = flightNumber.getText().toString();
-            int extra_bags = Integer.parseInt(extraBag.getText().toString());
-            String class_type = classType.getText().toString();
-            String food_preference = foodPreference.getText().toString();
-            if (flight_number.isEmpty()) {
-                flightNumber.setError("Please enter a flight number");
-                return;
+
+            try {
+                String flight_number = flightNumber.getText().toString();
+                int extra_bags = Integer.parseInt(extraBag.getText().toString());
+                String class_type = classType.getText().toString();
+                String food_preference = foodPreference.getText().toString();
+                if (flight_number.isEmpty()) {
+                    flightNumber.setError("Please enter a flight number");
+                    return;
+                }
+
+                databasehelper = new DatabaseHelper(this, null, 1);
+                Flights flight = databasehelper.getFlightByNumber(flight_number);
+
+                System.out.println("====================================");
+                System.out.println(flight);
+                System.out.println(flight.getFlight_id());
+                System.out.println("====================================");
+
+                if (flight == null) {
+                    flightNumber.setError("Flight not found");
+                    return;
+                }
+
+                if (extra_bags < 0) {
+                    extraBag.setError("Please enter a valid number of extra bags");
+                    return;
+                }
+
+                if (!class_type.equals("Economy") && !class_type.equals("Business")) {
+                    classType.setError("Please enter a valid class type");
+                    return;
+                }
+
+                Reservations reservation = new Reservations();
+                reservation.setFlightID(flight.getFlight_id());
+                reservation.setUserID(preferences.getInt("userId", 0));
+                reservation.setExtraBags(extra_bags);
+                reservation.setClassType(class_type);
+                reservation.setFoodPreference(food_preference);
+
+                double total_price = 0;
+                if (class_type.equals("Economy")) {
+                    total_price = flight.getEconomyPrice();
+                } else {
+                    total_price = flight.getBusinessPrice();
+                }
+
+                total_price += extra_bags * flight.getExtraBaggagePrice();
+
+                reservation.setTotalPrice(total_price);
+
+
+                databasehelper.addReservation(reservation);
+
+                flight.setCurrentReservations(flight.getCurrentReservations() + 1);
+
+                databasehelper.updateFlight(flight);
+
+                flightNumber.setText("");
+                extraBag.setText("");
+                classType.setText("");
+                foodPreference.setText("");
+
+                flightNumber.setError(null);
+                extraBag.setError(null);
+                classType.setError(null);
+                foodPreference.setError(null);
+
+                Toast.makeText(this, "Reservation Successful", Toast.LENGTH_SHORT).show();
+
             }
-
-            databasehelper = new DatabaseHelper(this, null, 1);
-            Flights flight = databasehelper.getFlightByNumber(flight_number);
-
-            System.out.println("====================================");
-            System.out.println(flight);
-            System.out.println(flight.getFlight_id());
-            System.out.println("====================================");
-
-            if (flight == null) {
-                flightNumber.setError("Flight not found");
-                return;
+            catch (Exception e) {
+                Toast.makeText(this, "Invalid input", Toast.LENGTH_SHORT).show();
             }
-
-            if (extra_bags < 0) {
-                extraBag.setError("Please enter a valid number of extra bags");
-                return;
-            }
-
-            if (!class_type.equals("Economy") && !class_type.equals("Business")) {
-                classType.setError("Please enter a valid class type");
-                return;
-            }
-
-            Reservations reservation = new Reservations();
-            reservation.setFlightID(flight.getFlight_id());
-            reservation.setUserID(preferences.getInt("userId", 0));
-            reservation.setExtraBags(extra_bags);
-            reservation.setClassType(class_type);
-            reservation.setFoodPreference(food_preference);
-
-            double total_price = 0;
-            if (class_type.equals("Economy")) {
-                total_price = flight.getEconomyPrice();
-            } else {
-                total_price = flight.getBusinessPrice();
-            }
-
-            total_price += extra_bags * flight.getExtraBaggagePrice();
-
-            reservation.setTotalPrice(total_price);
-
-
-            databasehelper.addReservation(reservation);
-
-            flight.setCurrentReservations(flight.getCurrentReservations() + 1);
-
-            databasehelper.updateFlight(flight);
-
-            flightNumber.setText("");
-            extraBag.setText("");
-            classType.setText("");
-            foodPreference.setText("");
-
-            flightNumber.setError(null);
-            extraBag.setError(null);
-            classType.setError(null);
-            foodPreference.setError(null);
-
-            Toast.makeText(this, "Reservation Successful", Toast.LENGTH_SHORT).show();
-
-
 
 
         });

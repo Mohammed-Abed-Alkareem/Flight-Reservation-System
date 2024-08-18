@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.flightreservationsystem.PassengerActivity.search.SearchFlightsActivity;
 import com.example.flightreservationsystem.R;
 import com.example.flightreservationsystem.Sign.LoginActivity;
 
@@ -55,7 +56,7 @@ public class PassengerHomeActivity extends AppCompatActivity {
 
             home.setOnClickListener(v -> recreate());
 
-            search.setOnClickListener(v -> redirectActivity(PassengerHomeActivity.this, SearchFlights.class));
+            search.setOnClickListener(v -> redirectActivity(PassengerHomeActivity.this, SearchFlightsActivity.class));
 
             reserve.setOnClickListener(v -> redirectActivity(PassengerHomeActivity.this, ReserveFlight.class));
 

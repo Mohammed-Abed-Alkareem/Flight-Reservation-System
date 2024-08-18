@@ -907,4 +907,91 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return reservationList;
     }
+
+    public List<Flights> PassengerSearchFlights(String fromDate, String toDate, String depCity, String arrCity) {
+        List<Flights> flightList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        System.out.println("From Date: " + fromDate);
+        System.out.println("To Date: " + toDate);
+        System.out.println("Departure City: " + depCity);
+        System.out.println("Arrival City: " + arrCity);
+
+        LocalDate currentdate = LocalDate.now();
+
+        String query = "SELECT * FROM Flights " +
+                "WHERE 1=1 " +
+                "And departure_date > ? " +
+                "And departure_date < ? " +
+                "And booking_open_date <= ? " +
+                "AND departure_city LIKE ? " +
+                "AND arrival_city LIKE ?";
+
+
+        System.out.println("Executing query: " + query);
+        System.out.println("With parameters: " +
+                fromDate + ", " +
+                toDate + ", " +
+                currentdate + ", " +
+                "%" + depCity + "%"+ ", " +
+                "%" + arrCity + "%");
+
+        // Execute the query with the current date as the parameter
+        Cursor cursor = db.rawQuery(query, new String[]{
+                fromDate,
+                toDate,
+                currentdate.format(formatter_date),
+                "%" + depCity + "%",
+                "%" + arrCity + "%"
+        });
+
+        if (cursor == null) {
+            System.out.println("Cursor is null");
+            return flightList;
+        }
+
+        if (cursor.moveToFirst()) {
+            System.out.println("Cursor has rows");
+            do {
+                Flights flight = new Flights();
+
+                System.out.println("Flight Number: " + getColumnValue(cursor, "flight_number"));
+
+                flight.setFlightNumber(getColumnValue(cursor, "flight_number"));
+                flight.setDepartureCity(getColumnValue(cursor, "departure_city"));
+                flight.setArrivalCity(getColumnValue(cursor, "arrival_city"));
+
+                flight.setDepartureDate(getLocalDateColumnValue(cursor, "departure_date"));
+                flight.setArrivalDate(getLocalDateColumnValue(cursor, "arrival_date"));
+
+                flight.setDepartureTime(getLocalTimeColumnValue(cursor, "departure_time"));
+                flight.setArrivalTime(getLocalTimeColumnValue(cursor, "arrival_time"));
+
+                flight.setDuration(getColumnValue(cursor, "duration"));
+                flight.setAircraftModel(getColumnValue(cursor, "aircraft_model"));
+
+                flight.setMaxSeats(Integer.parseInt(getColumnValue(cursor, "max_seats")));
+                flight.setCurrentReservations(Integer.parseInt(getColumnValue(cursor, "current_reservations")));
+                flight.setPeopleMissed(Integer.parseInt(getColumnValue(cursor, "people_missed")));
+                flight.setBookingOpenDate(getLocalDateColumnValue(cursor, "booking_open_date"));
+
+                flight.setEconomyPrice(Double.parseDouble(getColumnValue(cursor, "economy_price")));
+                flight.setBusinessPrice(Double.parseDouble(getColumnValue(cursor, "business_price")));
+                flight.setExtraBaggagePrice(Double.parseDouble(getColumnValue(cursor, "extra_baggage_price")));
+                flight.setIsRecurrent(getColumnValue(cursor, "is_recurrent"));
+
+
+                flightList.add(flight);
+            } while (cursor.moveToNext());
+        }
+        else {
+            System.out.println("Cursor has no rows");
+        }
+
+        cursor.close();
+        db.close();
+        return flightList;
+
+
+    }
 }
