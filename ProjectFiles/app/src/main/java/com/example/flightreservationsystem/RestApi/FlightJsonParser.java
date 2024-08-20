@@ -39,12 +39,6 @@ public class FlightJsonParser {
                 flight.setArrivalDate(parseDate(flightObject.optString("arrival_date", "1970/01/01")));
                 flight.setBookingOpenDate(parseDate(flightObject.optString("booking_open_date", "1970/01/01")));
 
-                System.out.println("***********************************");
-                System.out.println(formatDate(flight.getDepartureDate()));
-                System.out.println(formatDate(flight.getArrivalDate()));
-                System.out.println(formatDate(flight.getBookingOpenDate()));
-                System.out.println("***********************************");
-
                 // Parse times using HH:mm:ss
                 flight.setDepartureTime(parseTime(flightObject.optString("departure_time", "00:00:00")));
                 flight.setArrivalTime(parseTime(flightObject.optString("arrival_time", "00:00:00")));
@@ -85,8 +79,4 @@ public class FlightJsonParser {
         }
     }
 
-    // Method to format the date when printing
-    private static String formatDate(LocalDate date) {
-        return date.format(DATE_FORMATTER);
-    }
 }
