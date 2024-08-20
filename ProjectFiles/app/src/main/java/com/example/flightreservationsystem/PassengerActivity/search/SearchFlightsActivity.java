@@ -6,28 +6,21 @@ import static com.example.flightreservationsystem.models.Validation.isValidName;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.flightreservationsystem.AdminHomeActivity.AdminHomeActivity;
-import com.example.flightreservationsystem.AdminHomeActivity.Archived.ViewArchiveActivity;
-import com.example.flightreservationsystem.AdminHomeActivity.EditFlightActivity;
-import com.example.flightreservationsystem.AdminHomeActivity.Open.ViewOpenActivity;
-import com.example.flightreservationsystem.AdminHomeActivity.ScheduleFlightActivity;
-import com.example.flightreservationsystem.AdminHomeActivity.reser.ViewReservations;
-import com.example.flightreservationsystem.AdminHomeActivity.unava.ViewUnavailableActivity;
 import com.example.flightreservationsystem.PassengerActivity.CurrentReservations;
 import com.example.flightreservationsystem.PassengerActivity.PassengerHomeActivity;
+import com.example.flightreservationsystem.PassengerActivity.PreviousReservations;
 import com.example.flightreservationsystem.PassengerActivity.ReserveFlight;
 
 import com.example.flightreservationsystem.R;
@@ -43,20 +36,23 @@ import java.util.List;
 
 public class SearchFlightsActivity extends AppCompatActivity {
 
+    // Date Formatter
     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+    // Drawer Variables
     DrawerLayout drawerLayout;
     ImageView menu;
-
     LinearLayout home, search, reserve, current, previous, logout;
 
+    // Database Helper
     DatabaseHelper databaseHelper;
 
+    // Layout Variables
     private EditText from_date, to_date;
-
     private EditText departureCity, arrivalCity;
     private Button searchButton;
 
+    // Recycler View Variables
     private RecyclerView recyclerView;
     private SearchAdapter searchAdapter;
     private List<Flights> flightList;
@@ -67,11 +63,11 @@ public class SearchFlightsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_flight_activity);
 
+        // Initialize Database Helper
         databaseHelper = new DatabaseHelper(this, null, 1);
 
+        // Initialize Drawer Variables
         drawerLayout = findViewById(R.id.passenger_drawer_layout);
-        menu = findViewById(R.id.menu_icon);
-
         menu = findViewById(R.id.menu_icon);
         home = findViewById(R.id.passenger_home);
         reserve = findViewById(R.id.make_reservation);
@@ -80,14 +76,13 @@ public class SearchFlightsActivity extends AppCompatActivity {
         previous = findViewById(R.id.view_previous_reservations);
         logout = findViewById(R.id.logout);
 
+        // Drawer Functionality
         menu.setOnClickListener(v -> openDrawer(drawerLayout));
-
-
         home.setOnClickListener(v -> redirectActivity(SearchFlightsActivity.this, PassengerHomeActivity.class));
-
         reserve.setOnClickListener(v -> redirectActivity(SearchFlightsActivity.this, ReserveFlight.class));
         search.setOnClickListener(v -> recreate());
         current.setOnClickListener(v -> redirectActivity(SearchFlightsActivity.this, CurrentReservations.class));
+        previous.setOnClickListener(v -> redirectActivity(SearchFlightsActivity.this, PreviousReservations.class));
 
         logout.setOnClickListener(v -> {
             Toast.makeText(SearchFlightsActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();
@@ -100,11 +95,18 @@ public class SearchFlightsActivity extends AppCompatActivity {
         to_date = findViewById(R.id.toDate);
 
 
+        // Set up DatePickers for date fields
+        setupDatePicker(from_date);
+        setupDatePicker(to_date);
+
+
         departureCity = findViewById(R.id.departureCity);
         arrivalCity = findViewById(R.id.arrivalCity);
 
+        // Initialize Button
         searchButton = findViewById(R.id.searchButton);
 
+        // Set OnClickListener for search button
         searchButton.setOnClickListener(v -> {
 
             // clear error messages
@@ -114,32 +116,26 @@ public class SearchFlightsActivity extends AppCompatActivity {
             departureCity.setError(null);
             arrivalCity.setError(null);
 
+            // Get input values
             String from_Date = from_date.getText().toString();
             String to_Date = to_date.getText().toString();
             String depCity = departureCity.getText().toString();
             String arrCity = arrivalCity.getText().toString();
 
-
+            // Filter flights
             filterFlights(from_Date, to_Date, depCity, arrCity);
 
         });
-
-
-
-        // Set up DatePickers for date fields
-        setupDatePicker(from_date);
-        setupDatePicker(to_date);
-
-
     }
 
     private void filterFlights(String fromDate, String toDate, String depCity, String arrCity) {
 
         //check if date is empty
-        if (fromDate.isEmpty()) {
+        if (fromDate.isEmpty()) { // If from date is empty, set it to today
             fromDate = LocalDate.now().format(dateFormatter);
         }
-        if (toDate.isEmpty()) {
+
+        if (toDate.isEmpty()) { // If to date is empty, set it to 2099-12-31
             toDate = "2099-12-31";
         }
 
@@ -149,7 +145,8 @@ public class SearchFlightsActivity extends AppCompatActivity {
             return;
         }
 
-        if (!validateInputs(fromDate, toDate, depCity, arrCity)) {
+        if (!validateInputs(fromDate, toDate, depCity, arrCity)) { // If inputs are invalid
+            Toast.makeText(this, "Invalid Inputs", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -157,22 +154,20 @@ public class SearchFlightsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));  // Enables vertical scrolling
 
+        // Get the flights from the database
         flightList = new ArrayList<>();
-
-
-
         flightList = databaseHelper.PassengerSearchFlights(fromDate, toDate, depCity, arrCity);
 
         // Set the adapter with flightList
         searchAdapter = new SearchAdapter(this, flightList);
         recyclerView.setAdapter(searchAdapter);  // Set the adapter for RecyclerView
 
-
     }
 
     private void setupDatePicker(final EditText editText) {
-        editText.setFocusable(false);
-        editText.setClickable(true);
+        editText.setFocusable(false); // Disable manual input
+        editText.setClickable(true); // Enable clicking
+
         editText.setOnClickListener(v -> {
             final Calendar calendar = Calendar.getInstance();
             int year = calendar.get(Calendar.YEAR);
@@ -180,15 +175,14 @@ public class SearchFlightsActivity extends AppCompatActivity {
             int day = calendar.get(Calendar.DAY_OF_MONTH);
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(SearchFlightsActivity.this,
-                    (view, year1, monthOfYear, dayOfMonth) -> {
-
+                    (view, year1, monthOfYear, dayOfMonth) -> { // Set the date on editText when selected
                         editText.setText(String.format("%04d-%02d-%02d", year1, monthOfYear + 1, dayOfMonth));
                     }, year, month, day);
             datePickerDialog.show();
         });
     }
 
-
+    // Validate inputs
     private boolean validateInputs(String fromDate, String toDate, String depCity, String arrCity) {
 
         boolean isValid = true;

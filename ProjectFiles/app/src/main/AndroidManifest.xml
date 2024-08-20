@@ -3,7 +3,7 @@
     package="com.example.flightreservationsystem" >
     <!-- Add permissions here -->
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -18,9 +18,6 @@
             android:exported="false" />
         <activity
             android:name=".PassengerActivity.CurrentReservations"
-            android:exported="false" />
-        <activity
-            android:name=".PassengerActivity.SearchFlights"
             android:exported="false" />
         <activity
             android:name=".PassengerActivity.ReserveFlight"

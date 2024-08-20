@@ -19,6 +19,12 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String MY_CHANNEL_ID = "my_chanel_1";
+    private static final String MY_CHANNEL_NAME = "My channel";
+    private static final int NOTIFICATION_ID = 123;
+    private static final String NOTIFICATION_TITLE = "Notification Title";
+    private static final String NOTIFICATION_BODY = "This is the body of my notification";
+
     private Button loginButton;
     private Button signupButton;
     private Intent loginIntent;

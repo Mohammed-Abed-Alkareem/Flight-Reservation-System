@@ -9,12 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,36 +25,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PreviousReservations extends AppCompatActivity {
-
-
+    // Drawer Variables
     DrawerLayout drawerLayout;
     ImageView menu;
-
     LinearLayout home, search, reserve, current, previous, logout; // add others
 
-
-
+    //layout variables
     TextView passengerName;
+
+    //shared preferences
     SharedPreferences preferences;
 
+    //Database Helper
     DatabaseHelper databasehelper;
 
-
-    private RecyclerView recyclerView;
-    private ReservationAdapter reservationAdapter;
-    private List<Reservations> reservationList;
+    // Recycler View Variables
+    private RecyclerView recyclerView; // RecyclerView object
+    private ReservationAdapter reservationAdapter; // Adapter object
+    private List<Reservations> reservationList; // List of reservations
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_rservations);
 
+        // Initialize Drawer Variables
         drawerLayout = findViewById(R.id.passenger_drawer_layout);
         menu = findViewById(R.id.menu_icon);
-
-
-
-
         home = findViewById(R.id.passenger_home);
         reserve = findViewById(R.id.make_reservation);
         search = findViewById(R.id.search_flight);
@@ -66,15 +59,9 @@ public class PreviousReservations extends AppCompatActivity {
         previous = findViewById(R.id.view_previous_reservations);
         logout = findViewById(R.id.logout);
 
-
-
+        // drawer layout functionality
         menu.setOnClickListener(v -> openDrawer(drawerLayout));
-
-
-
-
         home.setOnClickListener(v -> redirectActivity(PreviousReservations.this, PassengerHomeActivity.class));
-
         reserve.setOnClickListener(v -> redirectActivity(PreviousReservations.this, ReserveFlight.class));
         search.setOnClickListener(v -> redirectActivity(PreviousReservations.this, SearchFlightsActivity.class));
         current.setOnClickListener(v -> redirectActivity(PreviousReservations.this, CurrentReservations.class));
@@ -90,14 +77,12 @@ public class PreviousReservations extends AppCompatActivity {
         //fetch email from shared preferences
         preferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
         email.setText(preferences.getString("userEmail", ""));
-        //////////////////////////////////////
-
-        /////////////////////////////////
 
         passengerName = findViewById(R.id.passenger_name);
         //fetch naeme from shared preferences
         preferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
         passengerName.setText(preferences.getString("userFirstName", ""));
+
 
         // Initialize RecyclerView and adapter
         recyclerView = findViewById(R.id.recycler_view);
@@ -110,10 +95,10 @@ public class PreviousReservations extends AppCompatActivity {
         int userId = preferences.getInt("userId", 0);
 
         // Get the reservations from the database
-        DatabaseHelper databaseHelper = new DatabaseHelper(this, null, 1);
-        reservationList = databaseHelper.getPreviousReservationsByUserId(userId);
+        databasehelper = new DatabaseHelper(this, null, 1);
+        reservationList = databasehelper.getPreviousReservationsByUserId(userId);
 
-        if (reservationList.isEmpty()) {
+        if (reservationList.isEmpty()) { // If there are no reservations
             Toast.makeText(this, "No Current Reservations For You *_*", Toast.LENGTH_SHORT).show();
         }
 
@@ -123,6 +108,7 @@ public class PreviousReservations extends AppCompatActivity {
 
     }
 
+    // Drawer Functions
     public static void openDrawer(DrawerLayout drawerLayout) {
         drawerLayout.openDrawer(GravityCompat.START);
     }
@@ -133,6 +119,7 @@ public class PreviousReservations extends AppCompatActivity {
         }
     }
 
+    // Redirect Activity Function
     public static void redirectActivity(Activity activity, Class secondActivity) {
         Intent intent = new Intent(activity, secondActivity);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -140,6 +127,7 @@ public class PreviousReservations extends AppCompatActivity {
         activity.finish();
     }
 
+    // Close Drawer on Pause
     @Override
     protected void onPause() {
         super.onPause();
