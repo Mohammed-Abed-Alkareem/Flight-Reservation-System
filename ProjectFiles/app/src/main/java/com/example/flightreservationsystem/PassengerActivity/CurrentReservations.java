@@ -66,6 +66,7 @@ public class CurrentReservations extends AppCompatActivity {
         reserve.setOnClickListener(v -> redirectActivity(CurrentReservations.this, ReserveFlight.class));
         search.setOnClickListener(v -> redirectActivity(CurrentReservations.this, SearchFlightsActivity.class));
         current.setOnClickListener(v -> recreate());
+        previous.setOnClickListener(v -> redirectActivity(CurrentReservations.this, PreviousReservations.class));
 
         logout.setOnClickListener(v -> {
             Toast.makeText(CurrentReservations.this, "Logged Out", Toast.LENGTH_SHORT).show();

@@ -147,7 +147,7 @@ public class ReserveFlight extends AppCompatActivity {
                 reservation.setFlightID(flight.getFlight_id());
                 reservation.setUserID(preferences.getInt("userId", 0));
                 reservation.setExtraBags(extra_bags);
-                reservation.setClassType(class_type);
+                reservation.setFlightClass(class_type);
                 reservation.setFoodPreference(food_preference);
 
                 // calculate total price

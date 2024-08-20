@@ -8,7 +8,7 @@ public class Reservations {
     private int userID;
     private String flightClass;
     private int extraBags;
-    private String classType;
+
     private double totalPrice;
     private LocalDateTime reservationDate;
 
@@ -40,13 +40,6 @@ public class Reservations {
 
     }
 
-    public String getClassType() {
-        return classType;
-    }
-
-    public void setClassType(String classType) {
-        this.classType = classType;
-    }
 
     public String getFoodPreference() {
         return foodPreference;

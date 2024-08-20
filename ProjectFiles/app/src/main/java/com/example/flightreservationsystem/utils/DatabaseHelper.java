@@ -177,8 +177,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             userValues.put("password_hash", admin.getPassword_hash());
             userValues.put("role", admin.getRole());
 
-            System.out.println("Admin values: " + userValues);
-
             long userId = db.insert("Users", null, userValues);
 
             if (userId == -1) {
@@ -241,19 +239,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 throw new Exception("Failed to insert passenger details.");
             }
 
-            System.out.println("Passenger details inserted successfully"
-                    + "\nEmail: " + passenger.getEmail()
-                    + "\nPhone: " + passenger.getPhone()
-                    + "\nFirst Name: " + passenger.getFirst_name()
-                    + "\nLast Name: " + passenger.getLast_name()
-                    + "\nPassword: " + passenger.getPassword_hash()
-                    + "\nPassport Number: " + passenger.getPassport_number()
-                    + "\nPassport Issue Date: " + passenger.getPassport_issue_date()
-                    + "\nPassport Issue Place: " + passenger.getPassport_issue_place()
-                    + "\nFood Preference: " + passenger.getFood_preference()
-                    + "\nDate of Birth: " + passenger.getDate_of_birth()
-                    + "\nNationality: " + passenger.getNationality());
-
             // If both inserts are successful, set transaction as successful
             db.setTransactionSuccessful();
             Toast.makeText(context, "Passenger details inserted successfully", Toast.LENGTH_SHORT).show();
@@ -295,13 +280,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             flightValues.put("extra_baggage_price", flight.getExtraBaggagePrice());
             flightValues.put("is_recurrent", flight.getIsRecurrent());
 
-            System.out.println("value" + flightValues);
-
             long flightId = db.insert("Flights", null, flightValues);
-
-            System.out.println("-----------------------------------------------");
-
-            System.out.println("-----------------------------------------------");
 
             if (flightId == -1) {
                 throw new Exception("Failed to insert flight.");
@@ -311,7 +290,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         } catch (Exception e) {
             // Handle errors and rollback transaction
 //            Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-            System.out.println("Flight already exists" + e.getMessage());
         } finally {
             db.endTransaction(); // End transaction
             db.close(); // Close database
@@ -325,7 +303,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         //todays date
         String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-        System.out.println("Date: " + date);
+
         Cursor cursor = db.rawQuery("SELECT * FROM Flights WHERE departure_date < ?", new String[]{date});
 
         if (cursor == null) {
@@ -335,8 +313,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Flights flight = new Flights();
-
-                System.out.println("Flight Number: " + getColumnValue(cursor, "flight_number"));
 
                 flight.setFlightNumber(getColumnValue(cursor, "flight_number"));
                 flight.setDepartureCity(getColumnValue(cursor, "departure_city"));
@@ -377,7 +353,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Get the current date in the required format
         String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-        System.out.println("Date: " + date);
 
         // Define the query with the additional condition for max_seats and current_reservations
         String query = "SELECT * FROM Flights WHERE booking_open_date <= ? " +
@@ -394,8 +369,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Flights flight = new Flights();
-
-                System.out.println("Flight Number: " + getColumnValue(cursor, "flight_number"));
 
                 flight.setFlightNumber(getColumnValue(cursor, "flight_number"));
                 flight.setDepartureCity(getColumnValue(cursor, "departure_city"));
@@ -436,7 +409,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Get the current date in the required format
         String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-        System.out.println("Date: " + date);
 
 
         String query = "SELECT * FROM Flights WHERE booking_open_date > ? " +
@@ -452,8 +424,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Flights flight = new Flights();
-
-                System.out.println("Flight Number: " + getColumnValue(cursor, "flight_number"));
 
                 flight.setFlightNumber(getColumnValue(cursor, "flight_number"));
                 flight.setDepartureCity(getColumnValue(cursor, "departure_city"));
@@ -542,8 +512,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             flight.setFlightNumber(getColumnValue(cursor, "flight_number"));
 
-            System.out.println("Flight Number: extracted " + getColumnValue(cursor, "flight_number"));
-
             flight.setDepartureCity(getColumnValue(cursor, "departure_city"));
             flight.setArrivalCity(getColumnValue(cursor, "arrival_city"));
 
@@ -575,13 +543,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         List<Flights> flightList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
-        System.out.println("From Departure Date: " + fromDepDate);
-        System.out.println("To Departure Date: " + toDepDate);
-        System.out.println("From Arrival Date: " + fromArrDate);
-        System.out.println("To Arrival Date: " + toArrDate);
-        System.out.println("Departure City: " + depCity);
-        System.out.println("Arrival City: " + arrCity);
-
 
         String query = "SELECT * FROM Flights " +
                 "WHERE 1=1 " +
@@ -592,15 +553,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "AND departure_city LIKE ? " +
                 "AND arrival_city LIKE ?";
 
-
-        System.out.println("Executing query: " + query);
-        System.out.println("With parameters: " +
-                fromDepDate + ", " +
-                toDepDate + ", " +
-                fromArrDate + ", " +
-                toArrDate + ", " +
-                "%" + depCity + "%" + ", " +
-                "%" + arrCity + "%");
 
         // Execute the query with the current date as the parameter
         Cursor cursor = db.rawQuery(query, new String[]{
@@ -613,16 +565,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         });
 
         if (cursor == null) {
-            System.out.println("Cursor is null");
             return flightList;
         }
 
         if (cursor.moveToFirst()) {
-            System.out.println("Cursor has rows");
             do {
                 Flights flight = new Flights();
-
-                System.out.println("Flight Number: " + getColumnValue(cursor, "flight_number"));
 
                 flight.setFlightNumber(getColumnValue(cursor, "flight_number"));
                 flight.setDepartureCity(getColumnValue(cursor, "departure_city"));
@@ -694,6 +642,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         } catch (Exception e) {
             // Handle errors and rollback transaction
             System.out.println("Update Flight ERROR: " + e.getMessage());
+            Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         } finally {
             db.endTransaction(); // End transaction
             db.close(); // Close database
@@ -704,12 +653,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public List<Flights> PassengerSearchFlights(String fromDate, String toDate, String depCity, String arrCity) {
         List<Flights> flightList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-
-        System.out.println("From Date: " + fromDate);
-        System.out.println("To Date: " + toDate);
-        System.out.println("Departure City: " + depCity);
-        System.out.println("Arrival City: " + arrCity);
-
         LocalDate currentdate = LocalDate.now();
 
         String query = "SELECT * FROM Flights " +
@@ -719,15 +662,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "And booking_open_date <= ? " +
                 "AND departure_city LIKE ? " +
                 "AND arrival_city LIKE ?";
-
-
-        System.out.println("Executing query: " + query);
-        System.out.println("With parameters: " +
-                fromDate + ", " +
-                toDate + ", " +
-                currentdate + ", " +
-                "%" + depCity + "%" + ", " +
-                "%" + arrCity + "%");
 
         // Execute the query with the current date as the parameter
         Cursor cursor = db.rawQuery(query, new String[]{
@@ -739,16 +673,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         });
 
         if (cursor == null) {
-            System.out.println("Cursor is null");
+
             return flightList;
         }
 
         if (cursor.moveToFirst()) {
-            System.out.println("Cursor has rows");
+
             do {
                 Flights flight = new Flights();
-
-                System.out.println("Flight Number: " + getColumnValue(cursor, "flight_number"));
 
                 flight.setFlightNumber(getColumnValue(cursor, "flight_number"));
                 flight.setDepartureCity(getColumnValue(cursor, "departure_city"));
@@ -797,13 +729,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         try {
             ContentValues reservationValues = new ContentValues();
 
-
-            System.out.println("value" + reservationValues);
-
             reservationValues.put("flight_id", reservation.getFlightID());
             reservationValues.put("user_id", reservation.getUserID());
             reservationValues.put("extra_bags", reservation.getExtraBags());
-            reservationValues.put("flight_class", reservation.getClassType());
+            reservationValues.put("flight_class", reservation.getFlightClass());
             reservationValues.put("food_preferences", reservation.getFoodPreference());
             reservationValues.put("total_price", reservation.getTotalPrice());
 
@@ -818,7 +747,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         } catch (Exception e) {
             // Handle errors and rollback transaction
-
+        Toast.makeText(context, "Reservation ERROR" + e.getMessage(), Toast.LENGTH_SHORT).show();
             System.out.println("Reservation ERROR" + e.getMessage());
         } finally {
             db.endTransaction(); // End transaction
@@ -848,7 +777,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 reservation.setReservationID(Integer.parseInt(getColumnValue(cursor, "reservation_id")));
                 reservation.setFlightID(Integer.parseInt(getColumnValue(cursor, "flight_id")));
                 reservation.setUserID(Integer.parseInt(getColumnValue(cursor, "user_id")));
-                reservation.setClassType(getColumnValue(cursor, "flight_class"));
+                reservation.setFlightClass(getColumnValue(cursor, "flight_class"));
                 reservation.setExtraBags(Integer.parseInt(getColumnValue(cursor, "extra_bags")));
                 reservation.setTotalPrice(Double.parseDouble(getColumnValue(cursor, "total_price")));
                 reservation.setFoodPreference(getColumnValue(cursor, "food_preferences"));
@@ -868,8 +797,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         LocalDate currentdate = LocalDate.now();
 
-        System.out.println("Current Timestamp: " + currentdate);
-
         Cursor cursor = db.rawQuery(
                 "SELECT * FROM Reservations WHERE user_id = ? AND reservation_date > ?",
                 new String[]{String.valueOf(userId), String.valueOf(currentdate)}
@@ -886,11 +813,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 reservation.setReservationID(Integer.parseInt(getColumnValue(cursor, "reservation_id")));
                 reservation.setFlightID(Integer.parseInt(getColumnValue(cursor, "flight_id")));
                 reservation.setUserID(Integer.parseInt(getColumnValue(cursor, "user_id")));
-                reservation.setClassType(getColumnValue(cursor, "flight_class"));
+                reservation.setFlightClass(getColumnValue(cursor, "flight_class"));
                 reservation.setExtraBags(Integer.parseInt(getColumnValue(cursor, "extra_bags")));
                 reservation.setTotalPrice(Double.parseDouble(getColumnValue(cursor, "total_price")));
                 reservation.setFoodPreference(getColumnValue(cursor, "food_preferences"));
                 reservation.setReservationDate(getLocalDateTimeColumnValue(cursor, "reservation_date"));
+
 
                 reservationList.add(reservation);
             } while (cursor.moveToNext());
@@ -905,8 +833,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         List<Reservations> reservationList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         LocalDate currentdate = LocalDate.now();
-
-        System.out.println("Current Timestamp: " + currentdate);
 
         Cursor cursor = db.rawQuery(
                 "SELECT * FROM Reservations WHERE user_id = ? AND reservation_date < ?",
@@ -924,7 +850,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 reservation.setReservationID(Integer.parseInt(getColumnValue(cursor, "reservation_id")));
                 reservation.setFlightID(Integer.parseInt(getColumnValue(cursor, "flight_id")));
                 reservation.setUserID(Integer.parseInt(getColumnValue(cursor, "user_id")));
-                reservation.setClassType(getColumnValue(cursor, "flight_class"));
+                reservation.setFlightClass(getColumnValue(cursor, "flight_class"));
                 reservation.setExtraBags(Integer.parseInt(getColumnValue(cursor, "extra_bags")));
                 reservation.setTotalPrice(Double.parseDouble(getColumnValue(cursor, "total_price")));
                 reservation.setFoodPreference(getColumnValue(cursor, "food_preferences"));
