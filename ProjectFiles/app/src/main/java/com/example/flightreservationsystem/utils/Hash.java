@@ -4,7 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 
-public class Hash {
+public class Hash { //Simple class to hash a password using SHA-512
     public static String hashPassword(String password) {
         MessageDigest md;
         try {

@@ -1,8 +1,6 @@
 package com.example.flightreservationsystem.utils;
 
 public class SQLQueries {
-
-    // User-related queries
     public static final String CREATE_USER_TABLE =
             "CREATE TABLE Users (" +
                     "user_id INTEGER PRIMARY KEY AUTOINCREMENT, " +

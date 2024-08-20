@@ -79,6 +79,130 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /////////////////////////// User  ///////////////////////////
+
+    public User getUserByEmail(String email) { // Get user by email address from the database admin or passenger
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Users WHERE email = ?", new String[]{email});
+        Log.d("DatabaseHelper", "Querying Users with email: " + email);
+
+        if (cursor != null) {
+            try {
+                if (cursor.moveToFirst()) {
+                    int roleIdx = cursor.getColumnIndex("role");
+
+                    if (roleIdx != -1) {
+                        String role = cursor.getString(roleIdx);
+                        Log.d("DatabaseHelper", "User role: " + role);
+
+                        if ("admin".equals(role)) { // Check if the user is an admin
+                            return new Admin(
+                                    Integer.parseInt(getColumnValue(cursor, "user_id")),
+                                    getColumnValue(cursor, "email"),
+                                    getColumnValue(cursor, "phone"),
+                                    getColumnValue(cursor, "first_name"),
+                                    getColumnValue(cursor, "last_name"),
+                                    getColumnValue(cursor, "password_hash"),
+                                    getColumnValue(cursor, "role")
+                            );
+                        } else { // Fetch PassengerDetails for this user
+                            // Fetch PassengerDetails for this user
+                            String userId = getColumnValue(cursor, "user_id");
+                            Cursor cursor2 = db.rawQuery("SELECT * FROM PassengerDetails WHERE user_id = ?", new String[]{userId});
+                            Log.d("DatabaseHelper", "Querying PassengerDetails with user_id: " + userId);
+
+                            if (cursor2 != null) {
+                                try {
+                                    if (cursor2.moveToFirst()) {
+                                        return new Passenger(
+                                                Integer.parseInt(getColumnValue(cursor, "user_id")),
+                                                getColumnValue(cursor, "email"),
+                                                getColumnValue(cursor, "phone"),
+                                                getColumnValue(cursor, "first_name"),
+                                                getColumnValue(cursor, "last_name"),
+                                                getColumnValue(cursor, "password_hash"),
+                                                getColumnValue(cursor, "role"),
+                                                getColumnValue(cursor2, "passport_number"),
+                                                LocalDate.parse(getColumnValue(cursor2, "passport_issue_date"), formatter_date),
+                                                getColumnValue(cursor2, "passport_issue_place"),
+                                                LocalDate.parse(getColumnValue(cursor2, "passport_expiration_date"), formatter_date),
+                                                getColumnValue(cursor2, "food_preference"),
+                                                LocalDate.parse(getColumnValue(cursor2, "date_of_birth"), formatter_date),
+                                                getColumnValue(cursor2, "nationality")
+                                        );
+                                    } else {
+                                        Log.e("DatabaseHelper", "No rows returned for PassengerDetails with user_id: " + userId);
+                                    }
+                                } finally {
+                                    cursor2.close();
+                                }
+                            } else {
+                                Log.e("DatabaseHelper", "Failed to query PassengerDetails with user_id: " + userId);
+                            }
+                        }
+                    } else {
+                        Log.e("DatabaseHelper", "'role' column not found in Users table.");
+                    }
+                } else {
+                    Log.e("DatabaseHelper", "No rows returned for Users with email: " + email);
+                }
+            } finally {
+                cursor.close();
+            }
+        } else {
+            Log.e("DatabaseHelper", "Failed to query Users with email: " + email);
+        }
+
+        db.close();
+        return null;
+    }
+
+
+    /////////////////////////// Admin  ///////////////////////////
+
+    public boolean insertAdmin(Admin admin) {
+        SQLiteDatabase db = null;
+        boolean success = false;
+
+        try {
+            db = this.getWritableDatabase();
+            db.beginTransaction(); // Start transaction
+
+            // Insert the user
+            ContentValues userValues = new ContentValues();
+            userValues.put("email", admin.getEmail());
+            userValues.put("phone", admin.getPhone());
+            userValues.put("first_name", admin.getFirst_name());
+            userValues.put("last_name", admin.getLast_name());
+            userValues.put("password_hash", admin.getPassword_hash());
+            userValues.put("role", admin.getRole());
+
+            System.out.println("Admin values: " + userValues);
+
+            long userId = db.insert("Users", null, userValues);
+
+            if (userId == -1) {
+                throw new Exception("Failed to insert Admin.");
+            }
+
+            // If insert is successful, set transaction as successful
+            db.setTransactionSuccessful();
+            success = true;
+        } catch (Exception e) {
+            // Handle errors and rollback transaction
+            Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        } finally {
+            if (db != null) {
+                db.endTransaction(); // End transaction
+                db.close(); // Close database
+            }
+        }
+        return success;
+    }
+
+
+    /////////////////////////// Passenger  ///////////////////////////
+
     public void insertPassengerDetails(Passenger passenger) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.beginTransaction(); // Start transaction
@@ -143,133 +267,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    /////////////////////////// Flight  ///////////////////////////
 
-
-    public boolean insertAdmin(Admin admin) {
-        SQLiteDatabase db = null;
-        boolean success = false;
-
-        try {
-            db = this.getWritableDatabase();
-            db.beginTransaction(); // Start transaction
-
-            // Insert the user
-            ContentValues userValues = new ContentValues();
-            userValues.put("email", admin.getEmail());
-            userValues.put("phone", admin.getPhone());
-            userValues.put("first_name", admin.getFirst_name());
-            userValues.put("last_name", admin.getLast_name());
-            userValues.put("password_hash", admin.getPassword_hash());
-            userValues.put("role", admin.getRole());
-
-            System.out.println("Admin values: " + userValues);
-
-            long userId = db.insert("Users", null, userValues);
-
-            if (userId == -1) {
-                throw new Exception("Failed to insert user.");
-            }
-
-            // If insert is successful, set transaction as successful
-            db.setTransactionSuccessful();
-            success = true;
-        } catch (Exception e) {
-            // Handle errors and rollback transaction
-            Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-        } finally {
-            if (db != null) {
-                db.endTransaction(); // End transaction
-                db.close(); // Close database
-            }
-        }
-        return success;
-    }
-
-    public User getUserByEmail(String email) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM Users WHERE email = ?", new String[]{email});
-        Log.d("DatabaseHelper", "Querying Users with email: " + email);
-
-        if (cursor != null) {
-            try {
-                if (cursor.moveToFirst()) {
-                    int roleIdx = cursor.getColumnIndex("role");
-
-                    if (roleIdx != -1) {
-                        String role = cursor.getString(roleIdx);
-                        Log.d("DatabaseHelper", "User role: " + role);
-
-                        if ("admin".equals(role)) {
-                            return new Admin(
-                                    Integer.parseInt(getColumnValue(cursor, "user_id")),
-                                    getColumnValue(cursor, "email"),
-                                    getColumnValue(cursor, "phone"),
-                                    getColumnValue(cursor, "first_name"),
-                                    getColumnValue(cursor, "last_name"),
-                                    getColumnValue(cursor, "password_hash"),
-                                    getColumnValue(cursor, "role")
-                            );
-                        } else {
-                            // Fetch PassengerDetails for this user
-                            String userId = getColumnValue(cursor, "user_id");
-                            Cursor cursor2 = db.rawQuery("SELECT * FROM PassengerDetails WHERE user_id = ?", new String[]{userId});
-                            Log.d("DatabaseHelper", "Querying PassengerDetails with user_id: " + userId);
-
-                            if (cursor2 != null) {
-                                try {
-                                    if (cursor2.moveToFirst()) {
-                                        return new Passenger(
-                                                Integer.parseInt(getColumnValue(cursor, "user_id")),
-                                                getColumnValue(cursor, "email"),
-                                                getColumnValue(cursor, "phone"),
-                                                getColumnValue(cursor, "first_name"),
-                                                getColumnValue(cursor, "last_name"),
-                                                getColumnValue(cursor, "password_hash"),
-                                                getColumnValue(cursor, "role"),
-                                                getColumnValue(cursor2, "passport_number"),
-                                                LocalDate.parse(getColumnValue(cursor2, "passport_issue_date"), formatter_date),
-                                                getColumnValue(cursor2, "passport_issue_place"),
-                                                LocalDate.parse(getColumnValue(cursor2, "passport_expiration_date"), formatter_date),
-                                                getColumnValue(cursor2, "food_preference"),
-                                                LocalDate.parse(getColumnValue(cursor2, "date_of_birth"), formatter_date),
-                                                getColumnValue(cursor2, "nationality")
-                                        );
-                                    } else {
-                                        Log.e("DatabaseHelper", "No rows returned for PassengerDetails with user_id: " + userId);
-                                    }
-                                } finally {
-                                    cursor2.close();
-                                }
-                            } else {
-                                Log.e("DatabaseHelper", "Failed to query PassengerDetails with user_id: " + userId);
-                            }
-                        }
-                    } else {
-                        Log.e("DatabaseHelper", "'role' column not found in Users table.");
-                    }
-                } else {
-                    Log.e("DatabaseHelper", "No rows returned for Users with email: " + email);
-                }
-            } finally {
-                cursor.close();
-            }
-        } else {
-            Log.e("DatabaseHelper", "Failed to query Users with email: " + email);
-        }
-
-        db.close();
-        return null;
-    }
-
-    private String getColumnValue(Cursor cursor, String columnName) {
-        int columnIndex = cursor.getColumnIndex(columnName);
-        if (columnIndex != -1) {
-            return cursor.getString(columnIndex);
-        } else {
-            Log.e("DatabaseHelper", "Column " + columnName + " not found.");
-            return null;
-        }
-    }
 
     public void insertFlight(Flights flight) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -309,26 +308,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
             db.setTransactionSuccessful(); // Mark transaction as successful
 
-//            System.out.println("Flight inserted successfully"
-//                    + "\nFlight Number: " + flight.getFlightNumber()
-//                    + "\nDeparture City: " + flight.getDepartureCity()
-//                    + "\nArrival City: " + flight.getArrivalCity()
-//                    + "\nDeparture Date: " + flight.getDepartureDate()
-//                    + "\nDeparture Time: " + flight.getDepartureTime()
-//                    + "\nArrival Date: " + flight.getArrivalDate()
-//                    + "\nArrival Time: " + flight.getArrivalTime()
-//                    + "\nDuration: " + flight.getDuration()
-//                    + "\nAircraft Model: " + flight.getAircraftModel()
-//                    + "\nMax Seats: " + flight.getMaxSeats()
-//                    + "\nCurrent Reservations: " + flight.getCurrentReservations()
-//                    + "\nPeople Missed: " + flight.getPeopleMissed()
-//                    + "\nBooking Open Date: " + flight.getBookingOpenDate()
-//                    + "\nEconomy Price: " + flight.getEconomyPrice()
-//                    + "\nBusiness Price: " + flight.getBusinessPrice()
-//                    + "\nExtra Baggage Price: " + flight.getExtraBaggagePrice()
-//                    + "\nIs Recurrent: " + flight.getIsRecurrent());
-
-    } catch (Exception e) {
+        } catch (Exception e) {
             // Handle errors and rollback transaction
 //            Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             System.out.println("Flight already exists" + e.getMessage());
@@ -339,7 +319,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public List<Flights> getArchiveFlights(){
+
+    public List<Flights> getArchiveFlights() {
         List<Flights> flightList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         //todays date
@@ -390,7 +371,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public List<Flights> getOpenFlights(){
+    public List<Flights> getOpenFlights() {
         List<Flights> flightList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -447,32 +428,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return flightList;
 
-
-
-
-
-
-    }
-
-
-    private LocalDate getLocalDateColumnValue(Cursor cursor, String columnName) {
-
-        String dateString = getColumnValue(cursor, columnName);
-        if (dateString != null) {
-            return LocalDate.parse(dateString, formatter_date);
-        } else {
-            return null;
-        }
-    }
-
-    private LocalTime getLocalTimeColumnValue(Cursor cursor, String columnName) {
-        String timeString = getColumnValue(cursor, columnName);
-        if (timeString != null) {
-
-            return LocalTime.parse(timeString, formatter_time);
-        } else {
-            return null;
-        }
     }
 
     public List<Flights> getUnavailableFlights() {
@@ -485,7 +440,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
         String query = "SELECT * FROM Flights WHERE booking_open_date > ? " +
-                "AND departure_date > ? " ;
+                "AND departure_date > ? ";
 
         // Execute the query with the current date as the parameter
         Cursor cursor = db.rawQuery(query, new String[]{date, date});
@@ -533,7 +488,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public Flights getFlight(int flightId){
+    public Flights getFlight(int flightId) {
         Flights flight = new Flights();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM Flights WHERE flight_id = ?", new String[]{String.valueOf(flightId)});
@@ -571,7 +526,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return flight;
     }
 
-    public Flights getFlightByNumber(String flightNum){
+    public Flights getFlightByNumber(String flightNum) {
 
         Flights flight = new Flights();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -632,7 +587,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "WHERE 1=1 " +
                 "And departure_date > ? " +
                 "And departure_date < ? " +
-               "AND arrival_date > ? " +
+                "AND arrival_date > ? " +
                 "AND arrival_date < ? " +
                 "AND departure_city LIKE ? " +
                 "AND arrival_city LIKE ?";
@@ -644,7 +599,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 toDepDate + ", " +
                 fromArrDate + ", " +
                 toArrDate + ", " +
-                "%" + depCity + "%"+ ", " +
+                "%" + depCity + "%" + ", " +
                 "%" + arrCity + "%");
 
         // Execute the query with the current date as the parameter
@@ -652,7 +607,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 fromDepDate,
                 toDepDate,
                 fromArrDate,
-               toArrDate,
+                toArrDate,
                 "%" + depCity + "%",
                 "%" + arrCity + "%"
         });
@@ -695,8 +650,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
                 flightList.add(flight);
             } while (cursor.moveToNext());
-        }
-        else {
+        } else {
             System.out.println("Cursor has no rows");
         }
 
@@ -705,48 +659,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return flightList;
 
     }
-
-    public void addReservation(Reservations reservation) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.beginTransaction(); // Start transaction
-
-        try {
-            ContentValues reservationValues = new ContentValues();
-
-
-            System.out.println("value" + reservationValues);
-
-            reservationValues.put("flight_id", reservation.getFlightID());
-            reservationValues.put("user_id", reservation.getUserID());
-            reservationValues.put("extra_bags", reservation.getExtraBags());
-            reservationValues.put("flight_class", reservation.getClassType());
-            reservationValues.put("food_preferences", reservation.getFoodPreference());
-            reservationValues.put("total_price", reservation.getTotalPrice());
-
-
-            long resId = db.insert("Reservations", null, reservationValues);
-
-            System.out.println("-----------------------------------------------");
-
-            System.out.println("-----------------------------------------------");
-
-            if (resId == -1) {
-                throw new Exception("Failed to insert flight.");
-            }
-            db.setTransactionSuccessful(); // Mark transaction as successful
-
-
-        } catch (Exception e) {
-            // Handle errors and rollback transaction
-
-            System.out.println("Reservation ERROR" + e.getMessage());
-        } finally {
-            db.endTransaction(); // End transaction
-            db.close(); // Close database
-        }
-
-    }
-
 
     public void updateFlight(Flights flight) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -788,7 +700,134 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public List<Reservations> getReservationsByFlightNumber(String flight_number){
+
+    public List<Flights> PassengerSearchFlights(String fromDate, String toDate, String depCity, String arrCity) {
+        List<Flights> flightList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        System.out.println("From Date: " + fromDate);
+        System.out.println("To Date: " + toDate);
+        System.out.println("Departure City: " + depCity);
+        System.out.println("Arrival City: " + arrCity);
+
+        LocalDate currentdate = LocalDate.now();
+
+        String query = "SELECT * FROM Flights " +
+                "WHERE 1=1 " +
+                "And departure_date > ? " +
+                "And departure_date < ? " +
+                "And booking_open_date <= ? " +
+                "AND departure_city LIKE ? " +
+                "AND arrival_city LIKE ?";
+
+
+        System.out.println("Executing query: " + query);
+        System.out.println("With parameters: " +
+                fromDate + ", " +
+                toDate + ", " +
+                currentdate + ", " +
+                "%" + depCity + "%" + ", " +
+                "%" + arrCity + "%");
+
+        // Execute the query with the current date as the parameter
+        Cursor cursor = db.rawQuery(query, new String[]{
+                fromDate,
+                toDate,
+                currentdate.format(formatter_date),
+                "%" + depCity + "%",
+                "%" + arrCity + "%"
+        });
+
+        if (cursor == null) {
+            System.out.println("Cursor is null");
+            return flightList;
+        }
+
+        if (cursor.moveToFirst()) {
+            System.out.println("Cursor has rows");
+            do {
+                Flights flight = new Flights();
+
+                System.out.println("Flight Number: " + getColumnValue(cursor, "flight_number"));
+
+                flight.setFlightNumber(getColumnValue(cursor, "flight_number"));
+                flight.setDepartureCity(getColumnValue(cursor, "departure_city"));
+                flight.setArrivalCity(getColumnValue(cursor, "arrival_city"));
+
+                flight.setDepartureDate(getLocalDateColumnValue(cursor, "departure_date"));
+                flight.setArrivalDate(getLocalDateColumnValue(cursor, "arrival_date"));
+
+                flight.setDepartureTime(getLocalTimeColumnValue(cursor, "departure_time"));
+                flight.setArrivalTime(getLocalTimeColumnValue(cursor, "arrival_time"));
+
+                flight.setDuration(getColumnValue(cursor, "duration"));
+                flight.setAircraftModel(getColumnValue(cursor, "aircraft_model"));
+
+                flight.setMaxSeats(Integer.parseInt(getColumnValue(cursor, "max_seats")));
+                flight.setCurrentReservations(Integer.parseInt(getColumnValue(cursor, "current_reservations")));
+                flight.setPeopleMissed(Integer.parseInt(getColumnValue(cursor, "people_missed")));
+                flight.setBookingOpenDate(getLocalDateColumnValue(cursor, "booking_open_date"));
+
+                flight.setEconomyPrice(Double.parseDouble(getColumnValue(cursor, "economy_price")));
+                flight.setBusinessPrice(Double.parseDouble(getColumnValue(cursor, "business_price")));
+                flight.setExtraBaggagePrice(Double.parseDouble(getColumnValue(cursor, "extra_baggage_price")));
+                flight.setIsRecurrent(getColumnValue(cursor, "is_recurrent"));
+
+
+                flightList.add(flight);
+            } while (cursor.moveToNext());
+        } else {
+            System.out.println("Cursor has no rows");
+        }
+
+        cursor.close();
+        db.close();
+        return flightList;
+
+
+    }
+
+
+    /////////////////////////// Reservation  ///////////////////////////
+
+    public void addReservation(Reservations reservation) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction(); // Start transaction
+
+        try {
+            ContentValues reservationValues = new ContentValues();
+
+
+            System.out.println("value" + reservationValues);
+
+            reservationValues.put("flight_id", reservation.getFlightID());
+            reservationValues.put("user_id", reservation.getUserID());
+            reservationValues.put("extra_bags", reservation.getExtraBags());
+            reservationValues.put("flight_class", reservation.getClassType());
+            reservationValues.put("food_preferences", reservation.getFoodPreference());
+            reservationValues.put("total_price", reservation.getTotalPrice());
+
+
+            long resId = db.insert("Reservations", null, reservationValues);
+
+            if (resId == -1) {
+                throw new Exception("Failed to insert Reservation.");
+            }
+            db.setTransactionSuccessful(); // Mark transaction as successful
+
+
+        } catch (Exception e) {
+            // Handle errors and rollback transaction
+
+            System.out.println("Reservation ERROR" + e.getMessage());
+        } finally {
+            db.endTransaction(); // End transaction
+            db.close(); // Close database
+        }
+
+    }
+
+    public List<Reservations> getReservationsByFlightNumber(String flight_number) {
 
         Flights flight = getFlightByNumber(flight_number);
 
@@ -821,15 +860,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return reservationList;
-    }
-
-    private LocalDateTime getLocalDateTimeColumnValue(Cursor cursor, String dateTime) {
-        String dateTimeString = getColumnValue(cursor, dateTime);
-        if (dateTimeString != null) {
-            return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        } else {
-            return null;
-        }
     }
 
     public List<Reservations> getReservationsByUserId(int userId) {
@@ -908,90 +938,46 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return reservationList;
     }
 
-    public List<Flights> PassengerSearchFlights(String fromDate, String toDate, String depCity, String arrCity) {
-        List<Flights> flightList = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
+    /////////////////////////// Helpers  ///////////////////////////
 
-        System.out.println("From Date: " + fromDate);
-        System.out.println("To Date: " + toDate);
-        System.out.println("Departure City: " + depCity);
-        System.out.println("Arrival City: " + arrCity);
-
-        LocalDate currentdate = LocalDate.now();
-
-        String query = "SELECT * FROM Flights " +
-                "WHERE 1=1 " +
-                "And departure_date > ? " +
-                "And departure_date < ? " +
-                "And booking_open_date <= ? " +
-                "AND departure_city LIKE ? " +
-                "AND arrival_city LIKE ?";
-
-
-        System.out.println("Executing query: " + query);
-        System.out.println("With parameters: " +
-                fromDate + ", " +
-                toDate + ", " +
-                currentdate + ", " +
-                "%" + depCity + "%"+ ", " +
-                "%" + arrCity + "%");
-
-        // Execute the query with the current date as the parameter
-        Cursor cursor = db.rawQuery(query, new String[]{
-                fromDate,
-                toDate,
-                currentdate.format(formatter_date),
-                "%" + depCity + "%",
-                "%" + arrCity + "%"
-        });
-
-        if (cursor == null) {
-            System.out.println("Cursor is null");
-            return flightList;
+    private String getColumnValue(Cursor cursor, String columnName) {
+        int columnIndex = cursor.getColumnIndex(columnName);
+        if (columnIndex != -1) {
+            return cursor.getString(columnIndex);
+        } else {
+            Log.e("DatabaseHelper", "Column " + columnName + " not found.");
+            return null;
         }
-
-        if (cursor.moveToFirst()) {
-            System.out.println("Cursor has rows");
-            do {
-                Flights flight = new Flights();
-
-                System.out.println("Flight Number: " + getColumnValue(cursor, "flight_number"));
-
-                flight.setFlightNumber(getColumnValue(cursor, "flight_number"));
-                flight.setDepartureCity(getColumnValue(cursor, "departure_city"));
-                flight.setArrivalCity(getColumnValue(cursor, "arrival_city"));
-
-                flight.setDepartureDate(getLocalDateColumnValue(cursor, "departure_date"));
-                flight.setArrivalDate(getLocalDateColumnValue(cursor, "arrival_date"));
-
-                flight.setDepartureTime(getLocalTimeColumnValue(cursor, "departure_time"));
-                flight.setArrivalTime(getLocalTimeColumnValue(cursor, "arrival_time"));
-
-                flight.setDuration(getColumnValue(cursor, "duration"));
-                flight.setAircraftModel(getColumnValue(cursor, "aircraft_model"));
-
-                flight.setMaxSeats(Integer.parseInt(getColumnValue(cursor, "max_seats")));
-                flight.setCurrentReservations(Integer.parseInt(getColumnValue(cursor, "current_reservations")));
-                flight.setPeopleMissed(Integer.parseInt(getColumnValue(cursor, "people_missed")));
-                flight.setBookingOpenDate(getLocalDateColumnValue(cursor, "booking_open_date"));
-
-                flight.setEconomyPrice(Double.parseDouble(getColumnValue(cursor, "economy_price")));
-                flight.setBusinessPrice(Double.parseDouble(getColumnValue(cursor, "business_price")));
-                flight.setExtraBaggagePrice(Double.parseDouble(getColumnValue(cursor, "extra_baggage_price")));
-                flight.setIsRecurrent(getColumnValue(cursor, "is_recurrent"));
-
-
-                flightList.add(flight);
-            } while (cursor.moveToNext());
-        }
-        else {
-            System.out.println("Cursor has no rows");
-        }
-
-        cursor.close();
-        db.close();
-        return flightList;
-
-
     }
+
+
+    private LocalDate getLocalDateColumnValue(Cursor cursor, String columnName) {
+
+        String dateString = getColumnValue(cursor, columnName);
+        if (dateString != null) {
+            return LocalDate.parse(dateString, formatter_date);
+        } else {
+            return null;
+        }
+    }
+
+    private LocalTime getLocalTimeColumnValue(Cursor cursor, String columnName) {
+        String timeString = getColumnValue(cursor, columnName);
+        if (timeString != null) {
+
+            return LocalTime.parse(timeString, formatter_time);
+        } else {
+            return null;
+        }
+    }
+
+    private LocalDateTime getLocalDateTimeColumnValue(Cursor cursor, String dateTime) {
+        String dateTimeString = getColumnValue(cursor, dateTime);
+        if (dateTimeString != null) {
+            return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        } else {
+            return null;
+        }
+    }
+
 }
