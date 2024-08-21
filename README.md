@@ -2,4 +2,4 @@
 A Very Simple Flight Reservation System
 
 
-# NOT COMPLETED *_*
+# NOT COMPLETED \*_*
