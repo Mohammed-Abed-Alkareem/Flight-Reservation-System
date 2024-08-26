@@ -8,14 +8,6 @@
   - [Admin Features](#admin-features)
   - [Passenger Features](#passenger-features)
   - [Additional Functionalities](#additional-functionalities)
-- [Design and UI/UX](#design-and-uiux)
-- [Technologies Used](#technologies-used)
-- [Installation and Setup](#installation-and-setup)
-- [Usage](#usage)
-- [Project Structure](#project-structure)
-- [Contributing](#contributing)
-- [License](#license)
-- [Acknowledgments](#acknowledgments)
 
 ---
 
@@ -28,6 +20,15 @@ This project involves developing an **Android application** to assist an airline
 Each user role has specific functionalities designed to streamline flight scheduling, booking, and management processes.
 
 ---
+
+
+
+**⚠️ Project Status: In Progress**
+
+This project is currently under development and has not been completed yet. The features and functionalities outlined in this README are planned, but not all of them have been implemented. Please refer to the checkboxes to see the current progress.
+
+---
+
 
 ## Features
 
