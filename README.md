@@ -135,6 +135,7 @@ This project is currently under development and has not been completed yet. The 
 ---
 
 
+### Additional Functionalities
 - [X] **Data Storage and Management**
   - [X] Use **SQLite** for real-time database management and authentication.
     - [X] Secure and scalable data handling.
